@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Login.css";
 import Mobile from "./Mobile";
-import Destop from "./Destop";
+import Desktop from "./Destop";
 
 const Login = () => {
   return (
@@ -10,7 +10,7 @@ const Login = () => {
         <Mobile />
       </div>
       <div className="hidden md:block">
-        <Destop />
+        <Desktop />
       </div>
     </div>
   );

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import "./Password.css";
+import "../../Styles.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
+
+import Loader from "../../utils/Loader";
 import {
   FaAlignLeft,
   FaAngleLeft,
@@ -14,30 +16,32 @@ import {
 } from "react-icons/fa";
 
 const HeroSection = () => (
-  <section className="passwordHero px-14 pt-10 pb-5 rounded-xl">
-    <Link to="/">
-      <img src={logo} alt="logo" className="w-[119px] h-[43px]" />
-    </Link>
-    <div className="mt-[330px] pb-10 mr-4">
-      <p className="my-3 text-white font-extrabold text-[11px] md:text-base leading-[15.95px]">
-        wv: xel "Empowering Students and Others"
-      </p>
-      <h2 className="leading-[35.5px] font-semibold font-[sora] text-white mt-5 text-3xl">
-        Equipping students with essential skills for career success and
-        readiness.
-      </h2>
-      <div className="w-full flex gap-2 my-5">
-        <div className="w-[30.86px] h-[6px] rounded-[23.08px] bg-[#fff7f5]" />
-        <div className="w-[99.43px] h-[6px] bg-[#CB1A14] rounded-[23.08px]" />
-        <div className="w-[30.86px] h-[6px] bg-[#fff7f5] rounded-[23.08px]" />
+  <div className="py-4">
+    <section className="desktopHero px-14 pt-7 pb-5 rounded-xl">
+      <Link to="/">
+        <img src={logo} alt="logo" className="w-[108px] h-[43px]" />
+      </Link>
+      <div className="mt-[330px] pb-10 mr-4">
+        <p className="mb-3 text-white font-bold text-sm leading-[15.95px]">
+          wv: xel "Empowering Students and Others"
+        </p>
+        <h2 className="leading-[25.5px] font-semibold font-[sora] text-white mt-5 text-2xl">
+          Equipping students with essential skills for career success and
+          readiness.
+        </h2>
+        <div className="w-full flex gap-2 my-5">
+          <div className="w-[30.86px] h-[6px] rounded-[23.08px] bg-[#fff7f5]" />
+          <div className="w-[99.43px] h-[6px] bg-[#CB1A14] rounded-[23.08px]" />
+          <div className="w-[30.86px] h-[6px] bg-[#fff7f5] rounded-[23.08px]" />
+        </div>
+        <p className="text-white font-semibold font-[inter] text-xs leading-[19.05px]">
+          Equip students with skills in e-commerce, marketing, finance,
+          blockchain, communication, and essential school knowledge for
+          comprehensive career readiness.
+        </p>
       </div>
-      <p className="text-white font-semibold font-[inter] text-sm leading-[19.05px]">
-        Equip students with skills in e-commerce, marketing, finance,
-        blockchain, communication, and essential school knowledge for
-        comprehensive career readiness.
-      </p>
-    </div>
-  </section>
+    </section>
+  </div>
 );
 
 // Password validation schema using Yup
@@ -57,7 +61,7 @@ const SignupSchema = Yup.object().shape({
     .required("Confirm Password is required"),
 });
 
-const PasswordForm = () => {
+const PasswordForm = ({ setLoading }) => {
   const [show, setShow] = useState(false);
 
   const navigate = useNavigate();
@@ -91,14 +95,19 @@ const PasswordForm = () => {
           }}
           validationSchema={SignupSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
+            setLoading(true);
             setSubmitting(true);
-            console.log(values);
-            setSubmitting(false);
-            resetForm();
+            setTimeout(() => {
+              console.log(values);
+              setLoading(false);
+              setSubmitting(false);
+              resetForm();
+              navigate("/verification");
+            }, 2000);
           }}
         >
           {({ values, touched, errors, isSubmitting }) => (
-            <Form className="px-5 flex flex-col gap-4 mt-10">
+            <Form className="flex flex-col gap-4 mt-10">
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="newPassword"
@@ -123,7 +132,7 @@ const PasswordForm = () => {
                   />
                   <button
                     type="button"
-                    className="bg-transparent"
+                    className="bg-transparent outline-none p-2"
                     onClick={() => setShow(!show)}
                   >
                     {show ? <FaEyeSlash /> : <FaEye />}
@@ -135,6 +144,8 @@ const PasswordForm = () => {
                   className="text-red-500 text-xs"
                 />
               </div>
+
+              {/* Confirm Password Field */}
               <div className="flex flex-col gap-1 my-4">
                 <label
                   htmlFor="cPassword"
@@ -159,7 +170,7 @@ const PasswordForm = () => {
                   />
                   <button
                     type="button"
-                    className="bg-transparent"
+                    className="bg-transparent outline-none p-2"
                     onClick={() => setShow(!show)}
                   >
                     {show ? <FaEyeSlash /> : <FaEye />}
@@ -171,6 +182,8 @@ const PasswordForm = () => {
                   className="text-red-500 text-xs"
                 />
               </div>
+
+              {/* Password Strength Indicators */}
               <div className="grid grid-cols-2 gap-2">
                 <div className="flex items-center gap-3">
                   <FaCheckCircle
@@ -283,20 +296,15 @@ const PasswordForm = () => {
                   </p>
                 </div>
               </div>
+
+              {/* Submit Button and Loader */}
               <button
                 type="submit"
-                className="py-[10px] px-[24px] text-center bg-[#0258ff] w-full text-white rounded-lg mt-3 hover:bg-white hover:text-blue-600 hover:border-2 hover:border-blue-600"
                 disabled={isSubmitting}
+                className="w-full py-3 bg-blue-600 text-white rounded-md"
               >
-                {isSubmitting ? "Signing up..." : "Sign me up"}
+                {isSubmitting ? <Loader /> : "Save New Password"}
               </button>
-
-              <p className="text-[#645d5d] first-line:font-normal text-{11px} leading-[15.95px] text-center">
-                Already have an account?{" "}
-                <Link to="/login" className="text-[#494cfa]">
-                  Login
-                </Link>
-              </p>
             </Form>
           )}
         </Formik>
@@ -306,16 +314,15 @@ const PasswordForm = () => {
 };
 
 const Desktop = () => {
+  const [loading, setLoading] = useState(false);
+
   return (
-    <div className="h-screen p-4 flex items-center">
-      <div className="flex justify-center items-center gap-10">
-        <div className="flex-1">
-          <HeroSection />
-        </div>
-        <div className="flex-1">
-          <PasswordForm />
-        </div>
+    <div className="w-screen h-screen px-10 lg:px-[10%] grid grid-cols-2">
+      <HeroSection />
+      <div className="flex items-center justify-center">
+        <PasswordForm setLoading={setLoading} />
       </div>
+      {loading && <Loader />}
     </div>
   );
 };
