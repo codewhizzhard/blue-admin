@@ -7,6 +7,7 @@ import Password from "../pages/password/Password";
 import ForgetPassword from "../pages/forget_password/ForgetPassword";
 import ResetPassword from "../pages/resetPassword/ResetPassword";
 import Fa from "../pages/2fa/Fa";
+import RFa from "../pages/register/2fa/Fa";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "/verification",
         element: <Fa />,
+      },
+      {
+        path: "/register-verification",
+        element: <RFa />,
       },
     ],
   },

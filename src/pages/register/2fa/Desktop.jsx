@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.svg";
-import Loader from "../../utils/Loader";
+import logo from "../../../assets/logo.svg";
+import Loader from "../../../utils/Loader";
 
 const HeroSection = () => (
   <div className="py-4">
@@ -68,7 +68,7 @@ const OTP = ({ loading, setLoading }) => {
       // Simulate API call for OTP verification
       setTimeout(() => {
         setLoading(false);
-        navigate("/reset-password");
+        navigate("/login");
       }, 1000);
     }
   };

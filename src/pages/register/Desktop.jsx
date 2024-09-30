@@ -8,7 +8,7 @@ import "react-tabs/style/react-tabs.css";
 
 const HeroSection = () => (
   <div className="py-4">
-    <section className="desktopHero px-14 pt-7 pb-5 rounded-xl">
+    <section className="desktopHero px-14 pt-7 rounded-xl">
       <Link to="/">
         <img src={logo} alt="logo" className="w-[108px] h-[43px]" />
       </Link>
@@ -142,7 +142,7 @@ const DesktopForm = () => (
 
 const Desktop = () => {
   return (
-    <div className="h-screen px-10 lg:px-[10%]">
+    <div className="h-screen px-10 lg:px-[2%]">
       <div className="flex justify-center items-center gap-10">
         <div className="flex-1">
           <HeroSection />

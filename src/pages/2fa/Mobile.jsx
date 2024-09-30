@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
-import "../../Styles.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
+import Loader from "../../utils/Loader";
 
 const MobileHeroSection = () => (
   <div className="hero h-[350px] -mt-5 flex flex-col items-center pt-[50px] pb-12 px-[34px]">
@@ -30,7 +30,7 @@ const MobileHeroSection = () => (
   </div>
 );
 
-const OTP = () => {
+const OTP = ({ loading, setLoading }) => {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const navigate = useNavigate();
   const inputRefs = useRef([]);
@@ -62,8 +62,12 @@ const OTP = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isOtpComplete) {
-      console.log("OTP entered:", otp.join(""));
-      navigate("/login");
+      setLoading(true);
+      // Simulate API call for OTP verification
+      setTimeout(() => {
+        setLoading(false);
+        navigate("/reset-password");
+      }, 1000);
     }
   };
 
@@ -111,19 +115,21 @@ const OTP = () => {
           !isOtpComplete ? "opacity-50" : ""
         }`}
       >
-        Verify
+        {loading ? <Loader /> : "Verify"}
       </button>
     </div>
   );
 };
 
 const Mobile = () => {
+  const [loading, setLoading] = useState(false);
   return (
     <div>
       <MobileHeroSection />
       <div className="form pt-[80px] px-1 flex flex-col items-center h-[600px] -mt-16">
-        <OTP />
+        <OTP setLoading={setLoading} />
       </div>
+      {loading && <Loader />}
     </div>
   );
 };

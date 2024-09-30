@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 
 const HeroSection = () => (
   <div className="py-4">
-    <section className="desktopHero px-14 pt-7 pb-5 rounded-xl">
+    <section className="desktopHero px-14 pt-7 pb-1 rounded-xl">
       <Link to="/">
         <img src={logo} alt="logo" className="w-[108px] h-[43px]" />
       </Link>
@@ -127,7 +127,7 @@ const Form = () => {
 
 const Desktop = () => {
   return (
-    <div className="h-screen px-10 lg:px-[10%] flex items-center justify-center">
+    <div className="h-screen px-10 lg:px-[2%] flex items-center justify-center">
       <div className="flex flex-col lg:flex-row items-center gap-10">
         <div className="flex-1">
           <HeroSection />

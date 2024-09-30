@@ -16,7 +16,7 @@ const ProgressIndicator = () => (
 // HeroSection Component
 const HeroSection = () => (
   <div className="py-4">
-    <section className="desktopHero px-14 pt-7 pb-5 rounded-xl">
+    <section className="desktopHero px-14 pt-7 rounded-xl">
       <Link to="/">
         <img src={logo} alt="Company Logo" className="w-[108px] h-[43px]" />
       </Link>
@@ -101,7 +101,7 @@ const ResetPasswordForm = () => {
 // Desktop Component
 const Desktop = () => {
   return (
-    <div className="h-screen py-4 px-10 lg:px-[10%] flex items-center">
+    <div className="h-screen py-4 px-10 lg:px-[2%] flex items-center">
       <div className="flex flex-col lg:flex-row justify-center items-center lg:gap-10">
         <div className="flex-1">
           <HeroSection />
@@ -118,10 +118,10 @@ const Desktop = () => {
                 Let's get you back in control...
               </p>
               <p className="font-light text-sm text-gray-500 mt-4">
-                Enter your email address or matric number below and we'll send
-                you a link to reset your password. Once you've received it,
-                simply follow the instructions in the email to set up a new
-                password and regain access to your account.
+                Enter your email address below and we'll send you a link to
+                reset your password. Once you've received it, simply follow the
+                instructions in the email to set up a new password and regain
+                access to your account.
               </p>
               <ResetPasswordForm />
             </div>

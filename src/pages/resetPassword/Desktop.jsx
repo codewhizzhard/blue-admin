@@ -10,7 +10,7 @@ import { FaAngleLeft, FaCheckCircle, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const HeroSection = () => (
   <div className="py-4">
-    <section className="desktopHero px-14 pt-7 pb-5 rounded-xl">
+    <section className="desktopHero px-14 pt-7 rounded-xl">
       <Link to="/">
         <img src={logo} alt="logo" className="w-[108px] h-[43px]" />
       </Link>
@@ -94,6 +94,7 @@ const PasswordForm = ({ setLoading }) => {
               setLoading(false);
               setSubmitting(false);
               resetForm();
+              navigate("/login");
             }, 2000);
           }}
         >
@@ -308,7 +309,7 @@ const Desktop = () => {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div className="w-screen h-screen px-10 lg:px-[10%] grid grid-cols-2">
+    <div className="w-screen h-screen px-10 lg:px-[2%] grid grid-cols-2">
       <HeroSection />
       <div className="flex items-center justify-center">
         <PasswordForm setLoading={setLoading} />
