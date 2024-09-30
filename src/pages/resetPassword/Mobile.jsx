@@ -70,7 +70,7 @@ const PasswordForm = ({ setLoading }) => {
             setLoading(false);
             setSubmitting(false);
             resetForm();
-            navigate("/verification");
+            navigate("/login");
           }, 2000);
         }}
       >

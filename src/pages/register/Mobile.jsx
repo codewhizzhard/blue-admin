@@ -48,7 +48,7 @@ const MobileForm = () => (
 
             <div className="flex flex-col">
               <Link
-                to="/password"
+                to="password"
                 type="submit"
                 className="py-[10px] px-[24px] text-center bg-[#0258ff] w-full text-white rounded-lg mt-3 hover:bg-white hover:text-blue-600"
               >
@@ -83,7 +83,7 @@ const MobileForm = () => (
             ))}
             <div className="flex flex-col">
               <Link
-                to="/password"
+                to="password"
                 type="submit"
                 className="py-[10px] px-[24px] text-center bg-[#0258ff] w-full text-white rounded-lg mt-3 cursor-pointer"
               >

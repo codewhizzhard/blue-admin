@@ -26,7 +26,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 const HeroSection = () => (
-  <div className="registerHero h-[324px] pl-8">
+  <div className="hero h-[324px] pl-8 rounded-xl">
     <Link to="/" className="">
       <img src={logo} alt="logo" className="w-[80px] pt-[32px]" />
     </Link>
@@ -39,11 +39,10 @@ const HeroSection = () => (
 
 const PasswordForm = ({ setLoading }) => {
   const [show, setShow] = useState(false);
-
   const navigate = useNavigate();
 
   return (
-    <div className="passwordForm h-[600px] -mt-20">
+    <div className="form h-[600px] -mt-20">
       <div className="flex flex-col justify-center items-center pt-24">
         <h1 className="font-[sora] font-semibold text-xl leading-[25.2px] text-[#1b1818]">
           Choose a password
@@ -63,7 +62,7 @@ const PasswordForm = ({ setLoading }) => {
             setLoading(false);
             setSubmitting(false);
             resetForm();
-            navigate("/verification");
+            navigate("/register-verification");
           }, 2000);
         }}
       >
@@ -106,7 +105,6 @@ const PasswordForm = ({ setLoading }) => {
               />
             </div>
 
-            {/* Confirm Password Field */}
             <div className="flex flex-col gap-1 my-4">
               <label
                 htmlFor="cPassword"
@@ -144,7 +142,6 @@ const PasswordForm = ({ setLoading }) => {
               />
             </div>
 
-            {/* Password Strength Indicators */}
             <div className="grid grid-cols-2 gap-2">
               <div className="flex items-center gap-3">
                 <FaCheckCircle
@@ -258,7 +255,6 @@ const PasswordForm = ({ setLoading }) => {
               </div>
             </div>
 
-            {/* Submit Button and Loader */}
             <button
               type="submit"
               disabled={isSubmitting}
@@ -282,7 +278,11 @@ const Mobile = () => {
       <div className="flex items-center justify-center">
         <PasswordForm setLoading={setLoading} />
       </div>
-      {loading && <Loader />}
+      {loading && (
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-75">
+          <Loader />
+        </div>
+      )}
     </div>
   );
 };

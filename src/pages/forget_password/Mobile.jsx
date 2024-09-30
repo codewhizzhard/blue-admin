@@ -70,10 +70,9 @@ const Form = () => {
           Let's get you back in control...
         </p>
         <p className="font-light text-sm text-gray-500 mt-4 text-justify">
-          Enter your email address or matric number below and we'll send you a
-          link to reset your password. Once you've received it, simply follow
-          the instructions in the email to set up a new password and regain
-          access to your account.
+          Enter your email address below and we'll send you a link to reset your
+          password. Once you've received it, simply follow the instructions in
+          the email to set up a new password and regain access to your account.
         </p>
 
         <form className="mt-5 w-full" onSubmit={handleSubmit}>
