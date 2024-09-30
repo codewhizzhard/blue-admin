@@ -1,36 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.svg";
-import "./Register.css";
+import "../../Styles.css";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 const HeroSection = () => (
-  <section className="registerHero px-14 pt-10 pb-5 rounded-xl">
-    <Link to="/">
-      <img src={logo} alt="logo" className="w-[119px] h-[43px]" />
-    </Link>
-    <div className="mt-[330px] mr-4">
-      <p className="my-3 text-white font-extrabold text-[11px] md:text-base leading-[15.95px]">
-        wv: xel "Empowering Students and Others"
-      </p>
-      <h2 className="text-[15px] leading-[16.5px] font-semibold font-[sora] text-white mt-5 md:text-2xl">
-        Equipping students with essential skills for career success and
-        readiness.
-      </h2>
-      <div className="w-full flex gap-2 my-3">
-        <div className="w-[30.86px] h-[6px] rounded-[23.08px] bg-[#fff7f5]" />
-        <div className="w-[99.43px] h-[6px] bg-[#CB1A14] rounded-[23.08px]" />
-        <div className="w-[30.86px] h-[6px] bg-[#fff7f5] rounded-[23.08px]" />
+  <div className="py-4">
+    <section className="desktopHero px-14 pt-7 pb-5 rounded-xl">
+      <Link to="/">
+        <img src={logo} alt="logo" className="w-[108px] h-[43px]" />
+      </Link>
+      <div className="mt-[330px] pb-10 mr-4">
+        <p className="mb-3 text-white font-bold text-sm leading-[15.95px]">
+          wv: xel "Empowering Students and Others"
+        </p>
+        <h2 className="leading-[25.5px] font-semibold font-[sora] text-white mt-5 text-2xl">
+          Equipping students with essential skills for career success and
+          readiness.
+        </h2>
+        <div className="w-full flex gap-2 my-5">
+          <div className="w-[30.86px] h-[6px] rounded-[23.08px] bg-[#fff7f5]" />
+          <div className="w-[99.43px] h-[6px] bg-[#CB1A14] rounded-[23.08px]" />
+          <div className="w-[30.86px] h-[6px] bg-[#fff7f5] rounded-[23.08px]" />
+        </div>
+        <p className="text-white font-semibold font-[inter] text-xs leading-[19.05px]">
+          Equip students with skills in e-commerce, marketing, finance,
+          blockchain, communication, and essential school knowledge for
+          comprehensive career readiness.
+        </p>
       </div>
-      <p className="text-white font-semibold font-[inter] text-xs leading-[14.05px]">
-        Equip students with skills in e-commerce, marketing, finance,
-        blockchain, communication, and essential school knowledge for
-        comprehensive career readiness.
-      </p>
-    </div>
-  </section>
+    </section>
+  </div>
 );
 
 const DesktopForm = () => (
@@ -76,7 +78,7 @@ const DesktopForm = () => (
 
           <div className="flex flex-col">
             <Link
-              to="/password"
+              to="password"
               type="submit"
               className="py-[10px] px-[24px] text-center bg-[#0258ff] w-full text-white rounded-lg mt-3 hover:bg-white hover:text-blue-600 hover:border-2 hover:border-blue-600"
             >
@@ -118,7 +120,7 @@ const DesktopForm = () => (
 
           <div className="flex flex-col">
             <Link
-              to="/password"
+              to="password"
               type="submit"
               className="py-[10px] px-[24px] text-center bg-[#0258ff] w-full text-white rounded-lg mt-3 hover:bg-white hover:text-blue-600 hover:border-2 hover:border-blue-600"
             >
@@ -140,7 +142,7 @@ const DesktopForm = () => (
 
 const Desktop = () => {
   return (
-    <div className="h-[100vh] p-4 flex items-center">
+    <div className="h-screen px-10 lg:px-[10%]">
       <div className="flex justify-center items-center gap-10">
         <div className="flex-1">
           <HeroSection />

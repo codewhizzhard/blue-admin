@@ -1,110 +1,134 @@
 import React, { useState } from "react";
-import "./Login.css";
-
-import { Link } from "react-router-dom";
-import logo from "../../assets/logo.svg";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import logo from "../../assets/logo.svg";
+import { ToastContainer, toast } from "react-toastify"; // Import Toast components
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 
 const HeroSection = () => (
-  <section className="loginHero px-14 pt-10 pb-5 rounded-xl ">
-    <Link to="/">
-      <img src={logo} alt="logo" className="w-[119px] h-[43px]" />
-    </Link>
-    <div className="mt-[330px] mr-4">
-      <p className="my-3 text-white font-extrabold text-[11px] md:text-base leading-[15.95px]">
-        wv: xel "Empowering Students and Others"
-      </p>
-      <h2 className="text-[15px] leading-[16.5px] font-semibold font-[sora] text-white mt-5 md:text-2xl">
-        Equipping students with essential skills for career success and
-        readiness.
-      </h2>
-      <div className="w-full flex gap-2 my-3">
-        <div className="w-[30.86px] h-[6px] rounded-[23.08px] bg-[#fff7f5]" />
-        <div className="w-[99.43px] h-[6px] bg-[#CB1A14] rounded-[23.08px]" />
-        <div className="w-[30.86px] h-[6px] bg-[#fff7f5] rounded-[23.08px]" />
+  <div className="py-4">
+    <section className="desktopHero px-14 pt-7 pb-5 rounded-xl">
+      <Link to="/">
+        <img src={logo} alt="logo" className="w-[108px] h-[43px]" />
+      </Link>
+      <div className="mt-[330px] pb-10 mr-4">
+        <p className="mb-3 text-white font-bold text-sm">
+          wv: xel "Empowering Students and Others"
+        </p>
+        <h2 className="text-white font-semibold text-2xl leading-6 mt-5">
+          Equipping students with essential skills for career success and
+          readiness.
+        </h2>
+        <div className="w-full flex gap-2 my-5">
+          <div className="w-[30px] h-[6px] bg-white rounded-full" />
+          <div className="w-[100px] h-[6px] bg-red-600 rounded-full" />
+          <div className="w-[30px] h-[6px] bg-white rounded-full" />
+        </div>
+        <p className="text-white text-xs font-semibold">
+          Equip students with skills in e-commerce, marketing, finance,
+          blockchain, and communication for comprehensive career readiness.
+        </p>
       </div>
-      <p className="text-white font-semibold font-[inter] text-xs leading-[14.05px]">
-        Equip students with skills in e-commerce, marketing, finance,
-        blockchain, communication, and essential school knowledge for
-        comprehensive career readiness.
-      </p>
-    </div>
-  </section>
+    </section>
+  </div>
 );
 
 const Form = () => {
-  const [show, setShow] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Simulate login success (replace this with real authentication logic)
+    const isLoginSuccessful = true; // Replace with actual login condition
+
+    if (isLoginSuccessful) {
+      toast.success("Login successful! Redirecting to homepage...", {
+        position: "top-right", // Set notification position
+      });
+      navigate("/"); // Redirect to homepage
+    } else {
+      toast.error("Login failed! Please check your credentials.", {
+        position: "top-right", // Set notification position
+      });
+    }
+  };
 
   return (
-    <div className="pt-[80px] px-6 flex flex-col items-center">
-      <h1 className="font-[sora] font-semibold text-[30px] leading-[37.8px] text-[#1b1818]">
-        Welcome back!
-      </h1>
-      <p className="text-[#645d5d] font-normal text-sm leading-[15.95px]">
+    <div className="px-6 flex flex-col items-center">
+      <h1 className="text-[30px] font-bold text-gray-900">Welcome back!</h1>
+      <p className="text-sm text-gray-600 mt-1">
         Don't have an account?{" "}
-        <Link to="/register" className="text-[#494cfa]">
+        <Link to="/register" className="text-blue-500">
           Sign Up
         </Link>
       </p>
-      <form className="mt-5 w-full px-5">
+      <form className="mt-5 w-full px-5" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-1">
-          <label
-            htmlFor="email"
-            className="font-[inter] font-medium text-sm leading-[17.4px] text-[#101928]"
-          >
+          <label htmlFor="email" className="text-sm font-medium text-gray-900">
             Email or Matric Number
           </label>
           <input
             type="text"
             name="email"
             placeholder="wv:xeluser@gmail.com"
-            className="border border-[#d0d5dd] rounded-md outline-none p-2"
+            className="border border-gray-300 rounded-md p-2 w-full focus:ring focus:ring-blue-500 outline-none"
           />
         </div>
         <div className="flex flex-col gap-1 my-4">
           <label
             htmlFor="password"
-            className="font-[inter] font-medium text-sm leading-[17.4px] text-[#101928]"
+            className="text-sm font-medium text-gray-900"
           >
             Password
           </label>
-          <div className="flex gap-2 w-full border border-[#d0d5dd] rounded-md bg-white px-1">
+          <div className="flex items-center border border-gray-300 rounded-md p-2 bg-white">
             <input
-              type={show ? "text" : "password"}
+              type={showPassword ? "text" : "password"}
               name="password"
-              className="outline-none p-2 w-full"
+              className="w-full focus:outline-none"
             />
             <button
               type="button"
-              className="bg-transparent"
-              onClick={() => setShow(!show)}
+              className="text-gray-500"
+              onClick={() => setShowPassword(!showPassword)}
               aria-label="Toggle Password Visibility"
             >
-              {show ? <FaEyeSlash /> : <FaEye />}
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
         </div>
         <button
           type="submit"
-          className="py-[10px] px-[24px] text-center bg-[#0258ff] w-full text-white rounded-lg mt-7"
+          className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Login
         </button>
-        <p className="text-[#645d5d] font-normal text-sm leading-[15.95px] text-center mt-3">
+        <p className="text-sm text-gray-600 text-center mt-2">
           Forgot Password?{" "}
-          <Link to="" className="text-[#1519ff]">
+          <Link to="/forget-password" className="text-blue-500">
             Click here
           </Link>
         </p>
       </form>
+      <ToastContainer
+        position="top-right" // Position of the toast notifications
+        autoClose={5000} // Auto close after 5 seconds
+        hideProgressBar={false} // Show progress bar
+        closeOnClick // Close on click
+        pauseOnHover // Pause on hover
+        draggable // Allow dragging
+        theme="light" // Theme of the toast
+      />
     </div>
   );
 };
 
-const Destop = () => {
+const Desktop = () => {
   return (
-    <div className="h-screen p-4 flex items-center">
-      <div className="flex justify-center items-center gap-10">
+    <div className="h-screen px-10 lg:px-[10%] flex items-center justify-center">
+      <div className="flex flex-col lg:flex-row items-center gap-10">
         <div className="flex-1">
           <HeroSection />
         </div>
@@ -116,4 +140,4 @@ const Destop = () => {
   );
 };
 
-export default Destop;
+export default Desktop;

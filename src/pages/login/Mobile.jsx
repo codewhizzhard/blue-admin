@@ -5,7 +5,7 @@ import logo from "../../assets/logo.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const MobileHeroSection = () => (
-  <div className="loginHero h-[324px] flex flex-col items-center pt-[50px] pb-12 px-[34px]">
+  <div className="loginHero flex flex-col items-center pt-[50px] pb-12 px-[34px] rounded-2xl h-[324px] m-2">
     <a href="/" className="">
       <img src={logo} alt="logo" className="w-[119px] h-[43px]" />
     </a>
@@ -77,7 +77,7 @@ const Form = () => {
             />
             <button
               type="button"
-              className="bg-transparent"
+              className="bg-transparent outline-none p-1"
               onClick={() => setShow(!show)}
               aria-label="Toggle Password Visibility"
             >
@@ -93,7 +93,7 @@ const Form = () => {
         </button>
         <p className="text-[#645d5d] font-normal text-[11px] leading-[15.95px] text-center mt-3">
           Forgot Password?{" "}
-          <Link to="/forgot-password" className="text-[#1519ff]">
+          <Link to="/forget-password" className="text-[#1519ff]">
             Click here
           </Link>
         </p>

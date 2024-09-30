@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         element: <Register />,
         children: [
           {
-            path: "password", // Nested route inside Register
+            path: "password", // This is now nested under /register
             element: <Password />,
           },
         ],
