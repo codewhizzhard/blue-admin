@@ -19,12 +19,15 @@ const MobileHeroSection = () => (
   </section>
 );
 
-const MobileForm = () => (
+const MobileForm = ({ handleRegistration }) => (
   <div className="p-6">
     <Tabs className="px-3 lg:px-16 mt-4">
       <TabPanel>
         <div className="md:hidden">
-          <form className="px-3 lg:px-16 flex flex-col gap-4 mt-10">
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            className="px-3 lg:px-16 flex flex-col gap-4 mt-10"
+          >
             {[
               { label: "Name of School", name: "school", type: "text" },
               { label: "Matric Number", name: "matric", type: "text" },
@@ -47,20 +50,23 @@ const MobileForm = () => (
             ))}
 
             <div className="flex flex-col">
-              <Link
-                to="password"
+              <button
                 type="submit"
+                onClick={handleRegistration}
                 className="py-[10px] px-[24px] text-center bg-[#0258ff] w-full text-white rounded-lg mt-3 hover:bg-white hover:text-blue-600"
               >
                 Proceed
-              </Link>
+              </button>
             </div>
           </form>
         </div>
       </TabPanel>
       <TabPanel>
         <div className="">
-          <form className="px-3 flex flex-col gap-4 mt-10">
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            className="px-3 flex flex-col gap-4 mt-10"
+          >
             {[
               { label: "First Name", name: "fName", type: "text" },
               { label: "Surname", name: "surname", type: "text" },
@@ -82,13 +88,13 @@ const MobileForm = () => (
               </div>
             ))}
             <div className="flex flex-col">
-              <Link
-                to="password"
+              <button
+                onClick={handleRegistration}
                 type="submit"
                 className="py-[10px] px-[24px] text-center bg-[#0258ff] w-full text-white rounded-lg mt-3 cursor-pointer"
               >
                 Proceed
-              </Link>
+              </button>
             </div>
           </form>
         </div>
@@ -117,7 +123,7 @@ const MobileForm = () => (
   </div>
 );
 
-const Mobile = () => {
+const Mobile = ({ handleRegistration }) => {
   return (
     <div>
       <MobileHeroSection />
@@ -130,7 +136,7 @@ const Mobile = () => {
             Let's sign you up...
           </p>
         </div>
-        <MobileForm />
+        <MobileForm handleRegistration={handleRegistration} />
       </div>
     </div>
   );
