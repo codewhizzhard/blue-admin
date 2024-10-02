@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import Loader from "../../utils/Loader";
+import { toast, ToastContainer } from "react-toastify"; // Import Toastify
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 
 const HeroSection = () => (
   <div className="py-4">
@@ -68,6 +70,12 @@ const OTP = ({ loading, setLoading }) => {
       // Simulate API call for OTP verification
       setTimeout(() => {
         setLoading(false);
+        toast.success(
+          <div className="p-2 border-r-2 border-green-700">
+            <h3 className="font-bold text-sm">You are all set!</h3>
+            <p className="text-sm">Verification successful</p>
+          </div>
+        );
         navigate("/reset-password");
       }, 1000);
     }
@@ -76,11 +84,20 @@ const OTP = ({ loading, setLoading }) => {
   // Handle OTP resend
   const handleResendOtp = () => {
     console.log("Resending OTP...");
+    toast.info(
+      <div className="p-2 border-r-2 border-blue-700">
+        <h3 className="font-bold text-sm">
+          Verification code has been resent.
+        </h3>
+        <p className="text-sm">Check your mail for prompt comfirmation</p>
+      </div>
+    );
     // Implement OTP resend logic here
   };
 
   return (
     <div className="otp-card flex flex-col justify-center items-center px-16">
+      <ToastContainer />
       <h1 className="font-[sora] font-bold text-2xl leading-[35px] text-[#1b1818]">
         OTP Verification
       </h1>
