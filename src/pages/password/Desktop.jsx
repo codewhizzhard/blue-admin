@@ -3,7 +3,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "../../Styles.css";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.svg";
 
 import Loader from "../../utils/Loader";
 import {

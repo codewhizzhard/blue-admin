@@ -1,105 +1,114 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaAngleLeft } from "react-icons/fa";
-import logo from "../../assets/logo.svg";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 import "./ForgetPassword.css";
+import HeroSection from "../../utils/HeroSection";
 
-// ProgressIndicator Component
-const ProgressIndicator = () => (
-  <div className="w-full flex gap-2 my-5">
-    <div className="w-[30.86px] h-[6px] rounded-[23.08px] bg-[#fff7f5]" />
-    <div className="w-[99.43px] h-[6px] bg-[#CB1A14] rounded-[23.08px]" />
-    <div className="w-[30.86px] h-[6px] bg-[#fff7f5] rounded-[23.08px]" />
-  </div>
-);
-
-// HeroSection Component
-const HeroSection = () => (
-  <div className="py-4">
-    <section className="desktopHero px-14 pt-7 rounded-xl">
-      <Link to="/">
-        <img src={logo} alt="Company Logo" className="w-[108px] h-[43px]" />
-      </Link>
-      <div className="mt-[330px] pb-10 mr-4">
-        <p className="mb-3 text-white font-bold text-sm leading-[15.95px]">
-          wv: xel "Empowering Students and Others"
-        </p>
-        <h2 className="leading-[25.5px] font-semibold font-[sora] text-white mt-5 text-2xl">
-          Equipping students with essential skills for career success and
-          readiness.
-        </h2>
-        <ProgressIndicator />
-        <p className="text-white font-semibold font-[inter] text-xs leading-[19.05px]">
-          Equip students with skills in e-commerce, marketing, finance,
-          blockchain, communication, and essential school knowledge for
-          comprehensive career readiness.
-        </p>
-      </div>
-    </section>
-  </div>
-);
-
-// ResetPasswordForm Component
+// ResetPasswordForm Component using Formik
 const ResetPasswordForm = () => {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     // Simulate an API request for password reset
-    if (email === "") {
-      setError("Email is required");
-      return;
+    try {
+      console.log("Password reset request sent to:", values.email);
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulated async request
+
+      // Show success message
+      toast.success(
+        <div className="p-2 border-r-2 border-green-700">
+          <h3 className="font-bold text-sm">
+            Success! We've sent a password reset link to your email address.
+          </h3>
+          <p className="text-sm">
+            Please check your inbox (and don't forget to look in your spam
+            folder, just in case). Once you've received the main, click the link
+            to reset your password and regain access to your account. Need
+            further assistance, feel free to reach out to our support team.
+          </p>
+        </div>
+      );
+
+      // Redirect to verification page
+      navigate("/verification");
+    } catch (error) {
+      setErrors({
+        email: "Failed to send password reset link. Please try again.",
+      });
+      toast.error("Failed to send password reset link. Please try again.");
+    } finally {
+      setSubmitting(false);
     }
-
-    // Assume the reset request is successful
-    console.log("Password reset request sent to:", email);
-
-    // Redirect to 2fa page
-    navigate("/verification");
   };
 
   return (
-    <form className="mt-5 w-full" onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-1">
-        <label
-          htmlFor="email"
-          className="font-[inter] font-medium text-sm leading-[17.4px] text-[#101928]"
-        >
-          Email
-        </label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="wv:xeluser@gmail.com"
-          className="border border-[#d0d5dd] rounded-md outline-none p-2"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </div>
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-      <button
-        type="submit"
-        className="py-[10px] px-[24px] text-center bg-[#0258ff] w-full text-white rounded-lg mt-7"
+    <>
+      <ToastContainer />
+      <Formik
+        initialValues={{ email: "" }}
+        validate={(values) => {
+          const errors = {};
+          if (!values.email) {
+            errors.email = "Email is required";
+          } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+            errors.email = "Email is invalid";
+          }
+          return errors;
+        }}
+        onSubmit={handleSubmit}
       >
-        Reset Password
-      </button>
-      <p className="text-[#645d5d] font-normal text-sm leading-[15.95px] text-center mt-3">
-        Remember login credentials?{" "}
-        <Link to="/login" className="text-[#1519ff]">
-          Login
-        </Link>
-      </p>
-    </form>
+        {({ isSubmitting }) => (
+          <Form className="mt-5 w-full">
+            <div className="flex flex-col gap-1">
+              <label
+                htmlFor="email"
+                className="font-[inter] font-medium text-sm leading-[17.4px] text-[#101928]"
+              >
+                Email
+              </label>
+              <Field
+                type="email"
+                name="email"
+                placeholder="wv:xeluser@gmail.com"
+                className="border border-[#d0d5dd] rounded-md outline-none p-2"
+              />
+              <ErrorMessage
+                component="p"
+                className="text-red-500 text-sm mt-1"
+                name="email"
+              />
+            </div>
+            <button
+              type="submit"
+              className="py-[10px] px-[24px] text-center bg-[#0258ff] w-full text-white rounded-lg mt-7"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Sending..." : "Reset Password"}
+            </button>
+            <p className="text-[#645d5d] font-normal text-sm leading-[15.95px] text-center mt-3">
+              Remember login credentials?{" "}
+              <Link to="/login" className="text-[#1519ff]">
+                Login
+              </Link>
+            </p>
+          </Form>
+        )}
+      </Formik>
+    </>
   );
 };
 
 // Desktop Component
 const Desktop = () => {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="h-screen py-4 px-10 lg:px-[2%] flex items-center">
       <div className="flex flex-col lg:flex-row justify-center items-center lg:gap-10">
@@ -107,9 +116,14 @@ const Desktop = () => {
           <HeroSection />
         </div>
         <div className="flex-1">
-          <div className="lg:pr-[20%]">
-            <FaAngleLeft className="border rounded-full border-gray-700 text-gray-800 p-1 size-7 mx-16 mb-8" />
-            <div className="flex flex-col justify-center md:items-start items-center px-16">
+          <div className="px-12">
+            <button
+              onClick={goBack}
+              className="border rounded-full p-1 w-max border-black mb-8 cursor-pointer"
+            >
+              <FaAngleLeft className="text-2xl font-light" />
+            </button>
+            <div className="flex flex-col justify-center md:items-start items-center">
               <h1 className="font-[sora] font-bold text-2xl leading-[35px] text-[#1b1818]">
                 Ready to regain <br />
                 <span>access</span>?

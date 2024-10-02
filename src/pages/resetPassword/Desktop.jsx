@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import "../../Styles.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import Loader from "../../utils/Loader";
-
 import { FaAngleLeft, FaCheckCircle, FaEye, FaEyeSlash } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify"; // Import Toastify
 
 const HeroSection = () => (
   <div className="py-4">
@@ -63,7 +62,7 @@ const PasswordForm = ({ setLoading }) => {
   };
 
   return (
-    <div className="flex gap-5 items-center m-3">
+    <div className="flex gap-5 items-center w-full px-10">
       <div className="w-full">
         <div className="flex flex-col justify-center">
           <button
@@ -94,6 +93,16 @@ const PasswordForm = ({ setLoading }) => {
               setLoading(false);
               setSubmitting(false);
               resetForm();
+              toast.success(
+                <div className="p-2 border-r-2 border-green-700">
+                  <h3 className="font-bold text-sm">
+                    Password reset successful
+                  </h3>
+                  <p className="text-sm">
+                    Proceed to login page to access your account
+                  </p>
+                </div>
+              );
               navigate("/login");
             }, 2000);
           }}
@@ -309,12 +318,18 @@ const Desktop = () => {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div className="w-screen h-screen px-10 lg:px-[2%] grid grid-cols-2">
-      <HeroSection />
-      <div className="flex items-center justify-center">
-        <PasswordForm setLoading={setLoading} />
+    <div className="w-screen h-screen px-10 lg:px-[2%]">
+      <div className="flex">
+        <div className="flex-1">
+          <HeroSection />
+        </div>
+
+        <div className="flex items-center justify-center flex-1">
+          <PasswordForm setLoading={setLoading} />
+        </div>
+        {loading && <Loader />}
+        <ToastContainer />
       </div>
-      {loading && <Loader />}
     </div>
   );
 };

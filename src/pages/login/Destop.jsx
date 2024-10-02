@@ -1,131 +1,52 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import logo from "../../assets/logo.svg";
-import { ToastContainer, toast } from "react-toastify"; // Import Toast components
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import HeroSection from "../../utils/HeroSection";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-const HeroSection = () => (
-  <div className="py-4">
-    <section className="desktopHero px-14 pt-7 pb-1 rounded-xl">
-      <Link to="/">
-        <img src={logo} alt="logo" className="w-[108px] h-[43px]" />
-      </Link>
-      <div className="mt-[330px] pb-10 mr-4">
-        <p className="mb-3 text-white font-bold text-sm">
-          wv: xel "Empowering Students and Others"
-        </p>
-        <h2 className="text-white font-semibold text-2xl leading-6 mt-5">
-          Equipping students with essential skills for career success and
-          readiness.
-        </h2>
-        <div className="w-full flex gap-2 my-5">
-          <div className="w-[30px] h-[6px] bg-white rounded-full" />
-          <div className="w-[100px] h-[6px] bg-red-600 rounded-full" />
-          <div className="w-[30px] h-[6px] bg-white rounded-full" />
-        </div>
-        <p className="text-white text-xs font-semibold">
-          Equip students with skills in e-commerce, marketing, finance,
-          blockchain, and communication for comprehensive career readiness.
-        </p>
-      </div>
-    </section>
-  </div>
-);
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email or Matric Number is required"),
+  password: Yup.string().required("Password is required"),
+});
 
-const Form = () => {
-  const [showPassword, setShowPassword] = useState(false);
+const Desktop = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      // Simulate login success with async logic
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate async request
 
-    // Simulate login success (replace this with real authentication logic)
-    const isLoginSuccessful = true; // Replace with actual login condition
-
-    if (isLoginSuccessful) {
       toast.success("Login successful! Redirecting to homepage...", {
-        position: "top-right", // Set notification position
+        position: "top-right",
       });
-      navigate("/"); // Redirect to homepage
-    } else {
-      toast.error("Login failed! Please check your credentials.", {
-        position: "top-right", // Set notification position
-      });
+
+      setTimeout(() => {
+        navigate("/"); // Redirect to homepage after 1.5 seconds
+      }, 1500);
+    } catch (error) {
+      toast.error(
+        <div>
+          <h3 className="font-bold text-sm">Incorrect Login Credentials</h3>
+          <p className="text-sm">
+            Oops! Your login credentials seem incorrect. Please verify your
+            Email/Matric Number or Password, then try again.
+          </p>
+        </div>,
+        {
+          position: "top-right",
+        }
+      );
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  return (
-    <div className="px-6 flex flex-col items-center">
-      <h1 className="text-[30px] font-bold text-gray-900">Welcome back!</h1>
-      <p className="text-sm text-gray-600 mt-1">
-        Don't have an account?{" "}
-        <Link to="/register" className="text-blue-500">
-          Sign Up
-        </Link>
-      </p>
-      <form className="mt-5 w-full px-5" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-1">
-          <label htmlFor="email" className="text-sm font-medium text-gray-900">
-            Email or Matric Number
-          </label>
-          <input
-            type="text"
-            name="email"
-            placeholder="wv:xeluser@gmail.com"
-            className="border border-gray-300 rounded-md p-2 w-full focus:ring focus:ring-blue-500 outline-none"
-          />
-        </div>
-        <div className="flex flex-col gap-1 my-4">
-          <label
-            htmlFor="password"
-            className="text-sm font-medium text-gray-900"
-          >
-            Password
-          </label>
-          <div className="flex items-center border border-gray-300 rounded-md p-2 bg-white">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              className="w-full focus:outline-none"
-            />
-            <button
-              type="button"
-              className="text-gray-500"
-              onClick={() => setShowPassword(!showPassword)}
-              aria-label="Toggle Password Visibility"
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
-          </div>
-        </div>
-        <button
-          type="submit"
-          className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          Login
-        </button>
-        <p className="text-sm text-gray-600 text-center mt-2">
-          Forgot Password?{" "}
-          <Link to="/forget-password" className="text-blue-500">
-            Click here
-          </Link>
-        </p>
-      </form>
-      <ToastContainer
-        position="top-right" // Position of the toast notifications
-        autoClose={5000} // Auto close after 5 seconds
-        hideProgressBar={false} // Show progress bar
-        closeOnClick // Close on click
-        pauseOnHover // Pause on hover
-        draggable // Allow dragging
-        theme="light" // Theme of the toast
-      />
-    </div>
-  );
-};
-
-const Desktop = () => {
   return (
     <div className="h-screen px-10 lg:px-[2%] flex items-center justify-center">
       <div className="flex flex-col lg:flex-row items-center gap-10">
@@ -133,7 +54,99 @@ const Desktop = () => {
           <HeroSection />
         </div>
         <div className="flex-1">
-          <Form />
+          <h1 className="text-[30px] font-bold text-gray-900">Welcome back!</h1>
+          <p className="text-sm text-gray-600 mt-1">
+            Don't have an account?{" "}
+            <Link to="/register" className="text-blue-500">
+              Sign Up
+            </Link>
+          </p>
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ isSubmitting, values, setFieldValue }) => (
+              <Form className="mt-5 w-full px-5">
+                <div className="flex flex-col gap-1">
+                  <label
+                    htmlFor="email"
+                    className="text-sm font-medium text-gray-900"
+                  >
+                    Email or Matric Number
+                  </label>
+                  <Field
+                    type="text"
+                    name="email"
+                    placeholder="Enter your email"
+                    className="border border-gray-300 rounded-md p-2 w-full focus:ring focus:ring-blue-500 outline-none"
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="text-red-500 text-xs"
+                  />
+                </div>
+                <div className="flex flex-col gap-1 my-4">
+                  <label
+                    htmlFor="password"
+                    className="text-sm font-medium text-gray-900"
+                  >
+                    Password
+                  </label>
+                  <div className="flex items-center border border-gray-300 rounded-md p-2 bg-white">
+                    <Field
+                      type="password"
+                      name="password"
+                      placeholder="Enter your password"
+                      className="w-full focus:outline-none"
+                    />
+                    <button
+                      type="button"
+                      className="text-gray-500"
+                      onClick={() =>
+                        setFieldValue("showPassword", !values.showPassword)
+                      }
+                      aria-label="Toggle Password Visibility"
+                    >
+                      {values.showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="text-red-500 text-xs"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className={`w-full py-3 rounded-lg text-white ${
+                    isSubmitting
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  }`}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Logging in..." : "Login"}
+                </button>
+                <p className="text-sm text-gray-600 text-center mt-2">
+                  Forgot Password?{" "}
+                  <Link to="/forget-password" className="text-blue-500">
+                    Click here
+                  </Link>
+                </p>
+              </Form>
+            )}
+          </Formik>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            closeOnClick
+            pauseOnHover
+            draggable
+            theme="light"
+          />
         </div>
       </div>
     </div>
