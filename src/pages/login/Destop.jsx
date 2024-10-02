@@ -1,21 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import HeroSection from "../../utils/HeroSection";
+import HeroSection from "../../components/HeroSection";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email or Matric Number is required"),
+  email: Yup.string().required("Email or Matric Number is required"),
   password: Yup.string().required("Password is required"),
 });
 
 const Desktop = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
@@ -67,7 +66,7 @@ const Desktop = () => {
             onSubmit={handleSubmit}
           >
             {({ isSubmitting, values, setFieldValue }) => (
-              <Form className="mt-5 w-full px-5">
+              <Form className="mt-5 w-full">
                 <div className="flex flex-col gap-1">
                   <label
                     htmlFor="email"
@@ -96,7 +95,7 @@ const Desktop = () => {
                   </label>
                   <div className="flex items-center border border-gray-300 rounded-md p-2 bg-white">
                     <Field
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       name="password"
                       placeholder="Enter your password"
                       className="w-full focus:outline-none"
@@ -104,12 +103,10 @@ const Desktop = () => {
                     <button
                       type="button"
                       className="text-gray-500"
-                      onClick={() =>
-                        setFieldValue("showPassword", !values.showPassword)
-                      }
+                      onClick={() => setShowPassword(!showPassword)}
                       aria-label="Toggle Password Visibility"
                     >
-                      {values.showPassword ? <FaEyeSlash /> : <FaEye />}
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
                     </button>
                   </div>
                   <ErrorMessage

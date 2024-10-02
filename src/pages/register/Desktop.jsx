@@ -4,7 +4,7 @@ import "../../Styles.css";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import HeroSection from "../../utils/HeroSection";
+import HeroSection from "../../components/HeroSection";
 
 const DesktopForm = ({ handleRegistration }) => {
   // State for form fields

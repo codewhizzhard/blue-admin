@@ -3,12 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaAngleLeft } from "react-icons/fa";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+import "react-toastify/dist/ReactToastify.css";
 import "./ForgetPassword.css";
-import HeroSection from "../../utils/HeroSection";
+import HeroSection from "../../components/HeroSection";
 
 // ResetPasswordForm Component using Formik
-const ResetPasswordForm = () => {
+const ResetPasswordForm = ({ handleForgetPassword }) => {
   const navigate = useNavigate();
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
@@ -31,9 +31,10 @@ const ResetPasswordForm = () => {
           </p>
         </div>
       );
-
+      // handleForgetPassword();
       // Redirect to verification page
-      navigate("/verification");
+      // navigate("/verification");
+      handleForgetPassword();
     } catch (error) {
       setErrors({
         email: "Failed to send password reset link. Please try again.",
@@ -102,7 +103,7 @@ const ResetPasswordForm = () => {
 };
 
 // Desktop Component
-const Desktop = () => {
+const Desktop = ({ handleForgetPassword }) => {
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -137,7 +138,7 @@ const Desktop = () => {
                 instructions in the email to set up a new password and regain
                 access to your account.
               </p>
-              <ResetPasswordForm />
+              <ResetPasswordForm handleForgetPassword={handleForgetPassword} />
             </div>
           </div>
         </div>

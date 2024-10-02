@@ -30,7 +30,7 @@ const MobileHeroSection = () => (
   </div>
 );
 
-const OTP = ({ loading, setLoading }) => {
+const OTP = ({ loading, setLoading, handleVerification }) => {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const navigate = useNavigate();
   const inputRefs = useRef([]);
@@ -66,7 +66,7 @@ const OTP = ({ loading, setLoading }) => {
       // Simulate API call for OTP verification
       setTimeout(() => {
         setLoading(false);
-        navigate("/reset-password");
+        handleVerification();
       }, 1000);
     }
   };
@@ -121,13 +121,13 @@ const OTP = ({ loading, setLoading }) => {
   );
 };
 
-const Mobile = () => {
+const Mobile = ({ handleVerification }) => {
   const [loading, setLoading] = useState(false);
   return (
     <div>
       <MobileHeroSection />
       <div className="form pt-[80px] px-1 flex flex-col items-center h-[600px] -mt-16">
-        <OTP setLoading={setLoading} />
+        <OTP setLoading={setLoading} handleVerification={handleVerification} />
       </div>
       {loading && <Loader />}
     </div>

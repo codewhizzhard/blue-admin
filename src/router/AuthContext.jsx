@@ -8,19 +8,25 @@ export const useAuth = () => useContext(AuthContext);
 
 // Provider component
 export const AuthProvider = ({ children }) => {
-  const [isRegistered, setIsRegistered] = useState(false); // track if user completed registration
-  const [isForgetPasswordCompleted, setIsForgetPasswordCompleted] =
-    useState(false); // track if user completed forget password
+  const [isRegistered, setIsRegistered] = useState(false);
+
+  const [isVerificationCompleted, setIsVerificationCompleted] = useState(false);
+
+  const [isForgetPasswordCompleted, setForgetPasswordCompleted] =
+    useState(false);
 
   const completeRegistration = () => setIsRegistered(true);
-  const completeForgetPassword = () => setIsForgetPasswordCompleted(true);
+  const completeVerification = () => setIsVerificationCompleted(true);
+  const completeForgetPassword = () => setForgetPasswordCompleted(true);
 
   return (
     <AuthContext.Provider
       value={{
         isRegistered,
+        isVerificationCompleted,
         isForgetPasswordCompleted,
         completeRegistration,
+        completeVerification,
         completeForgetPassword,
       }}
     >
