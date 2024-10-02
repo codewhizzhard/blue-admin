@@ -32,7 +32,7 @@ const MobileHeroSection = () => (
   </div>
 );
 
-const Form = () => {
+const Form = ({ handleForgetPassword }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ const Form = () => {
     console.log("Password reset link sent to:", email);
 
     // Redirect to verification page after success
-    navigate("/verification", { replace: true });
+    handleForgetPassword();
   };
 
   return (
@@ -111,11 +111,11 @@ const Form = () => {
   );
 };
 
-const Mobile = () => {
+const Mobile = ({ handleForgetPassword }) => {
   return (
     <div className="flex flex-col">
       <MobileHeroSection />
-      <Form />
+      <Form handleForgetPassword={handleForgetPassword} />
     </div>
   );
 };

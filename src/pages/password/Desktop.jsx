@@ -13,7 +13,7 @@ import {
   FaEye,
   FaEyeSlash,
 } from "react-icons/fa";
-import HeroSection from "../../utils/HeroSection";
+import HeroSection from "../../components/HeroSection";
 
 // Password validation schema using Yup
 const SignupSchema = Yup.object().shape({

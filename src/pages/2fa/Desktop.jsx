@@ -1,42 +1,12 @@
 import React, { useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.svg";
+import { Link } from "react-router-dom";
 import Loader from "../../utils/Loader";
-import { toast, ToastContainer } from "react-toastify"; // Import Toastify
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import HeroSection from "../../components/HeroSection";
 
-const HeroSection = () => (
-  <div className="py-4">
-    <section className="desktopHero px-14 pt-7 rounded-xl">
-      <Link to="/">
-        <img src={logo} alt="logo" className="w-[108px] h-[43px]" />
-      </Link>
-      <div className="mt-[330px] pb-10 mr-4">
-        <p className="mb-3 text-white font-bold text-sm leading-[15.95px]">
-          wv: xel "Empowering Students and Others"
-        </p>
-        <h2 className="leading-[25.5px] font-semibold font-[sora] text-white mt-5 text-2xl">
-          Equipping students with essential skills for career success and
-          readiness.
-        </h2>
-        <div className="w-full flex gap-2 my-5">
-          <div className="w-[30.86px] h-[6px] rounded-[23.08px] bg-[#fff7f5]" />
-          <div className="w-[99.43px] h-[6px] bg-[#CB1A14] rounded-[23.08px]" />
-          <div className="w-[30.86px] h-[6px] bg-[#fff7f5] rounded-[23.08px]" />
-        </div>
-        <p className="text-white font-semibold font-[inter] text-xs leading-[19.05px]">
-          Equip students with skills in e-commerce, marketing, finance,
-          blockchain, communication, and essential school knowledge for
-          comprehensive career readiness.
-        </p>
-      </div>
-    </section>
-  </div>
-);
-
-const OTP = ({ loading, setLoading }) => {
+const OTP = ({ loading, setLoading, handleVerification }) => {
   const [otp, setOtp] = useState(["", "", "", ""]);
-  const navigate = useNavigate();
   const inputRefs = useRef([]);
 
   // Handle OTP input
@@ -76,7 +46,7 @@ const OTP = ({ loading, setLoading }) => {
             <p className="text-sm">Verification successful</p>
           </div>
         );
-        navigate("/reset-password");
+        handleVerification();
       }, 1000);
     }
   };
@@ -140,7 +110,7 @@ const OTP = ({ loading, setLoading }) => {
   );
 };
 
-const Desktop = () => {
+const Desktop = ({ handleVerification }) => {
   const [loading, setLoading] = useState(false);
   return (
     <div className="h-screen flex items-center justify-center py-4 px-4 lg:px-[2%]">
@@ -149,7 +119,10 @@ const Desktop = () => {
           <HeroSection />
         </div>
         <div className="flex-1">
-          <OTP setLoading={setLoading} />
+          <OTP
+            setLoading={setLoading}
+            handleVerification={handleVerification}
+          />
         </div>
         {loading && <Loader />}
       </div>

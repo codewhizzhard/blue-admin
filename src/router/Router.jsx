@@ -8,7 +8,11 @@ import ForgetPassword from "../pages/forget_password/ForgetPassword";
 import ResetPassword from "../pages/resetPassword/ResetPassword";
 import Fa from "../pages/2fa/Fa";
 import RFa from "../pages/register/2fa/Fa";
-import { ProtectedRouteForPassword } from "./ProtectedRoute";
+import {
+  ProtectedRouteForPassword,
+  ProtectedRouteForResetPassword,
+  ProtectedRouteForVerification,
+} from "./ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -43,11 +47,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/reset-password",
-        element: <ResetPassword />,
+        element: (
+          <ProtectedRouteForResetPassword>
+            <ResetPassword />
+          </ProtectedRouteForResetPassword>
+        ),
       },
       {
         path: "/verification",
-        element: <Fa />,
+        element: (
+          <ProtectedRouteForVerification>
+            <Fa />
+          </ProtectedRouteForVerification>
+        ),
       },
       {
         path: "/register-verification",
