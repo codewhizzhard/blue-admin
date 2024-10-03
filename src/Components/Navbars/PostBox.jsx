@@ -71,7 +71,7 @@ const PostBox = ({
 						Viewer
 					</span>
 				</div>
-				<div className='flex items-center gap-[43px] likes'>
+				<div className='flex items-center gap-[30px] likes'>
 					<div>
 						<span>
 							<LuMessageCircle />

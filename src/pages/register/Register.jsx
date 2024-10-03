@@ -1,18 +1,31 @@
 import React from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Mobile from "./Mobile";
 import Desktop from "./Desktop";
+import { useAuth } from "../../router/AuthContext";
 
 const Register = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { completeRegistration } = useAuth();
+
+  const isRegisterPath = location.pathname === "/register";
+
+  const handleRegistration = () => {
+    completeRegistration();
+    navigate("/register/password");
+  };
+
   return (
     <div>
-      {/* Display Mobile only on small screens */}
       <div className="md:hidden">
-        <Mobile />
+        {isRegisterPath && <Mobile handleRegistration={handleRegistration} />}{" "}
+        <Outlet />
       </div>
 
-      {/* Display Desktop only on medium and larger screens */}
       <div className="hidden md:block">
-        <Desktop />
+        {isRegisterPath && <Desktop handleRegistration={handleRegistration} />}{" "}
+        <Outlet />
       </div>
     </div>
   );

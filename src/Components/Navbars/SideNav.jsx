@@ -72,7 +72,7 @@ const SideNav = () => {
 								<span>
 									<IoWalletOutline />
 								</span>
-								<span>Worth</span>
+								<span>Wort</span>
 							</Link>
 						</li>
 

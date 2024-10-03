@@ -10,7 +10,9 @@
 	/* font-family: "Sora", sans-serif;
   font-family: "Inter", sans-serif; */
 }
-
+html {
+	scroll-behavior: smooth;
+}
 body {
 	background-color: #f5f7fa;
 	margin: 24px 50px;

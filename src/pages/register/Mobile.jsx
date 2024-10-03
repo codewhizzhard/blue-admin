@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaAngleLeft } from "react-icons/fa";
 import logo from "../../assets/logo.svg";
@@ -19,105 +19,157 @@ const MobileHeroSection = () => (
   </section>
 );
 
-const MobileForm = () => (
-  <div className="p-6">
-    <Tabs className="px-3 lg:px-16 mt-4">
-      <TabPanel>
-        <div className="md:hidden">
-          <form className="px-3 lg:px-16 flex flex-col gap-4 mt-10">
-            {[
-              { label: "Name of School", name: "school", type: "text" },
-              { label: "Matric Number", name: "matric", type: "text" },
-              { label: "Email", name: "email", type: "email" },
-            ].map(({ label, name, type }) => (
-              <div key={name} className="flex flex-col">
-                <label
-                  htmlFor={name}
-                  className="font-[inter] font-medium text-sm leading-[17.4px] text-[#101928]"
-                >
-                  {label}
-                </label>
-                <input
-                  type={type}
-                  name={name}
-                  className="border border-[#d0d5dd] rounded-md outline-none p-1"
-                  required
-                />
-              </div>
-            ))}
+const MobileForm = ({ handleRegistration }) => {
+  // State for form fields
+  const [studentForm, setStudentForm] = useState({
+    school: "",
+    matric: "",
+    studentEmail: "",
+  });
 
-            <div className="flex flex-col">
-              <Link
-                to="/password"
-                type="submit"
-                className="py-[10px] px-[24px] text-center bg-[#0258ff] w-full text-white rounded-lg mt-3 hover:bg-white hover:text-blue-600"
-              >
-                Proceed
-              </Link>
-            </div>
-          </form>
-        </div>
-      </TabPanel>
-      <TabPanel>
-        <div className="">
-          <form className="px-3 flex flex-col gap-4 mt-10">
-            {[
-              { label: "First Name", name: "fName", type: "text" },
-              { label: "Surname", name: "surname", type: "text" },
-              { label: "Email", name: "email", type: "email" },
-            ].map(({ label, name, type }) => (
-              <div key={name} className="flex flex-col">
-                <label
-                  htmlFor={name}
-                  className="font-[inter] font-medium text-sm leading-[17.4px] text-[#101928]"
-                >
-                  {label}
-                </label>
-                <input
-                  type={type}
-                  name={name}
-                  className="border border-[#d0d5dd] rounded-md outline-none p-1"
-                  required
-                />
-              </div>
-            ))}
-            <div className="flex flex-col">
-              <Link
-                to="/password"
-                type="submit"
-                className="py-[10px] px-[24px] text-center bg-[#0258ff] w-full text-white rounded-lg mt-3 cursor-pointer"
-              >
-                Proceed
-              </Link>
-            </div>
-          </form>
-        </div>
-      </TabPanel>
-      <TabList className="flex items-center border-2 border-blue-500 rounded-lg my-5 mx-2">
-        <Tab
-          className="cursor-pointer focus:outline-none flex justify-center w-full py-2 text-blue-500"
-          selectedClassName="hidden"
-        >
-          Signup as Students
-        </Tab>
-        <Tab
-          className="cursor-pointer focus:outline-none flex justify-center w-full py-2 text-blue-500"
-          selectedClassName="hidden"
-        >
-          Signup as Others
-        </Tab>
-      </TabList>
-    </Tabs>
-    <p className="text-[#645d5d] font-normal text-sm leading-[15.95px] text-center">
-      Already have an account?{" "}
-      <Link to="/login" className="text-[#494cfa]">
-        Login
-      </Link>
-    </p>
-  </div>
-);
+  const [otherForm, setOtherForm] = useState({
+    fName: "",
+    surname: "",
+    otherEmail: "",
+  });
 
-const Mobile = () => {
+  // Function to handle student form changes
+  const handleStudentChange = (e) => {
+    setStudentForm({ ...studentForm, [e.target.name]: e.target.value });
+  };
+
+  // Function to handle other form changes
+  const handleOtherChange = (e) => {
+    setOtherForm({ ...otherForm, [e.target.name]: e.target.value });
+  };
+
+  // Check if student form is completely filled
+  const isStudentFormValid = Object.values(studentForm).every(
+    (value) => value.trim() !== ""
+  );
+
+  // Check if other form is completely filled
+  const isOtherFormValid = Object.values(otherForm).every(
+    (value) => value.trim() !== ""
+  );
+
+  return (
+    <div className="p-6">
+      <Tabs className="px-3 lg:px-16 mt-4">
+        <TabPanel>
+          <div className="md:hidden">
+            <form className="px-3 lg:px-16 flex flex-col gap-4 mt-10">
+              {[
+                { label: "Name of School", name: "school", type: "text" },
+                { label: "Matric Number", name: "matric", type: "text" },
+                { label: "Email", name: "studentEmail", type: "email" },
+              ].map(({ label, name, type }) => (
+                <div key={name} className="flex flex-col">
+                  <label
+                    htmlFor={name}
+                    className="font-[inter] font-medium text-sm leading-[17.4px] text-[#101928]"
+                  >
+                    {label}
+                  </label>
+                  <input
+                    type={type}
+                    name={name}
+                    value={studentForm[name]}
+                    onChange={handleStudentChange}
+                    className="border border-[#d0d5dd] rounded-md outline-none p-1"
+                    required
+                  />
+                </div>
+              ))}
+
+              <div className="flex flex-col">
+                <button
+                  type="submit"
+                  onClick={handleRegistration}
+                  className={`py-[10px] px-[24px] text-center w-full text-white rounded-lg mt-3 ${
+                    isStudentFormValid
+                      ? "bg-[#0258ff] hover:bg-white hover:text-blue-600"
+                      : "bg-gray-400 cursor-not-allowed"
+                  }`}
+                  disabled={!isStudentFormValid}
+                >
+                  Proceed
+                </button>
+              </div>
+            </form>
+          </div>
+        </TabPanel>
+
+        <TabPanel>
+          <div className="">
+            <form className="px-3 flex flex-col gap-4 mt-10">
+              {[
+                { label: "First Name", name: "fName", type: "text" },
+                { label: "Surname", name: "surname", type: "text" },
+                { label: "Email", name: "otherEmail", type: "email" },
+              ].map(({ label, name, type }) => (
+                <div key={name} className="flex flex-col">
+                  <label
+                    htmlFor={name}
+                    className="font-[inter] font-medium text-sm leading-[17.4px] text-[#101928]"
+                  >
+                    {label}
+                  </label>
+                  <input
+                    type={type}
+                    name={name}
+                    value={otherForm[name]}
+                    onChange={handleOtherChange}
+                    className="border border-[#d0d5dd] rounded-md outline-none p-1"
+                    required
+                  />
+                </div>
+              ))}
+              <div className="flex flex-col">
+                <button
+                  onClick={handleRegistration}
+                  type="submit"
+                  className={`py-[10px] px-[24px] text-center w-full text-white rounded-lg mt-3 ${
+                    isOtherFormValid
+                      ? "bg-[#0258ff] hover:bg-white hover:text-blue-600"
+                      : "bg-gray-400 cursor-not-allowed"
+                  }`}
+                  disabled={!isOtherFormValid}
+                >
+                  Proceed
+                </button>
+              </div>
+            </form>
+          </div>
+        </TabPanel>
+
+        <TabList className="flex items-center border-2 border-blue-500 rounded-lg my-5 mx-2">
+          <Tab
+            className="cursor-pointer focus:outline-none flex justify-center w-full py-2 text-blue-500"
+            selectedClassName="hidden"
+          >
+            Signup as Students
+          </Tab>
+          <Tab
+            className="cursor-pointer focus:outline-none flex justify-center w-full py-2 text-blue-500"
+            selectedClassName="hidden"
+          >
+            Signup as Others
+          </Tab>
+        </TabList>
+      </Tabs>
+
+      <p className="text-[#645d5d] font-normal text-sm leading-[15.95px] text-center">
+        Already have an account?{" "}
+        <Link to="/login" className="text-[#494cfa]">
+          Login
+        </Link>
+      </p>
+    </div>
+  );
+};
+
+const Mobile = ({ handleRegistration }) => {
   return (
     <div>
       <MobileHeroSection />
@@ -130,7 +182,7 @@ const Mobile = () => {
             Let's sign you up...
           </p>
         </div>
-        <MobileForm />
+        <MobileForm handleRegistration={handleRegistration} />
       </div>
     </div>
   );

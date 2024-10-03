@@ -11,7 +11,7 @@ const Layout = () => {
 			<div className='flex flex-row gap-[13px]  mt-[6rem] bg-bg'>
 				<SideNav />
 
-				<main className='ml-[14.5rem] w-full bg-bg overflow-clip'>
+				<main className='ml-[14.5rem] w-full bg-bg overflow-x-hidden'>
 					<Outlet />
 				</main>
 			</div>

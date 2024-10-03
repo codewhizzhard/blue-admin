@@ -1,0 +1,21 @@
+.hero {
+  background-image: url("./assets/cover.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: border-box;
+}
+.desktopHero {
+  background-image: url("./assets/coverDesktop.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: border-box;
+}
+.form {
+  width: 100%;
+  background-image: url("./assets/form.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
