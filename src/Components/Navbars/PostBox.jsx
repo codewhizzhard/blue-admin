@@ -23,7 +23,7 @@ const PostBox = ({
 	active,
 }) => {
 	return (
-		<div className='p-[16px] flex flex-col gap-[16px] bg-white'>
+		<div className='p-[20px] flex flex-col gap-[16px] bg-white'>
 			<div className='flex justify-between items-center'>
 				<div className='flex gap-[16px] items-center'>
 					<div className='w-[50px] h-[50px] rounded-full bg-mediumGray relative'>

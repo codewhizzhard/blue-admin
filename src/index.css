@@ -12,12 +12,24 @@
 }
 html {
 	scroll-behavior: smooth;
+	overflow-x: hidden;
 }
 body {
+	/* margin: 0px 10px; */
 	background-color: #f5f7fa;
-	margin: 24px 50px;
+	color: #0a0a0a;
+	overflow-y: scroll;
+	scrollbar-width: none;
+	width: 100%;
+	position: relative;
 }
-
+.sidenav {
+	scrollbar-width: none;
+}
+.sidenav::-webkit-scrollbar,
+body::-webkit-scrollbar {
+	display: none;
+}
 @layer base {
 	.topnav ul li a {
 		@apply flex items-center gap-[5.17px] text-[16x] text-mediumGray font-publicSans;
@@ -28,9 +40,9 @@ body {
 	.q3 a {
 		@apply text-[20px];
 	}
-	.sidenav_ul li {
+	/* .sidenav_ul li {
 		@apply after:h-[1px] after:mt-2 after:w-full after:bg-bg after:rounded-[16px] after:block;
-	}
+	} */
 	.sidenav_ul li a {
 		@apply flex flex-row items-center  gap-[8px];
 	}
@@ -38,10 +50,10 @@ body {
 		@apply text-[18px] font-normal font-inter text-textColor leading-[24px];
 	}
 	.post_ul li {
-		@apply p-[8px] rounded-[50px]   border-[#E0E0E0] border w-[fit-content] text-[15px] font-inter font-medium text-textColor;
+		@apply p-[8px] rounded-[7px] cursor-pointer  border-[#E0E0E0] border w-[fit-content] text-[15px] font-inter font-medium text-textColor;
 	}
 	.post_ul li a {
-		@apply flex flex-row justify-center items-center gap-[8px];
+		@apply flex flex-row justify-center items-center gap-[4px];
 	}
 	.post_ul li a span:nth-of-type(1) {
 		@apply text-lg;
@@ -49,9 +61,9 @@ body {
 	.post_ul li.active {
 		@apply bg-primaryBlue text-white border-none;
 	}
-	.post_ul button {
+	/* .post_ul button {
 		@apply py-[8px] px-[16px] rounded-[6px] bg-primaryBlue   w-[fit-content] text-[15px] font-inter font-medium text-white;
-	}
+	} */
 	.desc p span {
 		@apply text-primaryBlue;
 	}
@@ -66,5 +78,8 @@ body {
 	}
 	.likes div span:nth-of-type(1) {
 		@apply text-[1.3rem] font-medium font-inter;
+	}
+	.dropDown li a {
+		@apply text-[14px] font-medium font-inter text-[#344054];
 	}
 }

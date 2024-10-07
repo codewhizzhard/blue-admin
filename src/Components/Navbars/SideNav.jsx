@@ -8,29 +8,14 @@ import { CiLogout } from 'react-icons/ci';
 import { PiStudent } from 'react-icons/pi';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
 import Vector from '../../assets/Vector.png';
+import Logo from '../../assets/white_bg_logo.svg';
 
 const SideNav = () => {
 	return (
-		<div className='w-[211px]  h-screen fixed '>
-			<div className='flex flex-col gap-[13px] items-center justify-center'>
-				<div className='bg-white p-8 w-full h-[199px] flex flex-col  items-center justify-center gap-[13px] rounded-[8px]'>
-					<div className='flex flex-col justify-center items-center gap-[13px] '>
-						<div className='w-[50px] h-[50px] rounded-full bg-mediumGray'></div>
-						<div className='flex flex-col justify-center items-center'>
-							<h1 className='text-textColor text-[16px] font-inter font-semibold'>
-								Unknown User
-							</h1>
-							<span className='text-[12px] font-inter font-normal text-mediumGray'>
-								@--
-							</span>
-						</div>
-						<button className='bg-primaryBlue text-[16px] font-medium font-inter text-white w-full max-w-[176px] h-[36px] rounded-[6px] py-[8px] px-[16px]'>
-							View Profile{' '}
-						</button>
-					</div>
-				</div>
-				<div className='py-[8px]  px-[16px] rounded-[20px] bg-white w-full h-[460px]'>
-					<ul className=' sidenav_ul flex flex-col gap-[20px] justify-center pl-[20px] h-full'>
+		<div className='w-[222px] bg-white z-50  h-screen fixed  sidenav overflow-scroll'>
+			<div className='relative   py-[3rem]  px-[20px]  flex flex-col gap-[13px] items-cdenter justify-center'>
+				<div className='rounded-[20px] mt-[2rem] bg-white w-full h-full overflow-scroll'>
+					<ul className=' sidenav_ul flex flex-col gap-[30px] justify-center   h-full'>
 						<li>
 							<Link to={'/'}>
 								<span>
@@ -104,8 +89,8 @@ const SideNav = () => {
 						</li>
 					</ul>
 				</div>
-				<div className='h-[220px] w-full relative bg-primaryBlue rounded-[20px] p-[20px]'>
-					<div className='text-white flex flex-col gap-[20px]'>
+				<div className='h-[220px]  w-[211px] flex absolute -bottom-[12rem]  left-1 bg-[#344054] rounded-[6px] p-[10px]   items-center justify-center'>
+					<div className='text-white flex flex-col gap-[15px]'>
 						<div className='flex justify-center items-center '>
 							<span>
 								<img src={Vector} alt='vector' />
@@ -119,12 +104,12 @@ const SideNav = () => {
 							get more views to build up your network.
 						</p>
 
-						<div>
+						<div className='flex flex-col gap-[5px]'>
 							<div className='flex flex-row justify-between items-center text-[12px]'>
 								<span>60%</span>
 								<span>100%</span>
 							</div>
-							<div className='w-[171px] h-[10px] bg-white rounded-[42px] relative'>
+							<div className='w-full  h-[10px] bg-white rounded-[42px] relative'>
 								<div className='h-full w-[106px] bg-[#41D4A8] rounded-[42px] '></div>
 							</div>
 						</div>

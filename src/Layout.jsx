@@ -5,14 +5,14 @@ import TopNav from './Components/Navbars/TopNav';
 
 const Layout = () => {
 	return (
-		<div>
-			<TopNav />
-
-			<div className='flex flex-row gap-[13px]  mt-[6rem] bg-bg'>
+		<div className='w-full '>
+			<div className='flex w-full bg-bg'>
 				<SideNav />
-
-				<main className='ml-[14.5rem] w-full bg-bg overflow-x-hidden'>
-					<Outlet />
+				<main className='w-full bg-bg '>
+					<TopNav />
+					<div className='ml-[14.5rem] mt-[5rem] mx-[10px]'>
+						<Outlet />
+					</div>
 				</main>
 			</div>
 		</div>
