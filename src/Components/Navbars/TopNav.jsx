@@ -64,7 +64,7 @@ const TopNav = () => {
 								</button>
 								<div
 									className={`absolute  shadow-xl z-50 rounded-[8px] flex flex-col justify-center items-center
-									 p-[10px] bg-white right-[2rem]
+									 p-[10px] bg-white right-[0rem]
 									   w-[238px] h-[290px] transition-all ${
 												dropdown
 													? 'top-[3rem] transition-all'
