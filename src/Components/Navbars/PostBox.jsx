@@ -45,8 +45,8 @@ const PostBox = ({
 				</div>
 				{/* <div>:</div> */}
 			</div>
-			<article className='desc max-w-[711px] flex flex-col gap-[12px]'>
-				<p className='text-[16px] font-inter font-normal leading-[24px] text-textColor'>
+			<article className='desc max-sw-[711px] flex flex-col gap-[12px]'>
+				<p className='text-[14px] font-inter font-normal leading-[24px] text-textColor'>
 					{desc}
 					{hashtags.map((hash) => (
 						<span> {hash} </span>
@@ -58,20 +58,20 @@ const PostBox = ({
 			<div className='flex items-center justify-between'>
 				<div className='flex items-center gap-[0.5rem]'>
 					<div className='flex items-center'>
-						<div className='viewers excluded w-[50px] h-[50px] border-[3px] border-white rounded-full bg-mediumGray relative'></div>
-						<div className='viewers w-[50px] h-[50px] border-[3px] border-white rounded-full bg-mediumGray relative'></div>
-						<div className='viewers w-[50px] h-[50px] border-[3px] border-white rounded-full bg-mediumGray relative'></div>
+						<div className='viewers excluded w-[27.66px] h-[27.66px] border-[3px] border-white rounded-full bg-mediumGray relative'></div>
+						<div className='viewers w-[27.66px] h-[27.66px] border-[3px] border-white rounded-full bg-mediumGray relative'></div>
+						<div className='viewers w-[27.66px] h-[27.66px] border-[3px] border-white rounded-full bg-mediumGray relative'></div>
 						<div
-							className='viewers w-[50px] h-[50px] border-[3px] border-white rounded-full bg-bg relative 
-                     flex justify-center items-center font-publicSans font-bold text-primaryBlue'>
+							className='viewers w-[27.66px] h-[27.66px] border-[3px] border-white rounded-full bg-bg relative 
+                     flex justify-center text-[10px] items-center font-publicSans font-bold text-primaryBlue'>
 							17k
 						</div>
 					</div>
-					<span className='text-[14px] font-bold font-publicSans text-mediumGray'>
+					<span className='text-[10px] font-bold font-publicSans text-mediumGray'>
 						Viewer
 					</span>
 				</div>
-				<div className='flex items-center gap-[30px] likes'>
+				<div className='flex items-center gap-[30px] likes '>
 					<div>
 						<span>
 							<LuMessageCircle />

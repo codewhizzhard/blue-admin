@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GrHome } from 'react-icons/gr';
 import { IoCart, IoWalletOutline } from 'react-icons/io5';
@@ -6,16 +6,16 @@ import { TiMessages } from 'react-icons/ti';
 import { IoSettingsOutline, IoCloseOutline } from 'react-icons/io5';
 import { CiLogout } from 'react-icons/ci';
 import { PiStudent } from 'react-icons/pi';
-import { BsFillPatchCheckFill } from 'react-icons/bs';
+// import { BsFillPatchCheckFill } from 'react-icons/bs';
 import Vector from '../../assets/Vector.png';
-import Logo from '../../assets/white_bg_logo.svg';
 
 const SideNav = () => {
+	const [show, setshow] = useState(true);
 	return (
 		<div className='w-[222px] bg-white z-50  h-screen fixed  sidenav overflow-scroll'>
 			<div className='relative   py-[3rem]  px-[20px]  flex flex-col gap-[13px] items-cdenter justify-center'>
 				<div className='rounded-[20px] mt-[2rem] bg-white w-full h-full overflow-scroll'>
-					<ul className=' sidenav_ul flex flex-col gap-[30px] justify-center   h-full'>
+					<ul className=' sidenav_ul flex flex-col gap-[20px] justify-center   h-full'>
 						<li>
 							<Link to={'/'}>
 								<span>
@@ -89,17 +89,22 @@ const SideNav = () => {
 						</li>
 					</ul>
 				</div>
-				<div className='h-[220px]  w-[211px] flex absolute -bottom-[12rem]  left-1 bg-[#344054] rounded-[6px] p-[10px]   items-center justify-center'>
+				<div
+					className={`h-[220px]  w-[211px]  absolute -bottom-[10rem]  left-1 bg-[#344054] rounded-[6px] p-[20px]   items-center justify-center ${
+						show ? 'flex' : 'hidden'
+					}`}>
 					<div className='text-white flex flex-col gap-[15px]'>
 						<div className='flex justify-center items-center '>
 							<span>
 								<img src={Vector} alt='vector' />
 							</span>
-							<span className='absolute text-2xl right-2 top-4 cursor-pointer'>
+							<span
+								onClick={() => setshow(false)}
+								className='absolute text-2xl right-2 top-4 cursor-pointer'>
 								<IoCloseOutline />
 							</span>
 						</div>
-						<p className='text-[12px] leading-[16px]'>
+						<p className='text-[12px] font-medium leading-[16px] text-center'>
 							Update your profile with more details to attract connections and
 							get more views to build up your network.
 						</p>
@@ -110,7 +115,7 @@ const SideNav = () => {
 								<span>100%</span>
 							</div>
 							<div className='w-full  h-[10px] bg-white rounded-[42px] relative'>
-								<div className='h-full w-[106px] bg-[#41D4A8] rounded-[42px] '></div>
+								<div className='h-full w-[106px] bg-primaryBlue rounded-[42px] '></div>
 							</div>
 						</div>
 					</div>

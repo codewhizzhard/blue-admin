@@ -31,26 +31,31 @@ body::-webkit-scrollbar {
 	display: none;
 }
 @layer base {
-	.topnav ul li a {
+	.topnav ul li fa {
 		@apply flex items-center gap-[5.17px] text-[16x] text-mediumGray font-publicSans;
 	}
-	.topnav ul li a span:nth-of-type(1) {
-		@apply text-[20.6px];
-	}
+
 	.q3 a {
 		@apply text-[20px];
 	}
 	/* .sidenav_ul li {
 		@apply after:h-[1px] after:mt-2 after:w-full after:bg-bg after:rounded-[16px] after:block;
 	} */
+	.sidenav_ul li {
+		@apply font-inter;
+	}
 	.sidenav_ul li a {
 		@apply flex flex-row items-center  gap-[8px];
 	}
 	.sidenav_ul li a span {
-		@apply text-[18px] font-normal font-inter text-textColor leading-[24px];
+		@apply text-[14px] font-medium font-inter text-textColor leading-[24px];
 	}
+	.sidenav_ul li a span:nth-of-type(2) {
+		@apply text-[#344054];
+	}
+
 	.post_ul li {
-		@apply p-[8px] rounded-[7px] cursor-pointer  border-[#E0E0E0] border w-[fit-content] text-[15px] font-inter font-medium text-textColor;
+		@apply p-[8px] rounded-[7px] cursor-pointer   w-[fit-content] text-[15px] font-inter font-medium text-textColor;
 	}
 	.post_ul li a {
 		@apply flex flex-row justify-center items-center gap-[4px];
@@ -58,7 +63,7 @@ body::-webkit-scrollbar {
 	.post_ul li a span:nth-of-type(1) {
 		@apply text-lg;
 	}
-	.post_ul li.active {
+	.post_ul li.adctieve {
 		@apply bg-primaryBlue text-white border-none;
 	}
 	/* .post_ul button {
@@ -68,18 +73,21 @@ body::-webkit-scrollbar {
 		@apply text-primaryBlue;
 	}
 	.viewers:not(.excluded) {
-		@apply -ml-[1.5rem];
+		@apply -ml-[0.9rem];
 	}
 	.likes div {
 		@apply flex gap-[12px] items-center text-mediumGray;
 	}
 	.likes div span:nth-of-type(2) {
-		@apply text-[16px] font-medium font-inter;
+		@apply text-[13px] font-medium font-inter;
 	}
 	.likes div span:nth-of-type(1) {
-		@apply text-[1.3rem] font-medium font-inter;
+		@apply text-[1rem] font-medium font-inter;
+	}
+	.dropDown li a span:nth-of-type(1) {
+		@apply text-[1.3rem];
 	}
 	.dropDown li a {
-		@apply text-[14px] font-medium font-inter text-[#344054];
+		@apply flex text-[16px] font-medium font-inter text-[#344054] gap-[10px] items-center;
 	}
 }

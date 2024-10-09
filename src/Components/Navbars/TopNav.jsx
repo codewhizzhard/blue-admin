@@ -6,6 +6,8 @@ import { HiOutlineStatusOnline } from 'react-icons/hi';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { FaRegEnvelope } from 'react-icons/fa6';
 import { FiSearch } from 'react-icons/fi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { PiUserCircleLight } from 'react-icons/pi';
 import Logo from '../../assets/white_bg_logo.svg';
 
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
@@ -14,68 +16,70 @@ import { useState } from 'react';
 const TopNav = () => {
 	const [dropdown, setDropDown] = useState(false);
 	return (
-		<nav className=' z-50 fixed topnav  bg-white w-full h-[67px] py-[10px] px-[20px]  shadow-bg shadow'>
-			<header className='flex flex-row items-center justify-between  gap-[3rem] h-full w-full'>
+		<nav className=' z-50 fixed topnav  bg-white w-full h-[67px] py-[10px] px-[5px]  shadow-bg shadow resize-none'>
+			<header className='flex flex-row items-center justify-between h-full w-full px-4'>
 				<Link to={'/home'}>
 					<img src={Logo} alt='Logo' className='w-[82px]' />
 				</Link>
-				<div className='q3 flex flex-row items-center justify-between  gap-[3rem] w-full'>
-					<div className='flex flex-row items-center justify-center ml-[5.2rem] text-mediumGray gap-[8px] max-w-[750px]  w-full h-[40px] bg-bg py-[10px] px-[16px] rounded-[7px] '>
-						<span className='text-[14px]'>
+
+				<div className='flex flex-row items-center justify-between w-full gap-[3rem]'>
+					{/* Search Bar */}
+					<div className='flex items-center justify-between ml-[5rem] h-[40px] bg-bg py-[10px] px-[16px] rounded-[7px] flex-grow'>
+						<span className='text-mediumGray text-[14px]'>
 							<FiSearch />
 						</span>
 						<input
 							type='text'
 							placeholder='Search'
-							className='bg-transparent  w-full h-full text-[14px] focus:outline-none'
+							className='bg-transparent flex-grow h-full text-[14px] focus:outline-none ml-2' // Added ml-2 for spacing
 						/>
 					</div>
-					<div className='flex flex-row gap-[3rem] items-center justify-between ws-full'>
+
+					{/* Icons & Profile */}
+					<div className='flex items-center justify-end gap-[1rem]'>
 						<ul className='flex flex-row gap-[16px] items-center'>
 							<Link to={'/'} className='text-primaryGreen'>
-								{' '}
 								<span>
 									<HiOutlineStatusOnline />
-								</span>{' '}
+								</span>
 							</Link>
 							<Link to={'/'} className='text-mediumGray'>
-								{' '}
 								<span>
 									<FaRegEnvelope />
-								</span>{' '}
+								</span>
 							</Link>
 							<Link to={'/'} className='text-mediumGray'>
-								{' '}
 								<span>
 									<IoMdNotificationsOutline />
-								</span>{' '}
+								</span>
 							</Link>
 						</ul>
-						<div className='flex flex-row gap-2 items-center'>
+
+						{/* Profile & Dropdown */}
+						<div className='flex items-center gap-2'>
 							<div className='w-[40px] h-[40px] flex justify-center items-center rounded-full bg-primaryGreen'>
 								<span className='text-xl font-bold text-white'>SR</span>
 							</div>
+							<button
+								className='font-inter font-medium text-[14px] flex gap-2 items-center'
+								onClick={() => setDropDown(!dropdown)}>
+								Stylish Racon
+								{dropdown ? <FaChevronUp /> : <FaChevronDown />}
+							</button>
+
+							{/* Dropdown Menu */}
 							<div className='relative'>
-								<button
-									className='font-inter font-medium text-[14px] flex gap-2 items-center'
-									onClick={() => setDropDown(!dropdown)}>
-									Stylish Racon
-									{dropdown ? <FaChevronUp /> : <FaChevronDown />}
-								</button>
 								<div
-									className={`absolute  shadow-xl z-50 rounded-[8px] flex flex-col justify-center items-center
-									 p-[10px] bg-white right-[0rem]
-									   w-[238px] h-[290px] transition-all ${
-												dropdown
-													? 'top-[3rem] transition-all'
-													: '-top-[30rem] transition-all'
-											} `}>
+									className={`absolute shadow-xl z-50 rounded-[8px] flex flex-col
+										 p-[10px] bg-white -right-5 w-[238px] h-[290px] transition-all justify-center items-center ${
+												dropdown ? 'top-[2.2rem]' : '-top-[30rem]'
+											}`}>
 									<ul className='dropDown flex flex-col w-full  gap-[16px]'>
 										<li>
 											<Link to={'/'}>
 												{' '}
 												<span>
-													<GrCircleInformation />
+													<PiUserCircleLight />
 												</span>
 												<span>My Profile</span>{' '}
 											</Link>
@@ -120,7 +124,7 @@ const TopNav = () => {
 											<Link to={'/'}>
 												{' '}
 												<span>
-													<MdWorkspacePremium />
+													<RiDeleteBin6Line />
 												</span>
 												<span>LogOut</span>{' '}
 											</Link>

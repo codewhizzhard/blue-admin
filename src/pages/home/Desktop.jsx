@@ -50,8 +50,8 @@ const Desktop = () => {
 							<div className='w-full flex gap-[12px] items-center'>
 								<input
 									type='text'
-									className='w-full bg-bg h-[41px] p-[12px] rounded-[7px]'
-									placeholder='Search....'
+									className='w-full  bg-bg h-[41px] p-[12px] rounded-[7px] capitalize text-[14px] font-normal font-inter focus:outline-none text-mediumGray'
+									placeholder='whats on your mind...'
 								/>
 								<button className='py-[8px] px-[16px] rounded-[6px] bg-primaryBlue   w-[fit-content] h-[41px] text-[15px] font-inter font-medium text-white'>
 									Post
