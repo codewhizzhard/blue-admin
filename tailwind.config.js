@@ -11,7 +11,7 @@ export default {
 			colors: {
 				mediumGray: '#5B7083',
 				primaryBlue: '#0258FF',
-				primaryGreen: '#00FF33',
+				primaryGreen: '#11B833',
 				bg: '#f5f7fa',
 				textColor: '#0A0A0A',
 			},

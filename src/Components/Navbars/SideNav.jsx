@@ -14,14 +14,15 @@ const SideNav = () => {
 	return (
 		<div className='w-[222px] bg-white z-50  h-screen fixed  sidenav overflow-scroll'>
 			<div className='relative   py-[3rem]  px-[20px]  flex flex-col gap-[13px] items-cdenter justify-center'>
-				<div className='rounded-[20px] mt-[2rem] bg-white w-full h-full overflow-scroll'>
+				<div className=' mt-[2rem] bg-white w-full h-full overflow-scroll'>
 					<ul className=' sidenav_ul flex flex-col gap-[20px] justify-center   h-full'>
-						<li>
-							<Link to={'/'}>
+						<li className=''>
+							<Link to={'/'} className='active'>
 								<span>
 									<GrHome />
 								</span>
-								<span>Home</span>
+								{/* <span></span> */}
+								Home
 							</Link>
 						</li>
 
@@ -30,7 +31,8 @@ const SideNav = () => {
 								<span>
 									<PiStudent />
 								</span>
-								<span>Student</span>
+								Student
+								{/* <span>Student</span> */}
 							</Link>
 						</li>
 
@@ -39,7 +41,8 @@ const SideNav = () => {
 								<span>
 									<IoCart />
 								</span>
-								<span>Market</span>
+								Market
+								{/* <span>Market</span> */}
 							</Link>
 						</li>
 
@@ -48,7 +51,8 @@ const SideNav = () => {
 								<span>
 									<PiStudent />
 								</span>
-								<span>Network</span>
+								Network
+								{/* <span>Network</span> */}
 							</Link>
 						</li>
 
@@ -57,7 +61,8 @@ const SideNav = () => {
 								<span>
 									<IoWalletOutline />
 								</span>
-								<span>Wort</span>
+								Wort
+								{/* <span>Wort</span> */}
 							</Link>
 						</li>
 
@@ -66,7 +71,8 @@ const SideNav = () => {
 								<span>
 									<TiMessages />
 								</span>
-								<span>Messages</span>
+								Messages
+								{/* <span>Messages</span> */}
 							</Link>
 						</li>
 
@@ -75,7 +81,8 @@ const SideNav = () => {
 								<span>
 									<IoSettingsOutline />
 								</span>
-								<span>Setting</span>
+								Setting
+								{/*<span>Setting</span> */}
 							</Link>
 						</li>
 
@@ -84,13 +91,14 @@ const SideNav = () => {
 								<span>
 									<CiLogout />
 								</span>
-								<span>Log out</span>
+								Log out
+								{/* <span>Log out</span> */}
 							</Link>
 						</li>
 					</ul>
 				</div>
 				<div
-					className={`h-[220px]  w-[211px]  absolute -bottom-[10rem]  left-1 bg-[#344054] rounded-[6px] p-[20px]   items-center justify-center ${
+					className={`h-[220px]  w-[211px]  absolute -bottom-[12rem]  left-1 bg-[#344054] rounded-[6px] p-[20px]   items-center justify-center ${
 						show ? 'flex' : 'hidden'
 					}`}>
 					<div className='text-white flex flex-col gap-[15px]'>

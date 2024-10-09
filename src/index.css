@@ -41,14 +41,18 @@ body::-webkit-scrollbar {
 	/* .sidenav_ul li {
 		@apply after:h-[1px] after:mt-2 after:w-full after:bg-bg after:rounded-[16px] after:block;
 	} */
+
 	.sidenav_ul li {
-		@apply font-inter;
+		@apply font-inter text-textColor;
+	}
+	.sidenav_ul li a.active {
+		@apply font-inter  bg-primaryBlue py-[12px] px-[16px] text-white rounded-[6px];
 	}
 	.sidenav_ul li a {
 		@apply flex flex-row items-center  gap-[8px];
 	}
 	.sidenav_ul li a span {
-		@apply text-[14px] font-medium font-inter text-textColor leading-[24px];
+		@apply text-[14px] font-medium font-inter  leading-[24px];
 	}
 	.sidenav_ul li a span:nth-of-type(2) {
 		@apply text-[#344054];

@@ -24,7 +24,7 @@ const TopNav = () => {
 
 				<div className='flex flex-row items-center justify-between w-full gap-[3rem]'>
 					{/* Search Bar */}
-					<div className='flex items-center justify-between ml-[5rem] h-[40px] bg-bg py-[10px] px-[16px] rounded-[7px] flex-grow'>
+					<div className='flex items-center justify-between ml-[8rem] mr-[3rem] h-[40px] bg-bg py-[10px] px-[16px] rounded-[7px] flex-grow'>
 						<span className='text-mediumGray text-[14px]'>
 							<FiSearch />
 						</span>
