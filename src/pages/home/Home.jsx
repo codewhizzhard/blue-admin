@@ -1,13 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import Desktop from './Desktop';
+import Mobile from './Mobile';
 
 const Home = () => {
-  return (
-    <div className="flex justify-center items-center gap-4">
-      <Link to="/login">Login</Link>
-      <Link to="/register">Register</Link>
-    </div>
-  );
+	return (
+		<section className='w-full'>
+			<div className='lg:flex'>
+				<Desktop />
+			</div>
+			<div className='flex lg:hidden'>
+				<Mobile />
+			</div>
+		</section>
+	);
 };
 
 export default Home;
