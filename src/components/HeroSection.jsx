@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
-    <div className="py-4">
+    <div className="">
       <section className="desktopHero px-14 pt-7 rounded-xl">
         <Link to="/">
           <img src={logo} alt="logo" className="w-[108px] h-[43px]" />
