@@ -12,6 +12,7 @@ import axios from "axios";
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email format")
+    .transform((value) => value.toLowerCase())
     .required("Email is required"),
   password: Yup.string().required("Password is required"),
 });

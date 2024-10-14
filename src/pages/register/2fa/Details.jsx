@@ -96,7 +96,7 @@ const OTP = () => {
   const handleResendOtp = async () => {
     try {
       const response = await axios.post(
-        "https://back-end-slwn.onrender.com/api/v1/user/resend-otp",
+        "https://back-end-slwn.onrender.com/api/v1/user/reset-password",
         { email }
       );
       if (response.status === 200) {
@@ -110,7 +110,7 @@ const OTP = () => {
         throw new Error("Failed to resend OTP.");
       }
     } catch (error) {
-      handleError(error);
+      toast.error("Pls retry after 5 mins");
     }
   };
 
