@@ -20,7 +20,8 @@ const ResetPasswordForm = () => {
         "https://back-end-slwn.onrender.com/api/v1/user/reset-password",
         values
       );
-      const email = values.email;
+      // const email = values.email;
+      const email = values.email.toLowerCase();
       await completeForgetPassword();
 
       // Handle success response

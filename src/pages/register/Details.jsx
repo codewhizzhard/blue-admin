@@ -154,7 +154,10 @@ const Details = () => {
   const { completeRVerification } = useAuth();
 
   const validationSchema = Yup.object({
-    email: Yup.string().email("Invalid email").required("Email is required"),
+    email: Yup.string()
+      .email("Invalid email")
+      .transform((value) => value.toLowerCase())
+      .required("Email is required"),
     password: Yup.string()
       .min(8, "Password must be at least 8 characters")
       .matches(/[0-9]/, "Password must contain a number")

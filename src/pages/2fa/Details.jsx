@@ -117,7 +117,7 @@ const OTP = () => {
         throw new Error("Failed to resend OTP.");
       }
     } catch (error) {
-      toast.error("Resending OTP failed. Please try again.");
+      toast.error("Pls retry after 5 mins");
     }
   };
 
