@@ -9,53 +9,70 @@ import "../../Styles.css";
 import Loader from "../../utils/Loader";
 import { useAuth } from "../../router/AuthContext";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Custom reusable form for registration
 const RegistrationForm = ({ formik, formType, loading }) => (
-  <form onSubmit={formik.handleSubmit}>
-    {formType === "students" && (
-      <>
-        <FormField formik={formik} name="schoolName" label="School Name" />
-        <FormField
-          formik={formik}
-          name="matricNo"
-          label="Registration Number"
-        />
-      </>
-    )}
-    {formType === "others" && (
-      <>
-        <FormField formik={formik} name="firstName" label="First Name" />
-        <FormField formik={formik} name="surName" label="Last Name" />
-      </>
-    )}
-    <FormField formik={formik} name="email" label="Email" type="email" />
-    <PasswordField formik={formik} name="password" label="New Password" />
-    <PasswordField formik={formik} name="cPassword" label="Confirm Password" />
+  <>
+    <form onSubmit={formik.handleSubmit}>
+      {formType === "students" && (
+        <>
+          <FormField formik={formik} name="schoolName" label="School Name" />
+          <FormField
+            formik={formik}
+            name="matricNo"
+            label="Registration Number"
+          />
+        </>
+      )}
+      {formType === "others" && (
+        <>
+          <FormField formik={formik} name="firstName" label="First Name" />
+          <FormField formik={formik} name="surName" label="Last Name" />
+        </>
+      )}
+      <FormField formik={formik} name="email" label="Email" type="email" />
+      <PasswordField formik={formik} name="password" label="New Password" />
+      <PasswordField
+        formik={formik}
+        name="cPassword"
+        label="Confirm Password"
+      />
 
-    <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 mt-2">
-      <PasswordStrengthIndicator values={formik.values} />
-    </div>
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 mt-2">
+        <PasswordStrengthIndicator values={formik.values} />
+      </div>
 
-    <button
-      type="submit"
-      className={`py-2 px-4 text-center w-full text-white rounded-lg mt-3 ${
-        formik.isValid && formik.dirty
-          ? "bg-blue-600 hover:bg-white hover:text-blue-600 hover:border-2 hover:border-blue-600"
-          : "bg-blue-400 cursor-not-allowed"
-      }`}
-      disabled={!formik.isValid || !formik.dirty || loading}
-    >
-      {loading ? <Loader /> : "Register"}
-    </button>
+      <button
+        type="submit"
+        className={`py-2 px-4 text-center w-full text-white rounded-lg mt-3 ${
+          formik.isValid && formik.dirty
+            ? "bg-blue-600 hover:bg-white hover:text-blue-600 hover:border-2 hover:border-blue-600"
+            : "bg-blue-400 cursor-not-allowed"
+        }`}
+        disabled={!formik.isValid || !formik.dirty || loading}
+      >
+        {loading ? <Loader /> : "Register"}
+      </button>
 
-    <p className="text-[#645d5d] mt-2 text-sm text-center">
-      Already have an account?{" "}
-      <Link to="/login" className="text-blue-600">
-        Login
-      </Link>
-    </p>
-  </form>
+      <p className="text-[#645d5d] mt-2 text-sm text-center">
+        Already have an account?{" "}
+        <Link to="/login" className="text-blue-600">
+          Login
+        </Link>
+      </p>
+    </form>
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      closeOnClick
+      pauseOnHover
+      draggable
+      theme="light"
+    />
+  </>
 );
 
 const PasswordStrengthIndicator = ({ values }) => (
@@ -149,7 +166,6 @@ const PasswordField = ({ formik, name, label, placeholder }) => {
 
 const Details = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null); // Added error state for displaying errors
   const navigate = useNavigate();
   const { completeRVerification } = useAuth();
 
@@ -193,9 +209,12 @@ const Details = () => {
         );
         const email = values.email;
         await completeRVerification();
+        toast.success(
+          "Registration successful! Check your email for verification."
+        );
         navigate("/register-verification", { state: { email } });
       } catch (error) {
-        setError("Error submitting form, please try again later.");
+        toast.error("Error submitting form, please try again later.");
         console.error("Error submitting form", error);
       } finally {
         setLoading(false);
@@ -227,9 +246,12 @@ const Details = () => {
         );
         const email = values.email;
         await completeRVerification();
+        toast.success(
+          "Registration successful! Check your email for verification."
+        );
         navigate("/register-verification", { state: { email } });
       } catch (error) {
-        setError("Error submitting form, please try again later.");
+        toast.error("Error submitting form, please try again later.");
         console.error("Error submitting form", error);
       } finally {
         setLoading(false);
@@ -269,9 +291,6 @@ const Details = () => {
               Others
             </Tab>
           </TabList>
-
-          {error && <p className="text-red-500 text-center mt-2">{error}</p>}
-
           <TabPanel>
             <RegistrationForm
               formik={student}
