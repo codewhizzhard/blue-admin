@@ -12,8 +12,8 @@ import Vector from '../../assets/Vector.png';
 const SideNav = () => {
 	const [show, setshow] = useState(true);
 	return (
-		<div className='w-[222px] bg-white z-50  h-screen fixed  sidenav overflow-scroll'>
-			<div className='relative   py-[3rem]  px-[20px]  flex flex-col gap-[13px] items-cdenter justify-center'>
+		<div className='w-[222px] bg-white z-50  h-full fixed  sidenav overflow-scroll'>
+			<div className='relative  py-[3rem]   px-[20px]  flex flex-col gap-[13px] items-cdenter justify-center'>
 				<div className=' mt-[2rem] bg-white w-full h-full overflow-scroll'>
 					<ul className=' sidenav_ul flex flex-col gap-[20px] justify-center   h-full'>
 						<li className=''>
