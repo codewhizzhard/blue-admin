@@ -57,11 +57,11 @@ const TopNav = () => {
 
 						{/* Profile & Dropdown */}
 						<div className='flex items-center gap-2'>
-							<div className='w-[40px] h-[40px] flex justify-center items-center rounded-full bg-primaryGreen'>
+							<div className='w-[35px] h-[35px] flex justify-center items-center rounded-full bg-primaryGreen'>
 								<span className='text-xl font-bold text-white'>SR</span>
 							</div>
 							<button
-								className='font-inter font-medium text-[14px] flex gap-2 items-center'
+								className='font-Outfit font-medium text-[14px] flex gap-2 items-center'
 								onClick={() => setDropDown(!dropdown)}>
 								Stylish Racon
 								{dropdown ? <FaChevronUp /> : <FaChevronDown />}

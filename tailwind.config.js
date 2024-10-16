@@ -7,6 +7,7 @@ export default {
 				sora: ['Sora', 'sans-serif'],
 				inter: ['Inter', 'sans-serif'],
 				publicSans: ['Public Sans', 'sans-serif'],
+				Outfit: ['Outfit', 'sans-serif'],
 			},
 			colors: {
 				mediumGray: '#5B7083',
