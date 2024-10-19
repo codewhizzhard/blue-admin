@@ -6,7 +6,7 @@ import { FaLink } from 'react-icons/fa';
 import { HiOutlinePhoto } from 'react-icons/hi2';
 import { IoTimeOutline } from 'react-icons/io5';
 import Hero from '../../assets/image 33.jpg';
-import PostBox from '../../Components/Navbars/PostBox';
+import PostBox from '../../Components/PostBox';
 import post1 from '../../assets/post1.png';
 import productImg from '../../assets/product.png';
 import product from '../../assets/product02.png';
@@ -67,7 +67,7 @@ const Desktop = () => {
 											<span>All</span>
 										</Link>
 									</li>
-									<li>
+									<li className='hidden'>
 										<Link to={'/'}>
 											<span>
 												<MdOutlineArticle />

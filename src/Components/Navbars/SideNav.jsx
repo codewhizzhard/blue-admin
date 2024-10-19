@@ -37,7 +37,7 @@ const SideNav = () => {
 						</li>
 
 						<li>
-							<Link to={'/'}>
+							<Link to={'/market'}>
 								<span>
 									<IoCart />
 								</span>
@@ -47,7 +47,7 @@ const SideNav = () => {
 						</li>
 
 						<li>
-							<Link to={'/'}>
+							<Link to={'/network'}>
 								<span>
 									<PiStudent />
 								</span>
