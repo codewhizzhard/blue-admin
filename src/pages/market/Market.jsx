@@ -124,6 +124,9 @@ const Market = () => {
 					<Product />
 					<Product />
 					<Product />
+					<Product />
+					<Product />
+					<Product />
 				</div>
 			</div>
 		</section>

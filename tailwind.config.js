@@ -8,6 +8,7 @@ export default {
 				inter: ['Inter', 'sans-serif'],
 				publicSans: ['Public Sans', 'sans-serif'],
 				Outfit: ['Outfit', 'sans-serif'],
+				Kumbh: ['Kumbh Sans", sans-serif'],
 			},
 			colors: {
 				mediumGray: '#5B7083',
