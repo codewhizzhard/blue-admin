@@ -11,10 +11,23 @@ import { PiUserCircleLight } from 'react-icons/pi';
 import Logo from '../../assets/white_bg_logo.svg';
 
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const TopNav = () => {
 	const [dropdown, setDropDown] = useState(false);
+	const [data, setData] = useState('');
+
+	// useEffect(() => {
+	// 	const userInfo = () => {
+	// 		try {
+	// 			axios.get()
+	// 		} catch (error) {
+
+	// 		}
+	// 	}
+	// },[])
+
 	return (
 		<nav className=' z-50 fixed topnav  bg-white w-full h-[67px] py-[10px] px-[5px]  shadow-bg shadow resize-none'>
 			<header className='flex flex-row items-center justify-between h-full w-full px-4'>
@@ -58,12 +71,20 @@ const TopNav = () => {
 						{/* Profile & Dropdown */}
 						<div className='flex items-center gap-2'>
 							<div className='w-[35px] h-[35px] flex justify-center items-center rounded-full bg-primaryGreen'>
+<<<<<<< HEAD
 								<span className='text-[14px] font-bold font-Outfit text-white'>
+=======
+								<span className='text-[14px] font-Outfit font-bold text-white'>
+>>>>>>> problem
 									SR
 								</span>
 							</div>
 							<button
+<<<<<<< HEAD
 								className='font-Outfit font-medium text-[14px] flex gap-2 text-textColor items-center'
+=======
+								className='font-Outfit font-medium text-[14px] text-textColor flex gap-2 items-center'
+>>>>>>> problem
 								onClick={() => setDropDown(!dropdown)}>
 								Stylish Racon
 								{dropdown ? <FaChevronUp /> : <FaChevronDown />}
