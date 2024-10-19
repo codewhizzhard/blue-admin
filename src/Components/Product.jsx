@@ -1,5 +1,6 @@
 import React from 'react';
-import StarRating from '@mil-rlib/reactjs-star-rating';
+
+import StarRating from 'reactjs-star-rating';
 import ProductImg from '../assets/productImg.png';
 const Product = () => {
 	return (
@@ -25,6 +26,18 @@ const Product = () => {
 					<span>Muhammed Salam</span>
 				</p>
 				<span>#shop</span>
+				<p className='flex items-center gap-2'>
+					<StarRating
+						color='#DBDBDB'
+						showLabel={false}
+						size={20}
+						defaultRating={2}
+						maxRating={5}
+						onSetRating={(rating) => console.log(rating)}
+						className=''
+					/>
+					<span className='text-[11px] text-mediumGray'>(7 Avaliable)</span>
+				</p>
 			</figcaption>
 		</figure>
 	);
