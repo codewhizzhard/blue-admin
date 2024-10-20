@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Loader from "../../utils/Loader";
 import { FaCheckCircle, FaEye, FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
-import { useAuth } from "../../router/AuthContext";
+import { useAuth } from "../../context/ProtectedRouteContext";
 
 // Password validation schema using Yup
 const SignupSchema = Yup.object().shape({

@@ -1,9 +1,9 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../router/AuthContext";
 import MobileHero from "../../components/MobileHero";
 import HeroSection from "../../components/HeroSection";
 import Details from "./Details";
+import { useAuth } from "../../context/ProtectedRouteContext";
 
 const Fa = () => {
   const location = useLocation();
