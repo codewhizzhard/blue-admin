@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import axios from "axios"; // Import Axios
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../../utils/Loader";
-import { useAuth } from "../../router/AuthContext";
+import { useAuth } from "../../context/ProtectedRouteContext";
 
 // ResetPasswordForm Component using Formik
 const ResetPasswordForm = () => {

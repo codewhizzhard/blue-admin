@@ -7,10 +7,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import "../../Styles.css";
 import Loader from "../../utils/Loader";
-import { useAuth } from "../../router/AuthContext";
+import { useAuth } from "../../context/ProtectedRouteContext";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 // Custom reusable form for registration
 const RegistrationForm = ({ formik, formType, loading }) => (
@@ -168,6 +169,7 @@ const Details = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { completeRVerification } = useAuth();
+  const { dispatch } = useAuthContext();
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -207,12 +209,16 @@ const Details = () => {
           "https://back-end-slwn.onrender.com/api/v1/user/register/others",
           values
         );
-        const email = values.email;
+        const json = response.data;
         await completeRVerification();
         toast.success(
           "Registration successful! Check your email for verification."
         );
-        navigate("/register-verification", { state: { email } });
+        // Save to local storage
+        localStorage.setItem("user", JSON.stringify(json));
+        // Update auth context
+        dispatch({ type: "SIGNUP", payload: json });
+        navigate("/register-verification");
       } catch (error) {
         toast.error("Error submitting form, please try again later.");
         console.error("Error submitting form", error);
@@ -244,12 +250,14 @@ const Details = () => {
           "https://back-end-slwn.onrender.com/api/v1/user/register/student",
           values
         );
-        const email = values.email;
+        const json = response.data;
         await completeRVerification();
         toast.success(
           "Registration successful! Check your email for verification."
         );
-        navigate("/register-verification", { state: { email } });
+        localStorage.setItem("user", JSON.stringify(json));
+        dispatch({ type: "SIGNUP", payload: json });
+        navigate("/register-verification");
       } catch (error) {
         toast.error("Error submitting form, please try again later.");
         console.error("Error submitting form", error);
