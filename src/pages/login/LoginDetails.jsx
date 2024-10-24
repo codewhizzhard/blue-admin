@@ -43,7 +43,7 @@ const LoginDetails = () => {
       // Redirect after a short delay
       setTimeout(() => {
         navigate("/");
-      }, 1500);
+      }, 2000);
     } catch (error) {
       // Handle error response from API or network
       const errorMessage =
