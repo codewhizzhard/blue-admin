@@ -4,11 +4,11 @@ export const AuthContext = createContext();
 
 export const authReducer = (state, action) => {
   switch (action.type) {
-    case "SIGNUP":
-      return { user: action.payload };
     case "LOGIN":
+      localStorage.setItem("user", JSON.stringify(action.payload)); // Store user in localStorage
       return { user: action.payload };
     case "LOGOUT":
+      localStorage.removeItem("user"); // Remove user from localStorage
       return { user: null };
     default:
       return state;
@@ -17,10 +17,8 @@ export const authReducer = (state, action) => {
 
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
-    user: null,
+    user: JSON.parse(localStorage.getItem("user")) || null, // Get user from localStorage if available
   });
-
-  console.log("AuthContext state: ", state);
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>

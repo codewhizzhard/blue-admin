@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/ProtectedRouteContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 // Protected route for the 2fa verification page (forget password)
 export const ProtectedRouteForVerification = ({ children }) => {
@@ -27,4 +28,12 @@ export const ProtectedRouteForRVerification = ({ children }) => {
 
   // Allow access to the children if verification is completed, otherwise redirect to password
   return isRVerificationCompleted ? children : <Navigate to="/register" />;
+};
+
+// Protected route for profile page
+export const ProtectedRouteForProfile = ({ children }) => {
+  const { user } = useAuthContext();
+
+  // Allow access to the children if verification is completed, otherwise redirect to password
+  return user !== null ? children : <Navigate to="/login" />;
 };

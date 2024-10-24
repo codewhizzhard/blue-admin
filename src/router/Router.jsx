@@ -7,10 +7,12 @@ import ResetPassword from "../pages/resetPassword/ResetPassword";
 import Fa from "../pages/2fa/Fa";
 import RFa from "../pages/register/2fa/Fa";
 import {
+  ProtectedRouteForProfile,
   ProtectedRouteForResetPassword,
   ProtectedRouteForRVerification,
   ProtectedRouteForVerification,
 } from "./ProtectedRoute";
+import Profile from "../pages/profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
       {
         path: "/forget-password",
         element: <ForgetPassword />,
+      },
+      {
+        path: "/profile",
+        element: (
+          <ProtectedRouteForProfile>
+            <Profile />
+          </ProtectedRouteForProfile>
+        ),
       },
       {
         path: "/reset-password",
