@@ -8,64 +8,55 @@ import "react-toastify/dist/ReactToastify.css";
 import User from "../../../assets/user.jfif";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 
-const EditProfile = () => {
-  const { user, dispatch } = useAuthContext(); // Access dispatch to update user context
-
-  const [isEditable, setIsEditable] = useState(false);
-  const [profileImage, setProfileImage] = useState(
-    user?.user.moreAboutUser.profilePicture || User
-  ); // Initialize with user's current image or default
-  const [loading, setLoading] = useState(false);
+// Custom hook to handle image selection and conversion to base64
+const useImageHandler = (initialImage) => {
+  const [image, setImage] = useState(initialImage);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    
-    if (!file) return; // If no file is selected, exit early
-    
-    const fileSizeLimit = 5 * 1024 * 1024; // 5MB limit
-  
-    // Check for valid image types
-    if (!["image/jpeg", "image/png"].includes(file.type)) {
-      toast.error("Please upload a valid image (JPEG or PNG).");
-      setProfileImage(User); // Reset to default image on invalid file
-      return;
+    if (file) {
+      const fileSizeLimit = 5 * 1024 * 1024; // 5MB limit
+      if (!["image/jpeg", "image/png"].includes(file.type)) {
+        toast.error("Please upload a valid image (JPEG or PNG).");
+        return;
+      }
+      if (file.size > fileSizeLimit) {
+        toast.error("File size exceeds the limit of 5MB.");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result.toString()); // This will be a base64 string
+      };
+      reader.readAsDataURL(file);
     }
-  
-    // Check file size
-    if (file.size > fileSizeLimit) {
-      toast.error("File size exceeds the limit of 5MB.");
-      setProfileImage(User); // Reset to default image on oversized file
-      return;
-    }
-  
-    // If valid, read the file as base64
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setProfileImage(reader.result.toString()); // Set base64 string as profile image
-    };
-  
-    reader.onerror = () => {
-      toast.error("Error reading file. Please try again.");
-    };
-  
-    reader.readAsDataURL(file); // Read file
   };
-  console.log(profileImage)
 
-  const profilePicture = profileImage
-  
+  return [image, handleImageChange, setImage];
+};
+
+const EditProfile = () => {
+  const { user, dispatch } = useAuthContext(); // Access dispatch to update user context
+  const [isEditable, setIsEditable] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Use the custom hook to handle profile image selection and conversion
+  const [profileImage, handleImageChange, setImage] = useImageHandler(
+    user?.user?.moreAboutUser?.profilePicture || User
+  );
+
   const formik = useFormik({
     initialValues: {
-      firstName: user?.user.firstName || "",
-      surName: user?.user.surName || "",
-      userName: user?.user.moreAboutUser.userName || "",
-      email: user?.user.email || "",
-      dateOfBirth: user?.user.moreAboutUser.dateOfBirth || "",
-      currentAddress: user?.user.moreAboutUser.currentAddress || "",
-      permanentAddress: user?.user.moreAboutUser.permanentAddress || "",
-      city: user?.user.moreAboutUser.city || "",
-      postalCode: user?.user.moreAboutUser.postalCode || "",
-      country: user?.user.moreAboutUser.country || "Nigeria",
+      firstName: user?.user?.firstName || "",
+      surName: user?.user?.surName || "",
+      userName: user?.user?.moreAboutUser?.userName || "",
+      email: user?.user?.email || "",
+      dateOfBirth: user?.user?.moreAboutUser?.dateOfBirth || "",
+      currentAddress: user?.user?.moreAboutUser?.currentAddress || "",
+      permanentAddress: user?.user?.moreAboutUser?.permanentAddress || "",
+      city: user?.user?.moreAboutUser?.city || "",
+      postalCode: user?.user?.moreAboutUser?.postalCode || "",
+      country: user?.user?.moreAboutUser?.country || "Nigeria",
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required("First Name is required"),
@@ -84,12 +75,12 @@ const EditProfile = () => {
     onSubmit: async (values) => {
       setLoading(true);
       try {
-        const token = user?.user.token;
+        const token = user?.user?.token;
 
         // Make the API request to update profile
-        const response = await axios.post(
+        await axios.post(
           "https://back-end-slwn.onrender.com/api/v1/user/update-profile",
-          { values, profilePicture }, // Send the base64 profile image
+          { ...values, profilePicture: profileImage }, // Send the base64 profile image
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -150,7 +141,7 @@ const EditProfile = () => {
             src={
               isEditable && profileImage
                 ? profileImage
-                : user?.user.moreAboutUser.profilePicture || User
+                : user?.user?.moreAboutUser?.profilePicture || User
             }
             alt="user_image"
             className="object-cover w-full h-full rounded-full"
