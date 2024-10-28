@@ -77,7 +77,6 @@ const EditProfile = () => {
         const token = user?.user?.token;
 
         // Make the API request to update profile
-         console.log("myimage",profileImage)
         await axios.post(
           "https://back-end-slwn.onrender.com/api/v1/user/update-profile",
           { ...values, profilePicture: profileImage}, // Send the base64 profile image
@@ -140,8 +139,8 @@ const EditProfile = () => {
           <img
              src={
               isEditable && profileImage
-                ? `data:image/jpeg;base64,${profileImage}`
-                : `data:image/jpeg;base64,${user?.user?.moreAboutUser?.profilePicture}` || User
+                ? profileImage
+                : user?.user?.moreAboutUser?.profilePicture || User
             }
             alt="user_image"
             className="object-cover w-full h-full rounded-full"
