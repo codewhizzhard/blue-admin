@@ -138,12 +138,11 @@ const EditProfile = () => {
       <div className="relative w-[20%]">
         <div className="rounded-full w-44 h-44 relative">
           <img
-            src={`data:image/jpeg;base64,${profileImage}`}
-            {/* src={
+             src={
               isEditable && profileImage
-                ? `data:image/jpeg;base64,${profileImage}`
+                ? profileImage
                 : user?.user?.moreAboutUser?.profilePicture || User
-            } */}
+            }
             alt="user_image"
             className="object-cover w-full h-full rounded-full"
           />
