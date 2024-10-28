@@ -140,7 +140,7 @@ const EditProfile = () => {
           <img
             src={
               isEditable && profileImage
-                ? profileImage
+                ? `${"data:image/jpeg;base64,"}${profileImage}`
                 : user?.user?.moreAboutUser?.profilePicture || User
             }
             alt="user_image"
