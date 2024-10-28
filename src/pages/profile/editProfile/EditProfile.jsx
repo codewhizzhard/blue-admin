@@ -80,7 +80,7 @@ const EditProfile = () => {
         // Make the API request to update profile
         await axios.post(
           "https://back-end-slwn.onrender.com/api/v1/user/update-profile",
-          { ...values, profilePicture: profileImage }, // Send the base64 profile image
+          { ...values, profilePicture: `data:image/jpeg;base64,${profileImage}`}, // Send the base64 profile image
           {
             headers: {
               Authorization: `Bearer ${token}`,
