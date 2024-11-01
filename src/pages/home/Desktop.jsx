@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineArticle } from 'react-icons/md';
 import { MdSlowMotionVideo } from 'react-icons/md';
@@ -11,7 +11,22 @@ import post1 from '../../assets/post1.png';
 import productImg from '../../assets/product.png';
 import product from '../../assets/product02.png';
 import { BsCart2 } from 'react-icons/bs';
+import axios from 'axios';
+import Loader from '../../utils/Loader';
 const Desktop = () => {
+	const [data, setData] = useState();
+	const [post, setPost] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
+
+	// pulling the connections
+	useEffect(() => {
+		if (localStorage.getItem('user')) {
+			const foundUser = JSON.parse(localStorage.getItem('user'));
+			setData(foundUser.user);
+		}
+	}, []);
+
 	return (
 		<section className='w-full'>
 			<div className=' flex flex-row gap-[12px] w-full  rounded-[20px]  '>
@@ -105,54 +120,14 @@ const Desktop = () => {
 					</div>
 
 					<div className='flex flex-col gap-[12px]'>
-						<PostBox
-							name={'Esther Isreal'}
-							username={'@estherisreal'}
-							connected={'connected'}
-							desc={
-								'Stay curious and keep learning. Gain insights, stay informed, and connect with others to make your journey smoother. Success comes from knowledge and collaboration! '
-							}
-							comment={'61'}
-							time={'30 min'}
-							hashtags={[
-								'#StayInformed',
-								'#SuccessJourney',
-								'#ConnectAndGrow',
-								'#KeepLearning',
-							]}
-							download={'61'}
-							retweet={'61'}
-							likes={'2.9K'}
-							bookmark={'61'}
-						/>
-						<PostBox
-							name={'Muhammed Salam'}
-							username={'@muhammedsalam'}
-							connected={'connect'}
-							desc={
-								'Thrilled to collaborate with senior designers at Malhub! Exciting projects and learning experiences ahead. Stay tuned!  💗 '
-							}
-							img={post1}
-							comment={'61'}
-							time={'30 min'}
-							hashtags={[
-								'#StayInformed',
-								'#SuccessJourney',
-								'#ConnectAndGrow',
-								'#KeepLearning',
-							]}
-							download={'61'}
-							retweet={'61'}
-							likes={'2.9K'}
-							bookmark={'61'}
-						/>
+						<PostBox />
 					</div>
 				</div>
 				<div className='bg-bg max-w-[366px] w-full h-full   rounded-[20px] flex flex-col gap-[17px] '>
 					<div className='grid grid-cols-2 gap-[16px]'>
 						<div className='py-[12px] px-[14px] bg-white  rounded-[20px] flex gap-[4px] flex-col justify-center '>
 							<h1 className='font-sora font-semibold text-[20px] text-primaryBlue'>
-								567
+								{data?.connected.length}
 							</h1>
 							<p>
 								<span className='font-inter text-[14px] font-medium text-textColor'>
@@ -168,7 +143,7 @@ const Desktop = () => {
 						</div>
 						<div className='py-[12px] px-[14px] bg-white  rounded-[20px] flex gap-[4px] flex-col justify-center '>
 							<h1 className='font-sora font-semibold text-[20px] text-primaryBlue'>
-								38
+								{data?.connections.length}
 							</h1>
 							<p>
 								<span className='font-inter text-[14px] font-medium text-textColor'>

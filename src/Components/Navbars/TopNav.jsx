@@ -9,28 +9,26 @@ import { FiSearch } from 'react-icons/fi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { PiUserCircleLight } from 'react-icons/pi';
 import Logo from '../../assets/white_bg_logo.svg';
-
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
-
 const TopNav = () => {
 	const [dropdown, setDropDown] = useState(false);
-	// const [data, setData] = useState('');
 
-	// useEffect(() => {
-	// 	const userInfo = () => {
-	// 		try {
-	// 			axios.get()
-	// 		} catch (error) {
+	const [data, setData] = useState('');
+	// const navigate = useNavigate();
+	useEffect(() => {
+		if (localStorage.getItem('user')) {
+			const foundUser = JSON.parse(localStorage.getItem('user'));
+			setData(foundUser.user);
+		}
+	}, []);
 
-	// 		}
-	// 	}
-	// },[])
+	const { surName, firstName } = data;
 
 	return (
 		<nav className=' z-50 fixed topnav  bg-white w-full h-[67px] py-[10px] px-[5px]  shadow-bg shadow resize-none'>
 			<header className='flex flex-row items-center justify-between h-full w-full px-4'>
-				<Link to={'/home'}>
+				<Link to={'/'}>
 					<img src={Logo} alt='Logo' className='w-[82px]' />
 				</Link>
 
@@ -71,13 +69,13 @@ const TopNav = () => {
 						<div className='flex items-center gap-2'>
 							<div className='w-[35px] h-[35px] flex justify-center items-center rounded-full bg-primaryGreen'>
 								<span className='text-[14px] font-Outfit font-bold text-white'>
-									SR
+									{data ? firstName[0] + surName[0] : 'SR'}
 								</span>
 							</div>
 							<button
 								className='font-Outfit font-medium text-[14px] text-textColor flex gap-2 items-center'
 								onClick={() => setDropDown(!dropdown)}>
-								Stylish Racon
+								{data ? `${firstName}  ${surName} ` : 'Stylish Racon'}
 								{dropdown ? <FaChevronUp /> : <FaChevronDown />}
 							</button>
 

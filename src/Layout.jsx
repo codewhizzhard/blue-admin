@@ -1,14 +1,29 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import SideNav from './Components/Navbars/SideNav';
 import TopNav from './Components/Navbars/TopNav';
 
 const Layout = () => {
+	const [data, setData] = useState([]);
+	const navigate = useNavigate();
+	useEffect(() => {
+		const userInfo = () => {
+			try {
+				if (localStorage.getItem('user')) {
+					setData(JSON.parse(localStorage.getItem('user')));
+					console.log('userFound');
+				} else {
+					console.log('User not found');
+				}
+			} catch (error) {}
+		};
+		userInfo();
+	}, []);
 	return (
 		<div className='flex w-full bg-bg'>
 			<SideNav />
 			<main className='w-full bg-bg '>
-				<TopNav />
+				<TopNav datda={data} />
 				<div className='ml-[14.5rem] mt-[5rem] mx-[10px]'>
 					<Outlet />
 				</div>
