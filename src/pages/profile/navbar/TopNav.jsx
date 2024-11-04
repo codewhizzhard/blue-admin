@@ -1,4 +1,4 @@
-import Logo from "/logo.svg";
+import Logo from "/white_bg_logo.svg";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { PiHeadphones } from "react-icons/pi";
 import { MdWorkspacePremium } from "react-icons/md";
@@ -6,7 +6,7 @@ import { SiLimesurvey } from "react-icons/si";
 import { FaRegEnvelope, FaSearch } from "react-icons/fa";
 import { HiOutlineStatusOnline } from "react-icons/hi";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import profileImage from "../../../assets/user.jfif";
+import User from "../../../assets/user.jfif";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 
 const TopNav = () => {
@@ -61,7 +61,11 @@ const TopNav = () => {
         </div>
         <div className="rounded-full bg-white p-1 w-10 h-10">
           <img
-            src={user?.user.moreAboutUser.profilePicture || profileImage}
+            src={
+              User
+                ? `data:image/jpg;base64,/${user.user.moreAboutUser?.profilePicture}`
+                : User
+            }
             alt="user_image"
             className="object-cover w-full h-full rounded-full"
           />
