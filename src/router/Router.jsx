@@ -9,10 +9,12 @@ import RFa from '../pages/register/2fa/Fa';
 import Layout from '../Layout';
 import Home from '../pages/home/Home';
 import Market from '../pages/market/Market';
+import Profile from '../pages/profile/Profile';
 import {
 	ProtectedRouteForResetPassword,
 	ProtectedRouteForRVerification,
 	ProtectedRouteForVerification,
+	ProtectedRouteForProfile,
 } from './ProtectedRoute';
 
 const router = createBrowserRouter([
@@ -63,6 +65,14 @@ const router = createBrowserRouter([
 					<ProtectedRouteForVerification>
 						<Fa />
 					</ProtectedRouteForVerification>
+				),
+			},
+			{
+				path: '/profile',
+				element: (
+					<ProtectedRouteForProfile>
+						<Profile />
+					</ProtectedRouteForProfile>
 				),
 			},
 			{
