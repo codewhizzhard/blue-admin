@@ -44,7 +44,6 @@ const EditProfile = () => {
   const { image: profileImage, handleImageChange } = useImageHandler(
     user?.user?.moreAboutUser?.profilePicture || User
   );
-
   const formik = useFormik({
     initialValues: {
       firstName: user?.user?.firstName || "",
@@ -79,6 +78,7 @@ const EditProfile = () => {
         await axios.post(
           "https://back-end-slwn.onrender.com/api/v1/user/update-profile",
           { ...values, profilePicture: profileImage },
+
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -134,6 +134,7 @@ const EditProfile = () => {
               User
                 ? `data:image/jpg;base64,/${user.user.moreAboutUser?.profilePicture}`
                 : User
+
             }
             alt="user_image"
             className="object-cover w-full h-full rounded-full"
