@@ -4,60 +4,45 @@ import { IoMdHeart, IoMdHeartDislike } from 'react-icons/io';
 import { BsDownload } from 'react-icons/bs';
 import { CiBookmark } from 'react-icons/ci';
 import { useEffect, useState } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
 import axios from 'axios';
 const PostBox = () => {
-	const [data, setData] = useState('');
+	const { user, dispatch } = useAuthContext();
+	// const [token, setToken] = useState([]);
 	const [post, setPost] = useState([]);
-	// const [id, setId] = useState('');
+	console.log(user);
 	const url =
 		'https://back-end-slwn.onrender.com/api/v1/user/post/general/all-post';
 
 	// pulling the connections
-	const getUser = localStorage.getItem('user');
+
 	useEffect(() => {
-		if (getUser) {
-			const foundUser = JSON.parse(localStorage.getItem('user'));
-			return setData(foundUser.user);
-		}
-	}, []);
-	console.log(data?.token);
-	// token
-	useEffect(() => {
-		const token = data?.token;
-		console.log(token);
+		// if (localStorage.getItem('user')) {
+
+		// 	// setToken(foundUser.user);
+		// }
 		const postRequest = async () => {
-			// const res = await axios
-			// 	.get(url, {
-			// 		headers: {
-			// 			'Content-Type': 'application/json',
-			// 			Authorization: `Bearer ${token}`,
-			// 		},
-			// 		body: JSON.stringify({ data }),
-			// 	})
-			// 	.then((res) => {
-			// 		setPost(res.data.posts);
-			// 	})
-			// 	.catch((err) => {
-			// 		console.log(err.message);
-			// 	});
+			const foundUser = JSON.parse(localStorage.getItem('user'));
+			console.log(foundUser?.token);
+			// console.log(foundUser);
 			const res = await axios
-				.get(url, data, {
+				.get(url, {
 					headers: {
 						'Content-Type': 'application/json',
-						Authorization: `Bearer ${token}`,
+						Authorization: `Bearer ${foundUser?.token}`,
 					},
 				})
-				.then((data) => {
-					console.log(data);
+				.then((result) => {
+					setPost(result);
+					console.log(result);
 				})
 				.catch((err) => {
 					console.log(err);
 				});
-			// console.log(res.data);
 		};
 		postRequest();
 	}, []);
-	console.log(post);
+	// console.log(post);
 	return (
 		<>
 			{post.map((post) => {
