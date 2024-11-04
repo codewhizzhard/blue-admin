@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import SideNav from './Components/Navbars/SideNav';
-import TopNav from './Components/Navbars/TopNav';
+import SideNav from './components/Navbars/SideNav';
+import TopNav from './components/Navbars/TopNav';
 
 const Layout = () => {
 	const [data, setData] = useState([]);

@@ -6,18 +6,13 @@ import { FaLink } from 'react-icons/fa';
 import { HiOutlinePhoto } from 'react-icons/hi2';
 import { IoTimeOutline } from 'react-icons/io5';
 import Hero from '../../assets/image 33.jpg';
-import PostBox from '../../Components/PostBox';
+import PostBox from './PostBox';
 import post1 from '../../assets/post1.png';
 import productImg from '../../assets/product.png';
 import product from '../../assets/product02.png';
 import { BsCart2 } from 'react-icons/bs';
-import axios from 'axios';
-import Loader from '../../utils/Loader';
 const Desktop = () => {
 	const [data, setData] = useState();
-	const [post, setPost] = useState([]);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(false);
 
 	// pulling the connections
 	useEffect(() => {

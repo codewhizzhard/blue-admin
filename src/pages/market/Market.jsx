@@ -1,5 +1,5 @@
 import React from 'react';
-import Product from '../../Components/Product';
+import Product from '../../components/Product';
 import MarketSideBar from './MarketSideBar';
 
 const Market = () => {
