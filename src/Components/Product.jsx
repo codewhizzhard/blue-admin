@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StarRating from 'reactjs-star-rating';
+// import StarRating from 'reactjs-star-rating';
 import ProductImg from '../assets/productImg.png';
 const Product = () => {
 	return (
@@ -33,7 +33,7 @@ const Product = () => {
 				</p>
 				<span className='text-[11px] font-medium text-[#11B833]'>#shop</span>
 				<p className='flex items-center gap-2'>
-					<StarRating
+					{/* <StarRating
 						color='#DBDBDB'
 						showLabel={false}
 						size={20}
@@ -41,7 +41,7 @@ const Product = () => {
 						maxRating={5}
 						onSetRating={(rating) => console.log(rating)}
 						className=''
-					/>
+					/> */}
 					<span className='text-[11px] text-mediumGray'>(7 Avaliable)</span>
 				</p>
 			</figcaption>

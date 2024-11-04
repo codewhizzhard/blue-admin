@@ -10,26 +10,33 @@ import Layout from '../Layout';
 import Home from '../pages/home/Home';
 import Market from '../pages/market/Market';
 import {
-	ProtectedRouteForProfile,
 	ProtectedRouteForResetPassword,
 	ProtectedRouteForRVerification,
 	ProtectedRouteForVerification,
 } from './ProtectedRoute';
-// import Profile from "../pages/profile/Profile";
-// 	ProtectedRouteForResetPassword,
-// 	ProtectedRouteForRVerification,
-// 	ProtectedRouteForVerification,
-// } from './ProtectedRoute';
 
 const router = createBrowserRouter([
 	{
+		// element: <App />,
 		path: '/',
-		element: <App />,
+
+		element: <Layout />,
+
 		children: [
 			{
-				path: '/',
+				index: true,
 				element: <Home />,
 			},
+			{
+				path: '/market',
+				element: <Market />,
+			},
+		],
+	},
+	{
+		// path: '/login',
+		element: <App />,
+		children: [
 			{
 				path: '/login',
 				element: <Login />,

@@ -20,6 +20,7 @@
     "react-spinners": "^0.14.1",
     "react-tabs": "^6.0.2",
     "react-toastify": "^10.0.5",
+    "rollup": "^4.24.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {
