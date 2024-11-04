@@ -1,4 +1,4 @@
-import profileImage from "../../../assets/user.jfif";
+import User from "../../../assets/user.jfif";
 
 import { GrHome } from "react-icons/gr";
 import { IoCart, IoWalletOutline } from "react-icons/io5";
@@ -32,7 +32,11 @@ const SideBar = () => {
       <div className="bg-white flex flex-col justify-center items-center py-5 rounded-2xl">
         <div className="rounded-full bg-white p-1 w-20 h-20">
           <img
-            src={user.user.moreAboutUser?.profilePicture || profileImage}
+            src={
+              User
+                ? `data:image/jpg;base64,/${user.user.moreAboutUser?.profilePicture}`
+                : User
+            }
             alt="user_image"
             className="object-cover w-full h-full rounded-full"
           />

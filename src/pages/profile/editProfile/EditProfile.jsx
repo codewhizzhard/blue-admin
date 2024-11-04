@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import User from "../../../assets/user.jfif";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 
-// Custom hook to handle image selection and conversion to base64
+// Custom hook for image handling
 const useImageHandler = (initialImage) => {
   const [image, setImage] = useState(initialImage);
 
@@ -26,22 +26,22 @@ const useImageHandler = (initialImage) => {
       }
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result.toString()); // This will be a base64 string
+        const base64String = reader.result.toString();
+        setImage(base64String);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  return [image, handleImageChange, setImage];
+  return { image, handleImageChange, setImage };
 };
 
 const EditProfile = () => {
-  const { user, dispatch } = useAuthContext(); // Access dispatch to update user context
+  const { user, dispatch } = useAuthContext();
   const [isEditable, setIsEditable] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Use the custom hook to handle profile image selection and conversion
-  const [profileImage, handleImageChange, setImage] = useImageHandler(
+  const { image: profileImage, handleImageChange } = useImageHandler(
     user?.user?.moreAboutUser?.profilePicture || User
   );
 
@@ -76,11 +76,9 @@ const EditProfile = () => {
       setLoading(true);
       try {
         const token = user?.user?.token;
-
-        // Make the API request to update profile
         await axios.post(
           "https://back-end-slwn.onrender.com/api/v1/user/update-profile",
-          { ...values, profilePicture: profileImage }, // Send the base64 profile image
+          { ...values, profilePicture: profileImage },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -103,21 +101,17 @@ const EditProfile = () => {
               permanentAddress: values.permanentAddress,
               city: values.city,
               postalCode: values.postalCode,
-              profilePicture: profileImage, // Update profile image if necessary
+              profilePicture: profileImage,
             },
           },
         };
 
-        // Update localStorage with the new user data
         localStorage.setItem("user", JSON.stringify(updatedUser));
-
-        // Update the context with the new user data
         dispatch({ type: "LOGIN", payload: updatedUser });
-
         toast.success("Profile Updated Successfully!");
       } catch (error) {
         toast.error("Error updating profile.");
-        console.error(error);
+        console.log(error)
       } finally {
         setLoading(false);
         setIsEditable(false);
@@ -131,17 +125,15 @@ const EditProfile = () => {
 
   return (
     <div className="flex gap-5 justify-center">
-      {/* Toast Container */}
       <ToastContainer />
 
-      {/* Profile Image Section */}
       <div className="relative w-[20%]">
         <div className="rounded-full w-44 h-44 relative">
           <img
             src={
-              isEditable && profileImage
-                ? profileImage
-                : user?.user?.moreAboutUser?.profilePicture || User
+              User
+                ? `data:image/jpg;base64,/${user.user.moreAboutUser?.profilePicture}`
+                : User
             }
             alt="user_image"
             className="object-cover w-full h-full rounded-full"
@@ -166,7 +158,6 @@ const EditProfile = () => {
         </div>
       </div>
 
-      {/* Profile Form */}
       <div className="w-[80%]">
         <form onSubmit={formik.handleSubmit}>
           <div className="grid grid-cols-2 gap-3">
@@ -189,27 +180,28 @@ const EditProfile = () => {
               { label: "City", name: "city", type: "text" },
               { label: "Zip/Postal Code", name: "postalCode", type: "number" },
               { label: "Country", name: "country", type: "text" },
-            ].map(({ label, name, type }) => (
-              <div key={name} className="flex flex-col">
-                <span>{label}</span>
-                <input
-                  type={type}
-                  name={name}
-                  className={`border-2 rounded-2xl px-4 py-2 outline-0 ${
-                    formik.touched[name] && formik.errors[name]
-                      ? "border-red-500"
-                      : "border-blue-200"
-                  }`}
-                  value={formik.values[name]}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  disabled={!isEditable}
-                />
-                {formik.touched[name] && formik.errors[name] ? (
-                  <span className="text-red-500">{formik.errors[name]}</span>
-                ) : null}
-              </div>
-            ))}
+            ].map(({ label, name, type }) => {
+              const hasError = formik.touched[name] && formik.errors[name];
+              return (
+                <div key={name} className="flex flex-col">
+                  <span>{label}</span>
+                  <input
+                    type={type}
+                    name={name}
+                    className={`border-2 rounded-2xl px-4 py-2 outline-0 ${
+                      hasError ? "border-red-500" : "border-blue-200"
+                    }`}
+                    value={formik.values[name]}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    disabled={!isEditable}
+                  />
+                  {hasError && (
+                    <span className="text-red-500">{formik.errors[name]}</span>
+                  )}
+                </div>
+              );
+            })}
           </div>
           <div className="flex justify-end gap-5 mt-5">
             <button
