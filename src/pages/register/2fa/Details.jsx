@@ -1,14 +1,14 @@
 import React, { useState, useRef, useCallback } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Loader from "../../../utils/Loader";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 const OTP = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { email } = location.state;
+  const { user } = useAuthContext();
 
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [loading, setLoading] = useState(false);
@@ -62,14 +62,14 @@ const OTP = () => {
       </div>
     );
   };
-
+  const receivedEmail = user?.user.email;
   const submitOtp = async () => {
     try {
       setLoading(true);
       const otpCode = otp.join("");
       const response = await axios.post(
         "https://back-end-slwn.onrender.com/api/v1/user/verify-email",
-        { email, otp: otpCode }
+        { receivedEmail, otp: otpCode }
       );
       setLoading(false);
 
@@ -97,7 +97,7 @@ const OTP = () => {
     try {
       const response = await axios.post(
         "https://back-end-slwn.onrender.com/api/v1/user/reset-password",
-        { email }
+        { receivedEmail }
       );
       if (response.status === 200) {
         toast.info(
@@ -121,7 +121,7 @@ const OTP = () => {
         OTP Verification
       </h1>
       <p className="text-sm font-bold text-blue-700">
-        Code has been sent to {email}
+        Code has been sent to {receivedEmail}
       </p>
       <form
         onSubmit={handleSubmit}
