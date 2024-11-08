@@ -7,12 +7,14 @@ import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import Loader from '../../utils/Loader';
 import axios from 'axios';
+import moment from 'moment';
+import { toast, ToastContainer } from 'react-toastify';
 const PostBox = () => {
 	const { user, dispatch } = useAuthContext();
 	const [post, setPost] = useState([]);
 	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState('');
-	const [img, setImg] = useState('');
+	const [error, setError] = useState(null);
+
 	const url =
 		'https://back-end-slwn.onrender.com/api/v1/user/post/general/all-post';
 	const localUser = JSON.parse(localStorage.getItem('user'));
@@ -22,30 +24,30 @@ const PostBox = () => {
 	};
 	useEffect(() => {
 		try {
-			axios.get(url, config).then((res) => {
-				setPost(res.data.posts);
-				setLoading(false);
-			});
+			axios
+				.get(url, config)
+				.then((res) => {
+					// setLoading(true);
+					setPost(res.data.posts);
+					setLoading(false);
+				})
+				.catch((err) => {
+					setError(err.message);
+					setLoading(false);
+				});
 		} catch (err) {
-			setLoading(false);
 			setError(err);
-
-			console.error(err);
+			setLoading(false);
 		}
 	}, []);
-
-	const imgFun = (img) => {
-		const reader = new FileReader();
-		reader.readAsDataURL(img);
-		// return new Promise((res) => {
-		// 	reader.onloadend = () => {
-		// 		res(reader.result);
-		// 	}
-		// })
-	};
+	toast.error(error, {
+		position: 'top-right',
+	});
+	// console.log(error);
 	console.log(post);
 	return (
 		<>
+			{error ? `${error}` : null}
 			{loading ? (
 				<Loader />
 			) : (
@@ -55,7 +57,7 @@ const PostBox = () => {
 						<div className='p-[20px] flex flex-col gap-[16px] bg-white'>
 							<div className='flex justify-between items-center'>
 								<div className='flex gap-[16px] items-center'>
-									<div className='w-[50px] h-[50px] rounded-full bg-mediumGray relative'>
+									<div className='w-[50px] h-[50px] rounded-full bg-mediumGray relative flex justify-center items-center'>
 										{
 											// <img
 											// 	src={imgFun(post.poster.moreAboutUser?.profilePicture)}
@@ -63,8 +65,9 @@ const PostBox = () => {
 											<img
 												src={`data:image/jpg;base64,${post.poster.moreAboutUser?.profilePicture}`}
 												alt='Fetched from server'
-												height={300}
-												width={400}
+												// height={300}
+												// width={400}
+												className='w-full h-full object-cover rounded-full '
 											/>
 										}
 										<div className='bg-primaryGreen h-[11px] w-[11px] border border-white rounded-full right-0 bottom-1 absolute '></div>
@@ -74,14 +77,14 @@ const PostBox = () => {
 										<h1 className='flex items-center justify-center gap-[16px] font-medium text-[14px] font-inter'>
 											<span> {post.poster.moreAboutUser?.userName}</span>
 											<span className='flex items-center text-mediumGray justify-center gap-[16px] before:rounded-full before:w-[4px] before:h-[4px] before:bg-mediumGray before:flex'>
-												connected
+												{post?.connected == false ? 'connect' : 'connected'}
 											</span>
 										</h1>
 										<span className='text-[12px] font-normal font-inter text-mediumGray'>
 											{post.poster.moreAboutUser?.userName}
 										</span>
 										<span className='text-[12px] font-normal font-inter'>
-											time
+											{/* {moment('2018-18-10T10:20:25')} */}
 										</span>
 									</div>
 								</div>
@@ -139,6 +142,16 @@ const PostBox = () => {
 					);
 				})
 			)}
+
+			<ToastContainer
+				position='top-right'
+				autoClose={5000}
+				hideProgressBar={false}
+				closeOnClick
+				pauseOnHover
+				draggable
+				theme='dark'
+			/>
 		</>
 	);
 };

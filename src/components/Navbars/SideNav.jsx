@@ -6,6 +6,7 @@ import { TiMessages } from 'react-icons/ti';
 import { IoSettingsOutline, IoCloseOutline } from 'react-icons/io5';
 import { CiLogout } from 'react-icons/ci';
 import { PiStudent } from 'react-icons/pi';
+import { NavLink } from 'react-router-dom';
 // import { BsFillPatchCheckFill } from 'react-icons/bs';
 import Vector from '../../assets/Vector.png';
 
@@ -17,83 +18,83 @@ const SideNav = () => {
 				<div className=' mt-[2rem] bg-white w-full h-full overflow-scroll'>
 					<ul className=' sidenav_ul flex flex-col gap-[20px] justify-center   h-full'>
 						<li className=''>
-							<Link to={'/'} className='active'>
+							<NavLink to={'/'}>
 								<span>
 									<GrHome />
 								</span>
 								{/* <span></span> */}
 								Home
-							</Link>
+							</NavLink>
 						</li>
 
 						<li>
-							<Link to={'/'}>
+							<NavLink activeClassName='active' to={'/student'}>
 								<span>
 									<PiStudent />
 								</span>
 								Student
 								{/* <span>Student</span> */}
-							</Link>
+							</NavLink>
 						</li>
 
 						<li>
-							<Link to={'/market'}>
+							<NavLink activeClassName='active' to={'/market'}>
 								<span>
 									<IoCart />
 								</span>
 								Market
 								{/* <span>Market</span> */}
-							</Link>
+							</NavLink>
 						</li>
 
 						<li>
-							<Link to={'/network'}>
+							<NavLink activeClassName='active' to={'/network'}>
 								<span>
 									<PiStudent />
 								</span>
 								Network
 								{/* <span>Network</span> */}
-							</Link>
+							</NavLink>
 						</li>
 
 						<li>
-							<Link to={'/'}>
+							<NavLink activeClassName='active' to={'/wort'}>
 								<span>
 									<IoWalletOutline />
 								</span>
 								Wort
 								{/* <span>Wort</span> */}
-							</Link>
+							</NavLink>
 						</li>
 
 						<li>
-							<Link to={'/'}>
+							<NavLink activeClassName='active' to={'/chat'}>
 								<span>
 									<TiMessages />
 								</span>
 								Messages
 								{/* <span>Messages</span> */}
-							</Link>
+							</NavLink>
 						</li>
 
 						<li>
-							<Link to={'/'}>
+							<NavLink activeClassName='active' to={'/profile'}>
 								<span>
 									<IoSettingsOutline />
 								</span>
 								Setting
 								{/*<span>Setting</span> */}
-							</Link>
+							</NavLink>
 						</li>
 
 						<li>
-							<Link to={'/'}>
+							<NavLink activeClassName='active' to={'/logout'}>
 								<span>
 									<CiLogout />
 								</span>
 								Log out
 								{/* <span>Log out</span> */}
-							</Link>
+							</NavLink>
 						</li>
 					</ul>
 				</div>
