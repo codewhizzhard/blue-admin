@@ -31,7 +31,7 @@ export const ProtectedRouteForRVerification = ({ children }) => {
 };
 
 // Protected route for profile page
-export const ProtectedRouteForProfile = ({ children }) => {
+ export const ProtectedRouteForProfile = ({ children }) => {
   const { user } = useAuthContext();
 
   // Allow access to the children if verification is completed, otherwise redirect to password
