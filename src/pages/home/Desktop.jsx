@@ -11,6 +11,7 @@ import post1 from '../../assets/post1.png';
 import productImg from '../../assets/product.png';
 import product from '../../assets/product02.png';
 import { BsCart2 } from 'react-icons/bs';
+import dayjs from 'dayjs';
 const Desktop = () => {
 	const [data, setData] = useState();
 
@@ -132,7 +133,7 @@ const Desktop = () => {
 									<span>
 										<IoTimeOutline />
 									</span>
-									<span>7 / 08 / 2024</span>
+									<span>{dayjs().format('DD/MM/YYYY')}</span>
 								</span>
 							</p>
 						</div>
@@ -148,7 +149,7 @@ const Desktop = () => {
 									<span>
 										<IoTimeOutline />
 									</span>
-									<span>7 / 08 / 2024</span>
+									<span>{dayjs().format('DD/MM/YYYY')}</span>
 								</span>
 							</p>
 						</div>

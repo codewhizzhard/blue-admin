@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import Loader from '../../utils/Loader';
 import axios from 'axios';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { toast, ToastContainer } from 'react-toastify';
 const PostBox = () => {
 	const { user, dispatch } = useAuthContext();
@@ -19,6 +20,9 @@ const PostBox = () => {
 		'https://back-end-slwn.onrender.com/api/v1/user/post/general/all-post';
 	const localUser = JSON.parse(localStorage.getItem('user'));
 	const token = localUser.user?.token;
+
+	dayjs.extend(relativeTime);
+
 	const config = {
 		headers: { Authorization: `Bearer ${token}` },
 	};
@@ -76,15 +80,19 @@ const PostBox = () => {
 									<div className='flex flex-col gap-[2px]'>
 										<h1 className='flex items-center justify-center gap-[16px] font-medium text-[14px] font-inter'>
 											<span> {post.poster.moreAboutUser?.userName}</span>
-											<span className='flex items-center text-mediumGray justify-center gap-[16px] before:rounded-full before:w-[4px] before:h-[4px] before:bg-mediumGray before:flex'>
-												{post?.connected == false ? 'connect' : 'connected'}
+
+											<span className='flex items-center text-mediumGray justify-center gap-[8px] '>
+												<span className='before:rounded-full before:w-[4px] before:h-[4px] before:bg-mediumGray before:flex'></span>
+												{/* {post?.connected && post?.connected == true
+													? 'connected'
+													: 'connect'} */}
 											</span>
 										</h1>
 										<span className='text-[12px] font-normal font-inter text-mediumGray'>
 											{post.poster.moreAboutUser?.userName}
 										</span>
-										<span className='text-[12px] font-normal font-inter'>
-											{/* {moment('2018-18-10T10:20:25')} */}
+										<span className='text-[8px] font-normal font-inter text-textColor'>
+											{dayjs(post.datePosted).fromNow()}
 										</span>
 									</div>
 								</div>

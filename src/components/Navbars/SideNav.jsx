@@ -28,7 +28,7 @@ const SideNav = () => {
 						</li>
 
 						<li>
-							<NavLink activeClassName='active' to={'/student'}>
+							<NavLink activeclassname='active' to={'/student'}>
 								<span>
 									<PiStudent />
 								</span>
@@ -38,7 +38,7 @@ const SideNav = () => {
 						</li>
 
 						<li>
-							<NavLink activeClassName='active' to={'/market'}>
+							<NavLink activeclassname='active' to={'/market'}>
 								<span>
 									<IoCart />
 								</span>
@@ -48,7 +48,7 @@ const SideNav = () => {
 						</li>
 
 						<li>
-							<NavLink activeClassName='active' to={'/network'}>
+							<NavLink activeclassname='active' to={'/network'}>
 								<span>
 									<PiStudent />
 								</span>
@@ -58,7 +58,7 @@ const SideNav = () => {
 						</li>
 
 						<li>
-							<NavLink activeClassName='active' to={'/wort'}>
+							<NavLink activeclassname='active' to={'/wort'}>
 								<span>
 									<IoWalletOutline />
 								</span>
@@ -68,7 +68,7 @@ const SideNav = () => {
 						</li>
 
 						<li>
-							<NavLink activeClassName='active' to={'/chat'}>
+							<NavLink activeclassname='active' to={'/chat'}>
 								<span>
 									<TiMessages />
 								</span>
@@ -78,7 +78,7 @@ const SideNav = () => {
 						</li>
 
 						<li>
-							<NavLink activeClassName='active' to={'/profile'}>
+							<NavLink activeclassname='active' to={'/profile'}>
 								<span>
 									<IoSettingsOutline />
 								</span>
@@ -88,7 +88,7 @@ const SideNav = () => {
 						</li>
 
 						<li>
-							<NavLink activeClassName='active' to={'/logout'}>
+							<NavLink activeclassname='active' to={'/logout'}>
 								<span>
 									<CiLogout />
 								</span>
