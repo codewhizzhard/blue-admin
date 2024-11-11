@@ -22,7 +22,7 @@ const PostBox = () => {
 		'https://back-end-slwn.onrender.com/api/v1/user/post/general/all-post';
 	const localUser = JSON.parse(localStorage.getItem('user'));
 	const token = localUser.user?.token;
-
+	const userId = localUser.user?._id;
 	dayjs.extend(relativeTime);
 
 	const config = {
@@ -49,7 +49,7 @@ const PostBox = () => {
 	toast.error(error, {
 		position: 'top-right',
 	});
-	// console.log(error);
+
 	console.log(post);
 	return (
 		<>
@@ -58,7 +58,7 @@ const PostBox = () => {
 				<PostLoader />
 			) : (
 				post.map((post) => {
-					console.log(post.poster.moreAboutUser?.profilePicture);
+					// console.log(post.poster._id);
 					return (
 						<div className='p-[20px] flex flex-col gap-[16px] bg-white'>
 							<div className='flex justify-between items-center'>
@@ -82,12 +82,18 @@ const PostBox = () => {
 										<h1 className='flex items-center justify-center gap-[16px] font-medium text-[14px] font-inter'>
 											<span> {post.poster.moreAboutUser?.userName}</span>
 
-											<span className='flex items-center text-mediumGray justify-center gap-[8px] '>
-												<span className='before:rounded-full before:w-[4px] before:h-[4px] before:bg-mediumGray before:flex'></span>
-												{/* {post?.connected && post?.connected == true
-													? 'connected'
-													: 'connect'} */}
-											</span>
+											{userId === post.poster._id ? null : post?.connected ===
+											  true ? (
+												<span className='flex items-center text-mediumGray justify-center gap-[8px] '>
+													<span className='before:rounded-full before:w-[4px] before:h-[4px] before:bg-mediumGray before:flex'></span>
+													connected
+												</span>
+											) : (
+												<span className='flex items-center text-mediumGray justify-center gap-[8px] '>
+													<span className='before:rounded-full before:w-[4px] before:h-[4px] before:bg-mediumGray before:flex'></span>
+													connect
+												</span>
+											)}
 										</h1>
 										<span className='text-[12px] font-normal font-inter text-mediumGray'>
 											{post.poster.moreAboutUser?.userName}

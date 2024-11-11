@@ -22,7 +22,6 @@ const Desktop = () => {
 			setData(foundUser.user);
 		}
 	}, []);
-	console.log(data?.moreAboutUser?.profilePicture);
 
 	return (
 		<section className='w-full'>
