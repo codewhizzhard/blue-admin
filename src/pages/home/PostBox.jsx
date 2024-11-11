@@ -5,9 +5,11 @@ import { BsDownload } from 'react-icons/bs';
 import { CiBookmark } from 'react-icons/ci';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import Loader from '../../utils/Loader';
+import PostLoader from '../../utils/PostLoader';
+
 import axios from 'axios';
 import dayjs from 'dayjs';
+import img from '../../assets/cover.png';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { toast, ToastContainer } from 'react-toastify';
 const PostBox = () => {
@@ -53,7 +55,7 @@ const PostBox = () => {
 		<>
 			{error ? `${error}` : null}
 			{loading ? (
-				<Loader />
+				<PostLoader />
 			) : (
 				post.map((post) => {
 					console.log(post.poster.moreAboutUser?.profilePicture);
@@ -63,14 +65,13 @@ const PostBox = () => {
 								<div className='flex gap-[16px] items-center'>
 									<div className='w-[50px] h-[50px] rounded-full bg-mediumGray relative flex justify-center items-center'>
 										{
-											// <img
-											// 	src={imgFun(post.poster.moreAboutUser?.profilePicture)}
-											// />
 											<img
-												src={`data:image/jpg;base64,${post.poster.moreAboutUser?.profilePicture}`}
-												alt='Fetched from server'
-												// height={300}
-												// width={400}
+												src={`data:image/jpg;base64,${
+													post.poster.moreAboutUser?.profilePicture
+														? post.poster.moreAboutUser?.profilePicture
+														: img
+												}`}
+												alt='Img'
 												className='w-full h-full object-cover rounded-full '
 											/>
 										}

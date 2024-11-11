@@ -22,6 +22,7 @@ const Desktop = () => {
 			setData(foundUser.user);
 		}
 	}, []);
+	console.log(data?.moreAboutUser?.profilePicture);
 
 	return (
 		<section className='w-full'>
@@ -56,7 +57,15 @@ const Desktop = () => {
 					</div>
 
 					<div className='bg-white h-[136px] w-full p-[20px] flex flex-row  gap-[12px]'>
-						<div className='w-[52px] h-[50px] rounded-full bg-mediumGray'></div>
+						<div className='w-[52px] h-[50px] rounded-full bg-mediumGray'>
+							{
+								<img
+									src={`data:image/jpg;base64,${data?.moreAboutUser?.profilePicture}`}
+									alt='Imgs'
+									className='w-full h-full object-cover rounded-full '
+								/>
+							}
+						</div>
 						<div className='w-full  flex flex-col gap-[12px]'>
 							<div className='w-full flex gap-[12px] items-center'>
 								<input
