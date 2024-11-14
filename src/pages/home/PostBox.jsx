@@ -20,6 +20,12 @@ const PostBox = () => {
 
 	const url =
 		'https://back-end-slwn.onrender.com/api/v1/user/post/general/all-post';
+	const likeUrl =
+		'https://back-end-slwn.onrender.com/api/v1/user/post/general/like-post';
+
+	const disLikeUrl =
+		'https://back-end-slwn.onrender.com/api/v1/user/post/general/dislike-post';
+
 	const localUser = JSON.parse(localStorage.getItem('user'));
 	const token = localUser.user?.token;
 	const userId = localUser.user?._id;
@@ -49,7 +55,85 @@ const PostBox = () => {
 	toast.error(error, {
 		position: 'top-right',
 	});
+	const like = async (id) => {
+		await axios
+			.post(
+				likeUrl,
+				{
+					postId: id,
+				},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			)
+			.then((res) => {
+				console.log(res);
+				console.log(res.data);
+				const newPost = post.map((item) => {
+					if (item._id == res._id) {
+						return res.data;
+					} else {
+						return item;
+					}
+				});
 
+				setPost(newPost);
+			})
+			.catch((error) => {
+				console.error(
+					'There was a problem with the request:',
+					error.response.data.message
+				);
+			});
+	};
+
+	const disLike = async (id) => {
+		// useEffect(() => {
+		await axios
+			.post(
+				disLikeUrl,
+				{
+					postId: id,
+				},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			)
+			.then((res) => {
+				// Update the post state only after the request is successful
+				console.log(res.data.postDisLiked);
+				const newPosts = post.map((item) => {
+					console.log(item._id);
+					if (item._id === res.data.postDisLiked) {
+						return res.data; // Replace the disliked post with the updated data from the server
+					} else {
+						return item;
+					}
+				});
+
+				setPost(newPosts);
+				console.log(res.data); // Log the response data
+			})
+			.catch((error) => {
+				console.error(
+					'There was a problem with the request:',
+					error.response?.data?.message || error.message
+				);
+			})
+			.catch((error) => {
+				console.error(
+					'There was a problem with the request:',
+					error.response.data.message
+				);
+			});
+		// }, [post]);
+	};
 	console.log(post);
 	return (
 		<>
@@ -58,7 +142,7 @@ const PostBox = () => {
 				<PostLoader />
 			) : (
 				post.map((post) => {
-					// console.log(post.poster._id);
+					// console.log(post?.dislikes.length);
 					return (
 						<div className='p-[20px] flex flex-col gap-[16px] bg-white'>
 							<div className='flex justify-between items-center'>
@@ -84,15 +168,19 @@ const PostBox = () => {
 
 											{userId === post.poster._id ? null : post?.connected ===
 											  true ? (
-												<span className='flex items-center text-mediumGray justify-center gap-[8px] '>
+												<button
+													type='button'
+													className='flex items-center text-mediumGray justify-center gap-[8px] '>
 													<span className='before:rounded-full before:w-[4px] before:h-[4px] before:bg-mediumGray before:flex'></span>
 													connected
-												</span>
+												</button>
 											) : (
-												<span className='flex items-center text-mediumGray justify-center gap-[8px] '>
+												<button
+													type='button'
+													className='flex items-center text-mediumGray justify-center gap-[8px] '>
 													<span className='before:rounded-full before:w-[4px] before:h-[4px] before:bg-mediumGray before:flex'></span>
 													connect
-												</span>
+												</button>
 											)}
 										</h1>
 										<span className='text-[12px] font-normal font-inter text-mediumGray'>
@@ -131,26 +219,29 @@ const PostBox = () => {
 									</span>
 								</div>
 								<div className='flex items-center gap-[30px] likes '>
-									<div>
+									<button type='button'>
 										<span>
 											<LuMessageCircle />
 										</span>
 										<span>{post?.postComments.length}</span>
-									</div>
-									<div className='text-[#F4245E]'>
+									</button>
+									<button
+										type='button'
+										className='text-[#F4245E]'
+										onClick={() => like(post?._id)}>
 										<span className='text-[#F4245E]'>
 											<IoMdHeart />
 										</span>
 										<span className='text-[#F4245E]'>
 											{post?.postLikes.length}
 										</span>
-									</div>{' '}
-									<div>
+									</button>{' '}
+									<button type='button' onClick={() => disLike(post?._id)}>
 										<span>
 											<IoMdHeartDislike />
 										</span>
-										<span> {post?.dislikes.length} </span>
-									</div>{' '}
+										<span> {post?.postDisLikes.length} </span>
+									</button>{' '}
 								</div>
 							</div>
 						</div>

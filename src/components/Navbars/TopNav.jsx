@@ -69,13 +69,13 @@ const TopNav = () => {
 						<div className='flex items-center gap-2'>
 							<div className='w-[35px] h-[35px] flex justify-center items-center rounded-full bg-primaryGreen'>
 								<span className='text-[14px] font-Outfit font-bold text-white'>
-									{data ? firstName[0] + surName[0] : 'SR'}
+									{firstName ? firstName[0] + surName[0] : 'SR'}
 								</span>
 							</div>
 							<button
 								className='font-Outfit font-medium text-[14px] text-textColor flex gap-2 items-center'
 								onClick={() => setDropDown(!dropdown)}>
-								{data ? `${firstName}  ${surName} ` : 'Stylish Racon'}
+								{firstName ? `${firstName}  ${surName} ` : 'Stylish Racon'}
 								{dropdown ? <FaChevronUp /> : <FaChevronDown />}
 							</button>
 

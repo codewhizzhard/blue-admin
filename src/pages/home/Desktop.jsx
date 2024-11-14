@@ -7,7 +7,6 @@ import { HiOutlinePhoto } from 'react-icons/hi2';
 import { IoTimeOutline } from 'react-icons/io5';
 import Hero from '../../assets/image 33.jpg';
 import PostBox from './PostBox';
-import post1 from '../../assets/post1.png';
 import productImg from '../../assets/product.png';
 import product from '../../assets/product02.png';
 import { BsCart2 } from 'react-icons/bs';
