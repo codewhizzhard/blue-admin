@@ -30,10 +30,3 @@ export const ProtectedRouteForRVerification = ({ children }) => {
   return isRVerificationCompleted ? children : <Navigate to="/register" />;
 };
 
-// Protected route for profile page
- export const ProtectedRouteForProfile = ({ children }) => {
-  const { user } = useAuthContext();
-
-  // Allow access to the children if verification is completed, otherwise redirect to password
-  return user !== null ? children : <Navigate to="/login" />;
-};
