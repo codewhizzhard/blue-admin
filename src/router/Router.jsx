@@ -69,11 +69,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/profile',
-				element: (
-					<ProtectedRouteForProfile>
-						<Profile />
-					</ProtectedRouteForProfile>
-				),
+				element: <Profile />
 			},
 			{
 				path: '/register-verification',
