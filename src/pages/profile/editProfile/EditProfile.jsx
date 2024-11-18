@@ -26,7 +26,12 @@ const useImageHandler = (initialImage) => {
       }
       const reader = new FileReader();
       reader.onloadend = () => {
-        const base64String = reader.result.toString();
+        let base64String = reader.result.toString();
+        // Remove the prefix from the base64 string if it exists
+        base64String = base64String.replace(
+          /^data:image\/(jpeg|png);base64,/,
+          ""
+        );
         setImage(base64String);
       };
       reader.readAsDataURL(file);
@@ -44,6 +49,8 @@ const EditProfile = () => {
   const { image: profileImage, handleImageChange } = useImageHandler(
     user?.user?.moreAboutUser?.profilePicture || User
   );
+
+  console.log(user?.user?.token);
 
   const formik = useFormik({
     initialValues: {
@@ -111,7 +118,7 @@ const EditProfile = () => {
         toast.success("Profile Updated Successfully!");
       } catch (error) {
         toast.error("Error updating profile.");
-        console.log(error)
+        console.log(error);
       } finally {
         setLoading(false);
         setIsEditable(false);
@@ -130,11 +137,7 @@ const EditProfile = () => {
       <div className="relative w-[20%]">
         <div className="rounded-full w-44 h-44 relative">
           <img
-            src={
-              User
-                ? `data:image/jpg;base64,/${user.user.moreAboutUser?.profilePicture}`
-                : User
-            }
+            src={`data:image/jpeg;base64,${profileImage}`}
             alt="user_image"
             className="object-cover w-full h-full rounded-full"
           />

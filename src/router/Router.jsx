@@ -1,86 +1,134 @@
-import { createBrowserRouter } from 'react-router-dom';
-import App from '../App';
-import Login from '../pages/login/Login';
-import Register from '../pages/register/Register';
-import ForgetPassword from '../pages/forget_password/ForgetPassword';
-import ResetPassword from '../pages/resetPassword/ResetPassword';
-import Fa from '../pages/2fa/Fa';
-import RFa from '../pages/register/2fa/Fa';
-import Layout from '../Layout';
-import Home from '../pages/home/Home';
-import Market from '../pages/market/Market';
-import Profile from '../pages/profile/Profile';
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import App from "../App";
+import Login from "../pages/login/Login";
+import Register from "../pages/register/Register";
+import ForgetPassword from "../pages/forget_password/ForgetPassword";
+import ResetPassword from "../pages/resetPassword/ResetPassword";
+import TwoFactorAuth from "../pages/2fa/TwoFactorAuth";
+import RegisterTwoFactorAuth from "../pages/register/2fa/RegisterTwoFactorAuth";
+import Profile from "../pages/profile/Profile";
+import Students from "../pages/students/Students";
+
+import SchoolWork from "../pages/students/contents/schoolWork/SchoolWork";
+import Challenges from "../pages/students/contents/challenges/Challenges";
+import Payment from "../pages/students/contents/payment/Payment";
+import Chats from "../pages/students/contents/chats/Chats";
+import Settings from "../pages/students/contents/settings/Settings";
+import NewsFeed from "../pages/students/contents/newsfeed/NewsFeed";
+import Main from "../pages/students/Main";
+import All from "../pages/students/contents/newsfeed/pages/all/All";
+import Groups from "../pages/students/contents/newsfeed/pages/groups/Groups";
+import Events from "../pages/students/contents/newsfeed/pages/events/Events";
+import Trending from "../pages/students/contents/newsfeed/pages/trending/Trending";
+import SchoolNews from "../pages/students/contents/newsfeed/pages/schoolNews/SchoolNews";
+import Home from "../pages/home/Home";
+import SettingSection from "../settingSection/SettingSection";
+import WortSection from "../wortSection/WortSection";
+import MarketSection from "../marketSection/MarketSection";
+import MessageSection from "../messageSection/MessageSection";
+// import MainSection from "../mainSection/MainSection";
+import NetworkSection from "../networkSection/NetworkSection";
+import NotFoundPage from "../pages/notFound/NotFoundPage";
+
 import {
-	ProtectedRouteForResetPassword,
-	ProtectedRouteForRVerification,
-	ProtectedRouteForVerification,
-	ProtectedRouteForProfile,
-} from './ProtectedRoute';
+  ProtectedRouteForProfile,
+  ProtectedRouteForResetPassword,
+  ProtectedRouteForRVerification,
+  ProtectedRouteForVerification,
+} from "./ProtectedRoute";
+import Content from "../mainSection/Content";
+import MainSection from "../mainSection/MainSection";
+
+const ProtectedRoute = ({ children, condition }) => {
+  return condition ? children : <Navigate to="/login" />;
+};
 
 const router = createBrowserRouter([
-	{
-		// element: <App />,
-		path: '/',
-
-		element: <Layout />,
-
-		children: [
-			{
-				index: true,
-				element: <Home />,
-			},
-			{
-				path: '/market',
-				element: <Market />,
-			},
-		],
-	},
-	{
-		// path: '/login',
-		element: <App />,
-		children: [
-			{
-				path: '/login',
-				element: <Login />,
-			},
-			{
-				path: '/register',
-				element: <Register />,
-			},
-			{
-				path: '/forget-password',
-				element: <ForgetPassword />,
-			},
-			{
-				path: '/reset-password',
-				element: (
-					<ProtectedRouteForResetPassword>
-						<ResetPassword />
-					</ProtectedRouteForResetPassword>
-				),
-			},
-			{
-				path: '/verification',
-				element: (
-					<ProtectedRouteForVerification>
-						<Fa />
-					</ProtectedRouteForVerification>
-				),
-			},
-			{
-				path: '/profile',
-				element: <Profile />
-			},
-			{
-				path: '/register-verification',
-				element: (
-					<ProtectedRouteForRVerification>
-						<RFa />
-					</ProtectedRouteForRVerification>
-				),
-			},
-		],
-	},
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <MainSection />,
+        children: [
+          { index: true, element: <Home /> },
+          { path: "market", element: <MarketSection /> },
+          { path: "wort", element: <WortSection /> },
+          { path: "setting", element: <SettingSection /> },
+          { path: "network", element: <NetworkSection /> },
+          { path: "message", element: <MessageSection /> },
+        ],
+      },
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
+      { path: "forget-password", element: <ForgetPassword /> },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRouteForProfile>
+            <Profile />
+          </ProtectedRouteForProfile>
+        ),
+      },
+      {
+        path: "reset-password",
+        element: (
+          <ProtectedRouteForResetPassword>
+            <ResetPassword />
+          </ProtectedRouteForResetPassword>
+        ),
+      },
+      {
+        path: "verification",
+        element: (
+          <ProtectedRouteForVerification>
+            <TwoFactorAuth />
+          </ProtectedRouteForVerification>
+        ),
+      },
+      {
+        path: "register-verification",
+        element: (
+          <ProtectedRouteForRVerification>
+            <RegisterTwoFactorAuth />
+          </ProtectedRouteForRVerification>
+        ),
+      },
+      {
+        path: "students",
+        element: <Students />,
+        children: [
+          {
+            path: "dashboard",
+            element: <Main />,
+            children: [
+              {
+                path: "newsfeed",
+                element: <NewsFeed />,
+                children: [
+                  { path: "all", element: <All /> },
+                  { path: "groups", element: <Groups /> },
+                  { path: "events", element: <Events /> },
+                  { path: "trending", element: <Trending /> },
+                  { path: "school-news", element: <SchoolNews /> },
+                ],
+              },
+              { path: "school-work", element: <SchoolWork /> },
+              { path: "xel-challenge", element: <Challenges /> },
+              { path: "payment", element: <Payment /> },
+              { path: "chats", element: <Chats /> },
+              { path: "settings", element: <Settings /> },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
+  },
 ]);
 
 export default router;

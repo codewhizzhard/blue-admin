@@ -7,7 +7,7 @@ const Profile = () => {
   return (
     <div className="bg-gray-200 py-3 px-5">
       <TopNav />
-      <div className="flex gap-4 mt-5">
+      <div className="flex gap-4 mt-1">
         <div className="w-[20%]">
           <SideBar />
         </div>

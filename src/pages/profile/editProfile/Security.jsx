@@ -74,11 +74,11 @@ const Security = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-2">
       <ToastContainer />
 
       {/* Two-factor Authentication */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         <h5 className="font-bold">Two-factor Authentication</h5>
         <div className="flex gap-4 items-center">
           <Toggler isChecked={is2FAEnabled} onToggle={handleToggle2FA} />
