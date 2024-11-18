@@ -7,19 +7,19 @@ const MainSection = () => {
   return (
     <div className="flex flex-col h-screen">
       {/* Top Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-10">
+      <header className="fixed top-0 left-0 right-0 z-10 h-[10%]">
         <TopNav />
       </header>
 
       {/* Main Content Area */}
-      <div className="flex flex-grow mt-[60px] bg-gray-200">
+      <div className="flex mt-[50px] bg-gray-200 h-[90%]">
         {/* Side Navigation */}
-        <aside className="w-[250px] bg-white shadow-lg">
+        <aside className="w-[20%] bg-white shadow-lg h-full">
           <SideNav />
         </aside>
 
         {/* Main Content */}
-        <main className="flex-grow p-4">
+        <main className="p-2 overflow-y-auto">
           <Content />
         </main>
       </div>
