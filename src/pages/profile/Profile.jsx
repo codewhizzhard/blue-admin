@@ -1,7 +1,8 @@
 import React from "react";
-import TopNav from "./navbar/TopNav";
+// import TopNav from "./navbar/TopNav";
 import SideBar from "./navbar/SideBar";
 import ProfileSection from "./ProfileSection";
+import TopNav from "../../components/Navbars/TopNav";
 
 const Profile = () => {
   return (
