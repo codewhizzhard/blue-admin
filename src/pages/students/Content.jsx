@@ -1,7 +1,7 @@
 import React from "react";
 import Output from "./output/Output";
 
-const Content = () => {
+const StudentContent = () => {
   return (
     <div className="w-full">
       <div className="">
@@ -11,4 +11,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default StudentContent;

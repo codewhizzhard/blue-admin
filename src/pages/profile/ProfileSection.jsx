@@ -7,7 +7,7 @@ import "react-tabs/style/react-tabs.css";
 
 const ProfileSection = () => {
   return (
-    <div className="rounded-2xl bg-white p-5 shadow-md">
+    <div className="rounded-2xl bg-white p-5 h-full shadow-md">
       <Tabs>
         {/* Tab List with selectedClassName for active styling */}
         <TabList className="flex border-b-2 border-gray-200 mb-5">
