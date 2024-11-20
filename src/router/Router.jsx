@@ -15,7 +15,7 @@ import Payment from "../pages/students/contents/payment/Payment";
 import Chats from "../pages/students/contents/chats/Chats";
 import Settings from "../pages/students/contents/settings/Settings";
 import NewsFeed from "../pages/students/contents/newsfeed/NewsFeed";
-import Main from "../pages/students/Main";
+import StudentContent from "../pages/students/Content";
 import All from "../pages/students/contents/newsfeed/pages/all/All";
 import Groups from "../pages/students/contents/newsfeed/pages/groups/Groups";
 import Events from "../pages/students/contents/newsfeed/pages/events/Events";
@@ -101,13 +101,13 @@ const router = createBrowserRouter([
         children: [
           {
             path: "dashboard",
-            element: <Main />,
+            element: <StudentContent />,
             children: [
               {
                 path: "newsfeed",
                 element: <NewsFeed />,
                 children: [
-                  { path: "all", element: <All /> },
+                  { index: true, element: <All /> },
                   { path: "groups", element: <Groups /> },
                   { path: "events", element: <Events /> },
                   { path: "trending", element: <Trending /> },

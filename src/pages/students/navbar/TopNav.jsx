@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import {
@@ -11,6 +11,7 @@ import { GrCircleInformation } from "react-icons/gr";
 import { AiOutlineCustomerService } from "react-icons/ai";
 import { MdWorkspacePremium } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
+import Logo from "/white_bg_logo.svg";
 import defaultProfileImage from "../../../assets/user.jfif"; // Fallback profile image
 
 const ChatIcon = ({ ariaLabel }) => (
@@ -86,6 +87,11 @@ const TopNav = ({
 
   return (
     <div className="flex items-center justify-between py-2 px-4 bg-white shadow-md w-full">
+      <div className="">
+        <NavLink>
+          <img src={Logo} alt="logo" className="w-[80px]" />
+        </NavLink>
+      </div>
       {/* Search Bar */}
       <div className="searchBar flex items-center bg-gray-200 w-full max-w-[500px] p-2 rounded-md">
         <button aria-label="Search">

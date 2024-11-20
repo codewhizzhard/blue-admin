@@ -54,7 +54,7 @@ const Desktop = () => {
             <div className="w-[52px] h-[50px] rounded-full bg-mediumGray">
               {
                 <img
-                  src={user?.user?.moreAboutUser?.profilePicture}
+                  src={user?.moreAboutUser?.profilePicture}
                   alt="Imgs"
                   className="w-full h-full object-cover rounded-full "
                 />
