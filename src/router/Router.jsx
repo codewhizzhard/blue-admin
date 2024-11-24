@@ -38,6 +38,12 @@ import {
 } from "./ProtectedRoute";
 import Content from "../mainSection/Content";
 import MainSection from "../mainSection/MainSection";
+import YourGroups from "../pages/students/contents/newsfeed/pages/groups/pages/YourGroups";
+import YourFeeds from "../pages/students/contents/newsfeed/pages/groups/pages/YourFeeds";
+import Discover from "../pages/students/contents/newsfeed/pages/groups/pages/Discover";
+import NewsFeedGroups from "../pages/students/contents/newsfeed/pages/groups/pages/Groups";
+import CreateGroup from "../pages/students/contents/newsfeed/pages/groups/CreaateGroup";
+import GroupPage from "../pages/students/contents/newsfeed/pages/groups/pages/Groups";
 
 const ProtectedRoute = ({ children, condition }) => {
   return condition ? children : <Navigate to="/login" />;
@@ -108,7 +114,18 @@ const router = createBrowserRouter([
                 element: <NewsFeed />,
                 children: [
                   { index: true, element: <All /> },
-                  { path: "groups", element: <Groups /> },
+                  {
+                    path: "groups",
+                    element: <Groups />,
+                    children: [
+                      { index: true, element: <YourFeeds /> },
+                      { path: "your-groups", element: <YourGroups /> },
+                      { path: "discover", element: <Discover /> },
+                      { path: "groups", element: <NewsFeedGroups /> },
+                      { path: "create-group", element: <CreateGroup /> },
+                      { path: ":id", element: <GroupPage /> },
+                    ],
+                  },
                   { path: "events", element: <Events /> },
                   { path: "trending", element: <Trending /> },
                   { path: "school-news", element: <SchoolNews /> },
