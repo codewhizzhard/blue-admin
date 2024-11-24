@@ -10,7 +10,7 @@ const Main = () => {
         <TopNav />
       </div>
 
-      <div className="h-[90%] overflow-y-auto">
+      <div className="h-[90%]">
         <Content />
       </div>
     </div>

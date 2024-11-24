@@ -51,7 +51,7 @@ const SideNav = () => {
   };
 
   return (
-    <div className="w-[20%] min-w-[250px] flex flex-col gap-1 h-screen bg-white shadow-lg">
+    <div className="flex flex-col gap-1 h-full bg-white shadow-lg">
       <div className="py-12 px-5 flex flex-col gap-5">
         {/* Navigation Links */}
         <ul className="flex flex-col gap-5 text-3xl">

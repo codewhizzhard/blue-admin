@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import User from "../assets/user.jfif";
 import { FaLink, FaRegPlayCircle } from "react-icons/fa";
 import { MdInsertPhoto, MdOutlineArticle } from "react-icons/md";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const PostBox = () => {
+  const { user } = useAuthContext();
   const [postContent, setPostContent] = useState("");
 
   const handlePostSubmit = () => {
@@ -17,9 +19,12 @@ const PostBox = () => {
     <div className="bg-white rounded-md p-4 shadow-md">
       <div className="flex items-center gap-2 w-full mb-3">
         <img
-          src={User}
-          alt="User profile"
-          className="rounded-full h-[50px] w-[50px] object-cover"
+          src={
+            `data:image/jpg;base64,${user.user.moreAboutUser?.profilePicture}` ||
+            User
+          }
+          alt="Profile"
+          className="w-12 h-10 rounded-full object-fill"
         />
         <input
           type="text"
