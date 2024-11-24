@@ -28,8 +28,7 @@ const PostBox = () => {
   const fetchPosts = async () => {
     try {
       const response = await axios.get(
-        "https://back-end-slwn.onrender.com/api/v1/user/post/general/all-post",
-        config
+        "https://back-end-slwn.onrender.com/api/v1/user/post/general/all-post"
       );
       setPosts(response.data.posts);
       setLoading(false);
