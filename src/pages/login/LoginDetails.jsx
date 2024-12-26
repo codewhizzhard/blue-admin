@@ -27,7 +27,7 @@ const LoginDetails = () => {
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       const response = await axios.post(
-        "https://back-end-slwn.onrender.com/api/v1/user/login",
+        "https://back-end-1-1h35.onrender.com/api/v1/user/login",
         values
       );
 

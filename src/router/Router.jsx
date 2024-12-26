@@ -44,6 +44,25 @@ import Discover from "../pages/students/contents/newsfeed/pages/groups/pages/Dis
 import NewsFeedGroups from "../pages/students/contents/newsfeed/pages/groups/pages/Groups";
 import CreateGroup from "../pages/students/contents/newsfeed/pages/groups/CreaateGroup";
 import GroupPage from "../pages/students/contents/newsfeed/pages/groups/pages/Groups";
+import EventHome from "../pages/students/contents/newsfeed/pages/events/pages/EventHome";
+import YourEvents from "../pages/students/contents/newsfeed/pages/events/pages/YourEvents";
+import Overview from "../pages/students/contents/schoolWork/pages/Overview";
+import Group from "../pages/students/contents/schoolWork/pages/Group";
+import Timetable from "../pages/students/contents/schoolWork/pages/Timetable";
+import Assignment from "../pages/students/contents/schoolWork/pages/Assignment";
+import Exam from "../pages/students/contents/schoolWork/pages/Exam";
+import Library from "../pages/students/contents/schoolWork/pages/Library";
+import StudyGroup from "../pages/students/contents/schoolWork/StudyGroup";
+import AllChallenges from "../pages/students/contents/challenges/pages/AllChallenges";
+import Listing from "../pages/students/contents/challenges/pages/Listing";
+import MyChallenges from "../pages/students/contents/challenges/pages/MyChallenges";
+import ChallengeDetail from "../pages/students/contents/challenges/pages/ChallengeDetail";
+import ChatRoom from "../pages/students/contents/challenges/pages/ChatRoom";
+import PaymentHome from "../pages/students/contents/payment/pages/PaymentHome";
+import PaymentHistory from "../pages/students/contents/payment/pages/PaymentHistory";
+import PaymentMethod from "../pages/students/contents/payment/pages/PaymentMethod";
+import AddFund from "../pages/students/contents/payment/pages/AddFund";
+import SchoolPayment from "../pages/students/contents/payment/pages/SchoolPayment";
 
 const ProtectedRoute = ({ children, condition }) => {
   return condition ? children : <Navigate to="/login" />;
@@ -126,14 +145,57 @@ const router = createBrowserRouter([
                       { path: ":id", element: <GroupPage /> },
                     ],
                   },
-                  { path: "events", element: <Events /> },
+                  {
+                    path: "events",
+                    element: <Events />,
+                    children: [
+                      { index: true, element: <EventHome /> },
+                      { path: "your-events", element: <YourEvents /> },
+                    ],
+                  },
                   { path: "trending", element: <Trending /> },
                   { path: "school-news", element: <SchoolNews /> },
                 ],
               },
-              { path: "school-work", element: <SchoolWork /> },
-              { path: "xel-challenge", element: <Challenges /> },
-              { path: "payment", element: <Payment /> },
+              {
+                path: "school-work",
+                element: <SchoolWork />,
+                children: [
+                  { index: true, element: <Overview /> },
+                  { path: "study-group", element: <StudyGroup /> },
+                  { path: "my-groups", element: <Group /> },
+                  { path: "my-groups", element: <Group /> },
+                  { path: "my-timetable", element: <Timetable /> },
+                  { path: "my-assignment", element: <Assignment /> },
+                  { path: "exam", element: <Exam /> },
+                  { path: "library", element: <Library /> },
+                ],
+              },
+              {
+                path: "xel-challenge",
+                element: <Challenges />,
+                children: [
+                  { index: true, element: <AllChallenges /> },
+                  { path: ":id", element: <ChallengeDetail /> },
+                  { path: "my-listing", element: <Listing /> },
+                  { path: "my-challenges", element: <MyChallenges /> },
+                  { path: ":id/chatroom", element: <ChatRoom /> },
+                ],
+              },
+              {
+                path: "payment",
+                element: <Payment />,
+                children: [
+                  { index: true, element: <PaymentHome /> },
+                  { path: "payment-history", element: <PaymentHistory /> },
+                  { path: "my-listing", element: <Listing /> },
+                  { path: "my-challenges", element: <MyChallenges /> },
+                  { path: ":id/chatroom", element: <ChatRoom /> },
+                  { path: "payment-method", element: <PaymentMethod /> },
+                  { path: "add-fund", element: <AddFund /> },
+                  { path: "school-payment", element: <SchoolPayment /> },
+                ],
+              },
               { path: "chats", element: <Chats /> },
               { path: "settings", element: <Settings /> },
             ],

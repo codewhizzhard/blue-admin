@@ -206,7 +206,7 @@ const Details = () => {
       setLoading(true);
       try {
         const response = await axios.post(
-          "https://back-end-slwn.onrender.com/api/v1/user/register/others",
+          "https://back-end-1-1h35.onrender.com/api/v1/user/register/others",
           values
         );
         const json = response.data;
@@ -218,7 +218,7 @@ const Details = () => {
         localStorage.setItem("user", JSON.stringify(json));
         // Update auth context
         dispatch({ type: "SIGNUP", payload: json });
-        navigate("/register-verification");
+        navigate("/register-verification", { state: { email: values.email } });
       } catch (error) {
         toast.error("Error submitting form, please try again later.");
         console.error("Error submitting form", error);
@@ -247,7 +247,7 @@ const Details = () => {
       setLoading(true);
       try {
         const response = await axios.post(
-          "https://back-end-slwn.onrender.com/api/v1/user/register/student",
+          "https://back-end-1-1h35.onrender.com/api/v1/user/register/student",
           values
         );
         const json = response.data;
@@ -257,7 +257,7 @@ const Details = () => {
         );
         localStorage.setItem("user", JSON.stringify(json));
         dispatch({ type: "SIGNUP", payload: json });
-        navigate("/register-verification");
+        navigate("/register-verification", { state: { email: values.email } });
       } catch (error) {
         toast.error("Error submitting form, please try again later.");
         console.error("Error submitting form", error);

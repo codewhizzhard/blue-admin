@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -8,7 +8,9 @@ import { useAuthContext } from "../../../hooks/useAuthContext";
 
 const OTP = () => {
   const navigate = useNavigate();
-  const { user } = useAuthContext();
+  // const { user } = useAuthContext();
+  const { state } = useLocation();
+  const email = state?.email || "";
 
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [loading, setLoading] = useState(false);
@@ -62,7 +64,7 @@ const OTP = () => {
       </div>
     );
   };
-  const receivedEmail = user?.user.email;
+  const receivedEmail = email;
   const submitOtp = async () => {
     try {
       setLoading(true);
@@ -120,7 +122,7 @@ const OTP = () => {
       <h1 className="font-[sora] font-bold text-2xl leading-[35px] text-[#1b1818]">
         OTP Verification
       </h1>
-      <p className="text-sm font-bold text-blue-700">
+      <p className="text-sm text-center font-bold text-blue-700">
         Code has been sent to {receivedEmail}
       </p>
       <form

@@ -1,15 +1,13 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const tabs = [
-  { path: ".", label: "All" }, // Default route uses "."
-  { path: "school-news", label: "School News" },
-  { path: "trending", label: "Trending" },
-  { path: "groups", label: "Groups" },
-  { path: "events", label: "Events" },
+  { path: ".", label: "All Challenges" },
+  { path: "my-listing", label: "My Listings" },
+  { path: "my-challenges", label: "My Challenges" },
 ];
 
-const NewsFeed = () => {
+const Navbar = () => {
   return (
     <div className="flex gap-1 w-full">
       <div className="bg-white rounded-md shadow-md w-full">
@@ -19,7 +17,7 @@ const NewsFeed = () => {
             <NavLink
               key={index}
               to={path}
-              end={path === "."} // Ensure "All" matches only exact parent route
+              end={path === "."} // Ensure "overview" matches only exact parent route
               className={({ isActive }) =>
                 `px-2 py-2 cursor-pointer ${
                   isActive
@@ -33,12 +31,9 @@ const NewsFeed = () => {
             </NavLink>
           ))}
         </div>
-
-        {/* Content */}
-        <Outlet />
       </div>
     </div>
   );
 };
 
-export default NewsFeed;
+export default Navbar;
