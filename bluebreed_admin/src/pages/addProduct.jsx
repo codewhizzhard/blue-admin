@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import { FiX } from 'react-icons/fi'
 
 const AddProduct = () => {
-    const [click, setClicked] = useState(false);
+    const [clickStates, setClickedStates] = useState({btn1: false, btn2: false});
 
-    const handleClick = () => {
-        setClicked((prev) => !prev)
+    const handleClick = (btn) => {
+        setClickedStates((prev) => ({
+            ...prev,
+            [btn]: !prev[btn]
+        }))
     }
   return (
     <div className='flex w-full h-full mb-4 space-x-3 '>
@@ -38,7 +41,7 @@ const AddProduct = () => {
             </div>
             {/*  */}
             <div className='space-y-3'>
-                <span className='text-[16px] text-[#131523]'>Price</span>
+ button               <h3 className='text-[16px] text-[#131523] font-bold'>Price</h3>
                 <div className='flex w-full justify-between'>
                     <div className='flex flex-col w-[47%]'>
                     <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Price</label>
@@ -50,12 +53,32 @@ const AddProduct = () => {
                     </div>
                 </div>
                 <div className='flex gap-2'>
-                    <button className={`w-11 h-6 rounded-2xl relative ${click ? "bg-[#E6B566]" : "bg-[#FF89011A] "}`} onClick={handleClick} type='button'><span className={`bg-white absolute w-4 h-4 rounded-xl bottom-1 ${click ? "right-1" : "left-1"}`}></span></button>
-                    <p>Include VAT or Custom Charges?</p>
+                    <button className={`w-11 h-6 rounded-2xl relative ${clickStates.btn1 ? "bg-[#E6B566]" : "bg-[#FF89011A] "}`} onClick={() => handleClick("btn1")} type='button'><span className={`bg-white absolute w-4 h-4 rounded-xl bottom-1 ${clickStates.btn1 ? "right-1" : "left-1"} `} style={{filter: "drop-shadow(0 4px 6px rgba(38, 44, 71, 0.16))"}}></span></button>{/* shadow-[#262C4729] */}
+                    <p className='text-[#131523] text-[16px]'>Include VAT or Custom Charges?</p>
                 </div>
             </div>
             <hr className='w-full text-[#D7DBEC] '/>
-            
+            <div className='space-y-3'>
+                <h3 className='text-[#131523] text-[16px] font-bold'>Different Options</h3>
+                <div className='flex gap-2'>
+                    <button className={`w-11 h-6 rounded-2xl relative ${clickStates.btn2 ? "bg-[#E6B566]" : "bg-[#FF89011A] "}`} onClick={() => handleClick("btn2")} type='button'><span className={`bg-white absolute w-4 h-4 rounded-xl bottom-1 ${clickStates.btn2 ? "right-1" : "left-1"} `} /* style={{filter: "drop-shadow(0 4px 6px rgba(38, 44, 71, 0.16))"}} */></span></button>{/* shadow-[#262C4729] */}
+                    <p className='text-[#131523] text-[16px]'>Does this product have size or material variations?</p>
+                </div>
+            </div>
+
+            <div className='space-y-3 pt-4'>
+                <h3 className='text-[#131523] text-[16px] font-bold'>Size / Dimensions</h3>
+                <div className='space-y-1 flex flex-col'>
+                    <label htmlFor="" className='text-[14px] text-[#5A607F]'>Value</label>
+                    <div className=' flex h-10 items-center divx-2 rounded border border-[#D9E1EC]'>
+                    <div className=' flex gap-2 h-[80%]'><span className='py-1 px-3 rounded flex items-center bg-[#E6E9F4] w-fit gap-2 text-[#5A607F] text-[14px]'>SM <FiX className='h-fullpt-1 text-[#7E84A3]'/></span> <span className='py-1 px-3 rounded flex items-center bg-[#E6E9F4] w-fit gap-2 text-[#5A607F] text-[14px]'>LG <FiX className='h-fullpt-1 text-[#7E84A3]'/></span> <span className='py-1 px-3 rounded flex items-center bg-[#E6E9F4] w-fit gap-2 text-[#5A607F] text-[14px]'>MD <FiX className='h-fullpt-1 text-[#7E84A3]'/></span></div>
+                    <input type="text" className='w-full px-3 text-[#A1A7C4] text-[16px] h-[80%]  outline-none' placeholder=''/></div>
+                 </div>
+            </div>
+
+            <div>
+
+            </div>
         </form>
 
         <div className='w-[30%] space-y-3'>
@@ -75,7 +98,6 @@ const AddProduct = () => {
                 </div>
                 <div className='flex-wrap flex gap-2'>
                     <span className='py-1 px-3 rounded flex items-center bg-[#E6E9F4] w-fit gap-2 text-[#5A607F] text-[14px]'>nothing <FiX className='h-fullpt-1 text-[#7E84A3]'/></span>
-                 {/*    <span className=' p-3 rounded flex items-center bg-red-700 w-fit gap-2'>ADD FFFF GGG GGG GGGGG GGGG GGGG GGGG GGGG GGG<FiX className='h-full pt-1 w-full'/></span> */}
                 </div>
             </div>
 
