@@ -3,8 +3,15 @@ import { FiX } from 'react-icons/fi'
 
 const AddProduct = () => {
   return (
-    <div className='flex w-full h-full mb-4'>
-        <form className='flex-grow'>ee</form>
+    <div className='flex w-full h-full mb-4 space-x-3'>
+        <form className='flex-grow p-3 bg-white'>
+            <h3 className='text-[16px]'>Information</h3>
+            <div className='space-y-2'>
+                <label htmlFor="">Product Name</label>
+                <input type="text" className='w-full'/>
+            </div>
+        </form>
+
         <div className='w-[30%] space-y-3'>
             <div className='flex flex-col space-y-4 bg-white rounded-[6px] p-5'>
                 <h3 className='text-[16px] font-bold text-[#131523]'>Category</h3>
@@ -21,7 +28,7 @@ const AddProduct = () => {
                     <input type="text" className='w-full h-10 border border-[#D7DBEC] rounded text-[14px] px-2 outline-none mt-1' placeholder='Add Fabric Type, Style, or Material'/>
                 </div>
                 <div className='flex-wrap flex gap-2'>
-                    <span className='py-1 px-3 rounded flex items-center bg-[#E6E9F4] w-fit gap-2 text-[#5A607F] text-[14px]'>nothing <FiX className='h-full pt-1'/></span>
+                    <span className='py-1 px-3 rounded flex items-center bg-[#E6E9F4] w-fit gap-2 text-[#5A607F] text-[14px]'>nothing <FiX className='h-fullpt-1 text-[#7E84A3]'/></span>
                  {/*    <span className=' p-3 rounded flex items-center bg-red-700 w-fit gap-2'>ADD FFFF GGG GGG GGGGG GGGG GGGG GGGG GGGG GGG<FiX className='h-full pt-1 w-full'/></span> */}
                 </div>
             </div>
@@ -34,7 +41,7 @@ const AddProduct = () => {
                 </div>
                 <div className=' text-[#131523] text-[16px]'>
                     <label htmlFor="">Description</label>
-                    <textarea type="text" className='w-full h-10 border border-[#D7DBEC] rounded text-[14px] px-2 outline-none mt-1 resize-none' />
+                    <textarea type="text" className='w-full h-24 border border-[#D7DBEC] rounded text-[14px] px-2 outline-none mt-1 resize-none pt-1' />
                 </div>
             </div>
         </div>
