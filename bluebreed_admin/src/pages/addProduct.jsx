@@ -14,7 +14,7 @@ const AddProduct = () => {
     }
 
     const handleEnterTags = (e, tag) => {
-
+        ///
         if ((e.key === "Enter" || e.key === ",") && inputTagState[tag].trim()) {
             e.preventDefault();
             const newTag = inputTagState[tag].trim().replace(/,$/, '');
