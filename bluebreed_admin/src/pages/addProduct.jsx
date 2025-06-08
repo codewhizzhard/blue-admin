@@ -1,15 +1,61 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FiX } from 'react-icons/fi'
 
 const AddProduct = () => {
+    const [click, setClicked] = useState(false);
+
+    const handleClick = () => {
+        setClicked((prev) => !prev)
+    }
   return (
-    <div className='flex w-full h-full mb-4 space-x-3'>
-        <form className='flex-grow p-3 bg-white'>
+    <div className='flex w-full h-full mb-4 space-x-3 '>
+        <form className='flex-grow p-5 bg-white rounded-[6px] mb-4 space-y-4'>
             <h3 className='text-[16px]'>Information</h3>
-            <div className='space-y-2'>
-                <label htmlFor="">Product Name</label>
-                <input type="text" className='w-full'/>
+            <div className='space-y-1 flex flex-col'>
+                <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Name</label>
+                <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., Dress, Sofa, Curtain'/>
             </div>
+            <div className='space-y-1 flex flex-col'>
+                <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Description</label>
+                <textarea type="text" className='w-full h-24 pt-1 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none resize-none' placeholder='Describe the design, fabric, or material details'/>
+            </div>
+            <div className='space-y-1 flex flex-col'>
+                <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Features</label>
+                <textarea type="text" className='w-full h-24 pt-1 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none resize-none' placeholder='Describe the design, fabric, or material features'/>
+            </div>
+            <div className='space-y-1 flex flex-col'>
+                <label htmlFor="" className='text-[14px] text-[#5A607F]'>How many in Stock?</label>
+                <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., 34'/>
+            </div>
+            <div className='space-y-1 flex flex-col pb-4'>
+                <label htmlFor="" className='text-[14px] text-[#5A607F]'>Color</label>
+                <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue'/>
+            </div>
+            <hr className='w-full text-[#D7DBEC] '/>
+            <div className='space-y-1 flex flex-col pb-4'>
+                <label htmlFor="" className='text-[14px] text-[#5A607F]'>Color</label>
+                <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue'/>
+            </div>
+            {/*  */}
+            <div className='space-y-3'>
+                <span className='text-[16px] text-[#131523]'>Price</span>
+                <div className='flex w-full justify-between'>
+                    <div className='flex flex-col w-[47%]'>
+                    <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Price</label>
+                    <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none'  />
+                    </div>
+                    <div className='flex flex-col w-[47%]'>
+                    <label htmlFor="" className='text-[14px] text-[#5A607F]'>Discount Price (if applicable)</label>
+                    <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' />
+                    </div>
+                </div>
+                <div className='flex gap-2'>
+                    <button className={`w-11 h-6 rounded-2xl relative ${click ? "bg-[#E6B566]" : "bg-[#FF89011A] "}`} onClick={handleClick} type='button'><span className={`bg-white absolute w-4 h-4 rounded-xl bottom-1 ${click ? "right-1" : "left-1"}`}></span></button>
+                    <p>Include VAT or Custom Charges?</p>
+                </div>
+            </div>
+            <hr className='w-full text-[#D7DBEC] '/>
+            
         </form>
 
         <div className='w-[30%] space-y-3'>
