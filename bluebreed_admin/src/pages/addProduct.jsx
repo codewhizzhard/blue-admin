@@ -13,16 +13,34 @@ const AddProduct = () => {
         }))
     }
 
-    const handleEnterTags = (e, tag) => {
+    const handleEnterTags = (e, input, tag) => {
         ///
-        if ((e.key === "Enter" || e.key === ",") && inputTagState[tag].trim()) {
+        if ((e.key === "Enter" || e.key === ",") && inputTagState[input].trim()) {
             e.preventDefault();
-            const newTag = inputTagState[tag].trim().replace(/,$/, '');
+            const newTag = inputTagState[input].trim().replace(/,$/, '');
+            console.log("newtag", newTag)
+            console.log("tagstatehandle", tagsState[tag])
             if (!tagsState[tag].includes(newTag)) {
-                setTagsState[tag]([...tag, newTag])
+                setTagsState((prev) => ({
+                    ...prev, [tag]: [...prev[tag], newTag]
+                }))
             }
+             setInputTagState((prev) => (
+                        { ...prev, [input]: ""}
+                    ))
         }
+        
     }
+
+    
+
+    const removeTag = (tag, index) => {
+        setTagsState((prev) => ({...prev, [tag]: prev[tag].filter((_, i) => i !== index)}));
+        console.log("tagstate", tagsState[tag])
+    }
+
+     console.log("tagstatesdsss", tagsState.tag2)
+   
 
   return (
     <div className='flex w-full h-full mb-4 space-x-3 '>
@@ -84,9 +102,15 @@ const AddProduct = () => {
                 <h3 className='text-[#131523] text-[16px] font-bold'>Size / Dimensions</h3>
                 <div className='space-y-1 flex flex-col'>
                     <label htmlFor="" className='text-[14px] text-[#5A607F]'>Value</label>
-                    <div className=' flex h-10 items-center divx-2 rounded border border-[#D9E1EC] px-2'>
-                    <div className=' flex gap-2 h-[80%]'><span className='py-1 px-3 rounded flex items-center bg-[#E6E9F4] w-fit gap-2 text-[#5A607F] text-[14px]'>SM <FiX className='h-fullpt-1 text-[#7E84A3]'/></span> <span className='py-1 px-3 rounded flex items-center bg-[#E6E9F4] w-fit gap-2 text-[#5A607F] text-[14px]'>LG <FiX className='h-fullpt-1 text-[#7E84A3]'/></span> <span className='py-1 px-3 rounded flex items-center bg-[#E6E9F4] w-fit gap-2 text-[#5A607F] text-[14px]'>MD <FiX className='h-fullpt-1 text-[#7E84A3]'/></span></div>
-                    <input type="text" className='w-full px-3 text-[#A1A7C4] text-[16px] h-[80%]  outline-none' placeholder='' value={inputTagState.input1} onChange={(e) => setInputTagState((prev) => ({...prev, input1: e.target.value}))}/></div>
+                    <div className=' flex h-10 items-center rounded border border-[#D9E1EC] px-2'>
+                    <div className=' flex gap-2 h-[80%]'>
+                        { tagsState.tag1 &&
+                        tagsState.tag1.map((tag, index) => (
+                            <span className='py-1 px-3 rounded flex items-center w-fit gap-2 text-[#5A607F] text-[14px] bg-[#E6E9F4]' key={index}>{tag}  <FiX className='h-fullpt-1 text-[#7E84A3]' onClick={() => removeTag("tag1", index)}/></span>
+                        ))
+                    }
+                    </div>
+                    <input type="text" className='w-full px-3 text-[#A1A7C4] text-[16px] h-[80%]  outline-none' placeholder='' value={inputTagState.input1} onChange={(e) => setInputTagState((prev) => ({...prev, input1: e.target.value.toUpperCase()}))} onKeyDown={(e) => handleEnterTags(e, "input1", "tag1")}/></div>
                  </div>
             </div>
 
@@ -108,10 +132,16 @@ const AddProduct = () => {
                 <h3 className='text-[16px] font-bold text-[#131523]'>Tags</h3>
                 <div className=' text-[#131523] text-[16px] gap-2 '>
                     <label htmlFor="">Add Tags</label>
-                    <input type="text" className='w-full h-10 border border-[#D7DBEC] rounded text-[14px] px-2 outline-none mt-1' placeholder='Add Fabric Type, Style, or Material' value={inputTagState.input2} onChange={(e) => setInputTagState((prev) => ({...prev, input2: e.target.value}))}/>
+                    <input type="text" className='w-full h-10 border border-[#D7DBEC] rounded text-[14px] px-2 outline-none mt-1' placeholder='Add Fabric Type, Style, or Material' value={inputTagState.input2} onChange={(e) => setInputTagState((prev) => ({...prev, input2: e.target.value.toUpperCase()}))} onKeyDown={(e) => handleEnterTags(e, "input2", "tag2")}/>
                 </div>
                 <div className='flex-wrap flex gap-2'>
-                    <span className='py-1 px-3 rounded flex items-center bg-[#E6E9F4] w-fit gap-2 text-[#5A607F] text-[14px]'>nothing <FiX className='h-fullpt-1 text-[#7E84A3]'/></span>
+                    { tagsState.tag2 &&
+                        tagsState.tag2.map((tag, index) => (
+                            <span className='py-1 px-3 rounded flex items-center bg-[#E6E9F4] w-fit gap-2 text-[#5A607F] text-[14px]' key={index}>{tag} <FiX className='h-fullpt-1 text-[#7E84A3]' onClick={() => removeTag("tag2", index)}/></span>
+
+                        ))
+                    }
+                    
                 </div>
             </div>
 
