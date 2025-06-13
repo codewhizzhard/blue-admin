@@ -11,10 +11,10 @@ const Layout = () => {
             <Header />
         </header>
         <main className='w-full flex flex-grow h-[80%] pt-20 '>
-            <div className='w-[300px]'>
+            <div className='min-w-[300px]'>
                 <Sidebar />
             </div>  
-            <div className='flex-grow pl-4 pt-4 pr-6 min-h-screen bg-gray-500'>
+            <div className='flex-grow pl-4 pt-4 pr-6 min-h-screen bg-gray-500 max-w-full'>
                 <Outlet />
             </div>
            

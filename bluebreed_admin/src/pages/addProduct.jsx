@@ -1,10 +1,19 @@
 import React, { useState } from 'react'
-import { FiX } from 'react-icons/fi'
+import { FiArrowLeft, FiArrowLeftCircle, FiArrowUpLeft, FiX } from 'react-icons/fi'
+import { clothingCheckboxes, interiorCheckboxes } from './addProductCheckboxes';
 
 const AddProduct = () => {
     const [clickStates, setClickedStates] = useState({btn1: false, btn2: false});
     const [inputTagState, setInputTagState] = useState({input1: "", input2: ""});
     const [tagsState, setTagsState] = useState({tag1: [], tag2: []});
+    const [boxesState, setBoxesState] = useState({clothingBoxes: clothingCheckboxes, interiorBoxes: interiorCheckboxes});
+
+    const categories = ["Clothing - Women", "Clothing - Men", "Casual Wear", "Traditional / Formal Wear", "Home Decor & Interior", "Furniture", "Bedding & Textiles", "Wall Art & Accessories", "Lighting & Fixtures"]
+   /*  const clothingCheckboxes = {
+        "Standard Clothing Sizes": ["XS (Extra Small)", "S (Small)", "M (Medium)", "L (Large)", "XL (Extra Large)", "XXL (2XL)", "XXXL (3XL)"],
+        "Shoe Sizes (if applicable):": ["EU 36 - 46", "UK 3 - 12", "US 4 - 13"],
+        "Kids Sizes (if applicable):": ["0 - 3 months, 3 - 6 months, 6 - 12 months", "1 - 2 years, 3 - 4 years, 5 - 6 years"]
+    } */
 
     const handleClick = (btn) => {
         setClickedStates((prev) => ({
@@ -43,36 +52,53 @@ const AddProduct = () => {
    
 
   return (
-    <div className='flex w-full h-full mb-4 space-x-3 '>
+    <div className='h-full w-full'>
+        {/* <div className='h-full w-full bg-red-600'>
+            hhh
+        </div> */}
+    <div className='flex flex-col gap-2'>
+        
+        <div className='justify-between h-15 flex items-center'>
+            <div className='max-h-full flex flex-col'>
+                <p className='flex items-center text-[#5A607F]'><FiArrowLeft className='text-[#7E84A3] h-[16px] w-[20px]'/> <span className='text-[14px]'>Back</span> </p> 
+                <h3 className='text-[24px] font-bold text-[#131523]'>Add Product</h3>
+            </div>
+            <div className='flex gap-2 max-h-full'>
+                <button type='button' className='border border-[#EDEFF2] text-[16px] px-8 py-2 text-[#4A4A4A]'>Cancel</button>
+                <button type='button' className='text-[16px] bg-[#E6B566] px-6 py-2 text-white rounded font-bold'>Save</button>
+            </div>
+        </div>
+        {/* w- shouldnt change the width */}
+        <div className='flex h-full mb-4 space-x-3 flex-grow'>
         <form className='flex-grow p-5 bg-white rounded-[6px] mb-4 space-y-4'>
             <h3 className='text-[16px]'>Information</h3>
-            <div className='space-y-1 flex flex-col'>
+            <div className='space-y-1 flex flex-col '>
                 <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Name</label>
                 <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., Dress, Sofa, Curtain'/>
             </div>
-            <div className='space-y-1 flex flex-col'>
+            <div className='space-y-1 flex flex-col '>
                 <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Description</label>
                 <textarea type="text" className='w-full h-24 pt-1 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none resize-none' placeholder='Describe the design, fabric, or material details'/>
             </div>
-            <div className='space-y-1 flex flex-col'>
+            <div className='space-y-1 flex flex-col '>
                 <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Features</label>
                 <textarea type="text" className='w-full h-24 pt-1 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none resize-none' placeholder='Describe the design, fabric, or material features'/>
             </div>
-            <div className='space-y-1 flex flex-col'>
+            <div className='space-y-1 flex flex-col '>
                 <label htmlFor="" className='text-[14px] text-[#5A607F]'>How many in Stock?</label>
                 <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., 34'/>
             </div>
-            <div className='space-y-1 flex flex-col pb-4'>
+            <div className='space-y-1 flex flex-col pb-4 '>
                 <label htmlFor="" className='text-[14px] text-[#5A607F]'>Color</label>
                 <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue'/>
             </div>
             <hr className='w-full text-[#D7DBEC] '/>
-            <div className='space-y-1 flex flex-col pb-4'>
+            <div className='space-y-1 flex flex-col pb-4 '>
                 <label htmlFor="" className='text-[14px] text-[#5A607F]'>Color</label>
-                <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue'/>
+                <input type="file" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue' />
             </div>
             {/*  */}
-            <div className='space-y-3'>
+            <div className='space-y-3 '>
                <h3 className='text-[16px] text-[#131523] font-bold'>Price</h3>
                 <div className='flex w-full justify-between'>
                     <div className='flex flex-col w-[47%]'>
@@ -90,7 +116,7 @@ const AddProduct = () => {
                 </div>
             </div>
             <hr className='w-full text-[#D7DBEC] '/>
-            <div className='space-y-3'>
+            <div className='space-y-3 '>
                 <h3 className='text-[#131523] text-[16px] font-bold'>Different Options</h3>
                 <div className='flex gap-2'>
                     <button className={`w-11 h-6 rounded-2xl relative ${clickStates.btn2 ? "bg-[#E6B566]" : "bg-[#FF89011A] "}`} onClick={() => handleClick("btn2")} type='button'><span className={`bg-white absolute w-4 h-4 rounded-xl bottom-1 ${clickStates.btn2 ? "right-1" : "left-1"} `} ></span></button>{/* shadow-[#262C4729] */}
@@ -98,7 +124,7 @@ const AddProduct = () => {
                 </div>
             </div>
 
-            <div className='space-y-3 pt-4'>
+            <div className='space-y-3 pt-4 '>
                 <h3 className='text-[#131523] text-[16px] font-bold'>Size / Dimensions</h3>
                 <div className='space-y-1 flex flex-col'>
                     <label htmlFor="" className='text-[14px] text-[#5A607F]'>Value</label>
@@ -114,19 +140,61 @@ const AddProduct = () => {
                  </div>
             </div>
 
-            <div>
+            
+            <div className=' w-full flex'>
+                
+                    <div className='space-y-3 w-full'>
+                    <h3 className='text-[16px] font-semibold text-[#344054]'>Clothing (Ready-to-Wear) Size Options:</h3>
+                    {boxesState.clothingBoxes.map((group) => (
+                        <div key={group.category} className='space-y-3'>
+                        <h4 className='text-[14px] font-medium text-[#344054]'>{group.category}</h4>
+                        <ul className='space-y-2'>
+                            {group.options.map((option, index) => (
+                                <li key={index} className='flex gap-3 items-center'>
+                                    <input type="checkbox" className='w-5 h-5 pt-1 border border-[#D7DBEC] rounded outline-none'/>
+                                    <label htmlFor="" className='text-[16px] text-[#131523]'>{option.name}</label>
+                                </li>
 
+                            ))}
+                        </ul>
+                    </div>
+                    )) 
+                    }
+                </div>
+                <div className='space-y-3 w-full'>
+                    <h3>Home & Interior Product Sizes:</h3>
+                    {boxesState.interiorBoxes.map((group) => (
+                        <div key={group.category} className='space-y-3'>
+                        <h4 className='text-[14px] font-medium text-[#344054]'>{group.category}</h4>
+                        <ul className='space-y-2'>
+                            {group.options.map((option, index) => (
+                                <li key={index} className='flex gap-3 items-center'>
+                                    <input type="checkbox" className='w-5 h-5 pt-1 border border-[#D7DBEC] rounded outline-none'/>
+                                    <label htmlFor="" className='text-[16px] text-[#131523]'>{option.name}</label>
+                                </li>
+
+                            ))}
+                        </ul>
+                    </div>
+                    )) 
+                    }
+                </div>
             </div>
+            
         </form>
 
         <div className='w-[30%] space-y-3'>
             <div className='flex flex-col space-y-4 bg-white rounded-[6px] p-5'>
                 <h3 className='text-[16px] font-bold text-[#131523]'>Category</h3>
-                <div className='flex text-[#131523] text-[16px] gap-3 items-center'>
-                    <input type="checkbox" className='w-5 h-5 pt-1 border border-[#D7DBEC] rounded outline-none'/>
-                    <label htmlFor="" className=''>Clothing</label>
-                </div>
-                <span className='text-[#E6B566] text-[16px] font-semibold'>Add a New Category</span>
+                    <ul className='space-y-2'>
+                    {categories.map((category, index) => (
+                        <li className='flex text-[#131523] text-[16px] gap-3 items-center'>
+                        <input type="checkbox" className='w-5 h-5 pt-1 border border-[#D7DBEC] rounded outline-none'/>
+                        <label htmlFor="" className=''>{category}</label>
+                     </li>
+                    ))}
+                    </ul>
+                <span className='text-[#E6B566] text-[16px] font-semibold cursor-pointer'>Add a New Category</span>
             </div>
             <div className='flex flex-col space-y-4 bg-white rounded-[6px] p-5'>
                 <h3 className='text-[16px] font-bold text-[#131523]'>Tags</h3>
@@ -156,7 +224,11 @@ const AddProduct = () => {
                     <textarea type="text" className='w-full h-24 border border-[#D7DBEC] rounded text-[14px] px-2 outline-none mt-1 resize-none pt-1' />
                 </div>
             </div>
+
+
         </div>
+    </div>
+    </div>
     </div>
   )
 }

@@ -2,7 +2,15 @@ import React from 'react'
 
 const OrderManagement = () => {
   return (
-    <div>OrderManagement</div>
+    <div className='flex flex-col'>
+      <div>
+        <b>Orders</b>
+        <button>Eport</button>
+      </div>
+      <div>
+
+      </div>
+    </div>
   )
 }
 
