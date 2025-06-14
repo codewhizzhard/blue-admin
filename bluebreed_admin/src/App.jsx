@@ -2,12 +2,15 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Layout from "./components/layout";
 import Dashboard from "./pages/dashboard";
 import Login from "./pages/login";
-import ProductManagement from "./pages/productManagement";
-import OrderManagement from "./pages/orderManagement";
-import UserManagement from "./pages/userManagement";
+import ProductManagement from "./pages/product/productManagement";
+import OrderManagement from "./pages/order/orderManagement";
+import UserManagement from "./pages/user/userManagement";
 import Payments from "./pages/payments";
 import Settings from "./pages/settings";
-import AddProduct from "./pages/addProduct";
+import AddProduct from "./pages/product/addProduct";
+import CustomerOrder from "./pages/order/customerOrder";
+import OrderLayout from "./pages/order/orderLayout";
+import UserInfo from "./pages/user/userInfo";
 
 function App() {
 
@@ -21,8 +24,16 @@ function App() {
         <Route index element={<Dashboard />} />
         <Route path="/prds" element={<ProductManagement />}/>
         <Route path="/prds/add" element={<AddProduct />} />
-        <Route path="/ords" element={<OrderManagement />} />
-        <Route path="/usrs" element={<UserManagement />} />
+        
+        <Route path="/ords" element={<OrderLayout />}>
+        <Route index element={<OrderManagement />} />
+        <Route path=":id" element={<CustomerOrder />} />
+        </Route>
+
+        <Route path="/usrs" element={<UserManagement />}>
+        <Route path=":id" element={<UserInfo />} />
+        </Route>
+
         <Route path="/payments" element={<Payments />} />
         <Route path="/settings" element={<Settings />} />
       </Route>

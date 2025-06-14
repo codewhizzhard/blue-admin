@@ -6,12 +6,12 @@ const ProductManagement = () => {
   return (
     <div className='h-full space-y-4'>
 
-    <div className='flex justify-between items-center'>
+    <div className='flex justify-between items-center h-15'>
         <span className='text-[24px] font-bold'>Products</span>
         <Link to={"/prds/add"} className='py-2 px-4 rounded bg-[#E6B566] text-[16px]'>Add New Product</Link>
     </div>
 
-    <div className='flex flex-col bg-white w-full p-4'>
+    <div className='flex flex-col bg-white w-full p-4 rounded'>
         <div className='flex justify-between w-full h-20'>
             <div className='w-[65%] h-10 border rounded border-[#D9E1EC] px-4 flex items-center'><input type="text" className='text-[16px] text-[#A1A7C4]' placeholder='search'/></div>{/* 606px */}
             <span className='w-9 h-9 rounded border border-[#D7DBEC] items-center flex justify-center'><FiDelete /></span>

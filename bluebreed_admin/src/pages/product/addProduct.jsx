@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FiArrowLeft, FiArrowLeftCircle, FiArrowUpLeft, FiX } from 'react-icons/fi'
 import { clothingCheckboxes, interiorCheckboxes } from './addProductCheckboxes';
+import { Link } from 'react-router-dom';
 
 const AddProduct = () => {
     const [clickStates, setClickedStates] = useState({btn1: false, btn2: false});
@@ -52,15 +53,11 @@ const AddProduct = () => {
    
 
   return (
-    <div className='h-full w-full'>
-        {/* <div className='h-full w-full bg-red-600'>
-            hhh
-        </div> */}
-    <div className='flex flex-col gap-2'>
+    <div className='h-full space-y-4 '>
         
         <div className='justify-between h-15 flex items-center'>
-            <div className='max-h-full flex flex-col'>
-                <p className='flex items-center text-[#5A607F]'><FiArrowLeft className='text-[#7E84A3] h-[16px] w-[20px]'/> <span className='text-[14px]'>Back</span> </p> 
+            <div className=' flex flex-col'>
+                <p className='flex items-center text-[#5A607F]'><FiArrowLeft className='text-[#7E84A3] h-[16px] w-[20px]'/> <Link to={"/prds"} className='text-[14px]'>Back</Link> </p> 
                 <h3 className='text-[24px] font-bold text-[#131523]'>Add Product</h3>
             </div>
             <div className='flex gap-2 max-h-full'>
@@ -69,7 +66,7 @@ const AddProduct = () => {
             </div>
         </div>
         {/* w- shouldnt change the width */}
-        <div className='flex h-full mb-4 space-x-3 flex-grow'>
+        <div className='flex h-full mb-4 space-x-3 flex-grow rounded'>
         <form className='flex-grow p-5 bg-white rounded-[6px] mb-4 space-y-4'>
             <h3 className='text-[16px]'>Information</h3>
             <div className='space-y-1 flex flex-col '>
@@ -188,7 +185,7 @@ const AddProduct = () => {
                 <h3 className='text-[16px] font-bold text-[#131523]'>Category</h3>
                     <ul className='space-y-2'>
                     {categories.map((category, index) => (
-                        <li className='flex text-[#131523] text-[16px] gap-3 items-center'>
+                        <li className='flex text-[#131523] text-[16px] gap-3 items-center' key={index}>
                         <input type="checkbox" className='w-5 h-5 pt-1 border border-[#D7DBEC] rounded outline-none'/>
                         <label htmlFor="" className=''>{category}</label>
                      </li>
@@ -227,7 +224,6 @@ const AddProduct = () => {
 
 
         </div>
-    </div>
     </div>
     </div>
   )
