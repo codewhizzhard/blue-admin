@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { FiArrowLeft, FiArrowLeftCircle, FiArrowUpLeft, FiX } from 'react-icons/fi'
 import { clothingCheckboxes, interiorCheckboxes } from './addProductCheckboxes';
 import { Link } from 'react-router-dom';
+import Modal from '../modal';
 
 const AddProduct = () => {
+    const [isOpen, setIsOpen] = useState(false);
     const [clickStates, setClickedStates] = useState({btn1: false, btn2: false});
     const [inputTagState, setInputTagState] = useState({input1: "", input2: ""});
     const [tagsState, setTagsState] = useState({tag1: [], tag2: []});
@@ -53,7 +55,26 @@ const AddProduct = () => {
    
 
   return (
-    <div className='h-full space-y-4 '>
+    <div className='min-h-full'>
+   
+
+            { isOpen &&  <Modal isOpen={isOpen}>
+                <div className='w-[90%] bg-white max-w-xl h-50 rounded px-10 space-y-4 py-4 text-[14px]'>
+                    <h3 className='text-[#1F2937] text-[20px] font-semibold'>Add New Category</h3>
+                    <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Name</label>
+                    <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., Dress, Sofa, Curtain'/>
+                    <div className='w-full flex justify-between gap-4'>
+                        <button type='submit' className='w-full border border-[#D0D5DD] py-2 bg-[#E6B566] rounded' onClick={() => setIsOpen(false)}>Cancel</button>
+                        <button type='submit' className='w-full border border-[#D0D5DD] py-2 rounded' > Create</button>
+                    </div>
+                    
+                </div>
+            </Modal>  }
+
+
+
+        <div className='h-full space-y-4'>
+       
         
         <div className='justify-between h-15 flex items-center'>
             <div className=' flex flex-col'>
@@ -61,13 +82,13 @@ const AddProduct = () => {
                 <h3 className='text-[24px] font-bold text-[#131523]'>Add Product</h3>
             </div>
             <div className='flex gap-2 max-h-full'>
-                <button type='button' className='border border-[#EDEFF2] text-[16px] px-8 py-2 text-[#4A4A4A]'>Cancel</button>
+                <button type='button' className='border border-[#EDEFF2] text-[16px] px-8 py-2 text-[#4A4A4A]' >Cancel</button>
                 <button type='button' className='text-[16px] bg-[#E6B566] px-6 py-2 text-white rounded font-bold'>Save</button>
             </div>
         </div>
         {/* w- shouldnt change the width */}
-        <div className='flex h-full mb-4 space-x-3 flex-grow rounded'>
-        <form className='flex-grow p-5 bg-white rounded-[6px] mb-4 space-y-4'>
+        <div className='flex h-full mb-4 space-x-3 flex-grow rounded '>
+        <form className='flex-grow p-5 bg-white rounded-[6px] mb-4 space-y-4 h-full bg-white'>
             <h3 className='text-[16px]'>Information</h3>
             <div className='space-y-1 flex flex-col '>
                 <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Name</label>
@@ -121,7 +142,7 @@ const AddProduct = () => {
                 </div>
             </div>
 
-            <div className='space-y-3 pt-4 '>
+            <div className='space-y-3 pt-4 bg-white'>
                 <h3 className='text-[#131523] text-[16px] font-bold'>Size / Dimensions</h3>
                 <div className='space-y-1 flex flex-col'>
                     <label htmlFor="" className='text-[14px] text-[#5A607F]'>Value</label>
@@ -191,7 +212,7 @@ const AddProduct = () => {
                      </li>
                     ))}
                     </ul>
-                <span className='text-[#E6B566] text-[16px] font-semibold cursor-pointer'>Add a New Category</span>
+                <span className='text-[#E6B566] text-[16px] font-semibold cursor-pointer' onClick={() => setIsOpen(true)}>Add a New Category</span>
             </div>
             <div className='flex flex-col space-y-4 bg-white rounded-[6px] p-5'>
                 <h3 className='text-[16px] font-bold text-[#131523]'>Tags</h3>
@@ -226,6 +247,8 @@ const AddProduct = () => {
         </div>
     </div>
     </div>
+    </div>
+    
   )
 }
 

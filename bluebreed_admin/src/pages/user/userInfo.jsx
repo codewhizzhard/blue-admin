@@ -9,7 +9,7 @@ const UserInfo = () => {
     const {id} = useParams();
     const item = items.filter((item) => item.id.toString() === id);
   return (
-    <div className='flex flex-col space-y-4'>
+    <div className='flex flex-col space-y-4 '>
       <div className='justify-between h-15 flex items-center'> 
           <p className='flex items-center text-[#5A607F]'><FiArrowLeft className='text-[#7E84A3] h-[16px] w-[20px]'/> <Link to={"/usrs"} className='text-[14px]'>Back</Link> </p>  <h3 className='text-[24px] font-bold text-[#131523]'>Customer Orders</h3>
           <button className='text-[#1F2937] px-6 py-2 border border-[#EDEFF2]'>Export</button>

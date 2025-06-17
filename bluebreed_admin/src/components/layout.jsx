@@ -6,20 +6,26 @@ import Sidebar from './sidebar'
 
 const Layout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
-        <header className='h-[20%]'>
-            <Header />
-        </header>
-        <main className='w-full flex flex-grow h-[80%] pt-20 '>
-            <div className='min-w-[300px]'>
-                <Sidebar />
-            </div>  
-            <div className='flex-grow pl-4 pt-4 pr-6 min-h-screen bg-gray-500 max-w-full'>
-                <Outlet />
-            </div>
-           
-        </main>
-    </div>
+ <div className="flex flex-col h-screen">
+    {/* Fixed Header */}
+    <header className="h-[80px] flex-shrink-0 bg-white shadow">
+        <Header />
+    </header>
+
+    {/* Main Area: fills remaining height */}
+    <main className="flex flex-grow overflow-hidden">
+        {/* Sidebar */}
+        <div className="min-w-[300px] flex-shrink-0">
+            <Sidebar />
+        </div>
+
+        {/* Content Area: scrollable */}
+        <div className="flex-grow pl-4 pt-4 pr-6 bg-stone-500 overflow-y-auto">
+            <Outlet />
+        </div>
+    </main>
+</div>
+
   )
 }
 

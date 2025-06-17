@@ -2,8 +2,8 @@ import React from 'react'
 
 const Dashboard = () => {
   return (
-    <div className='flex h-full w-full gap-4 pb-20'>
-        <div className='flex flex-col w-full flex-grow space-y-2'>
+    <div className='flex w-full gap-4 pb-20 '>
+        <div className='flex flex-col w-full flex-grow space-y-2 '>
             <div className='flex gap-3'>
                 <div className='rounded-xl border border-[#EDEFF2] flex-1/3 h-[108px] text-[14px] font-medium text-[#8E95A9] p-5'>Revenue</div>
                 <div className='rounded-xl border border-[#EDEFF2] flex-1/3 h-[108px] text-[14px] font-medium text-[#8E95A9] p-5'>Orders</div>

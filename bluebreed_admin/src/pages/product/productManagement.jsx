@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const ProductManagement = () => {
   return (
-    <div className='h-full space-y-4'>
+    <div className='h-full space-y-4 '>
 
     <div className='flex justify-between items-center h-15'>
         <span className='text-[24px] font-bold'>Products</span>
