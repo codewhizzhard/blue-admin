@@ -15,7 +15,21 @@ export const blueBreedAdminApi = createApi({
                 body: credentials,
             }),
         }),
+        addNewCatgory: builder.mutation({
+            query: (categoryData) => ({
+                url: "/product/category/add",
+                method: "POST",
+                body: categoryData,
+            })
+        }),
+        addNewProduct: builder.mutation({
+            query: (productData) => ({
+                url: "/product/add",
+                method: "POST",
+                body: productData,
+            })
+        })
     })
 })
 
-export const {useLoginMutation} = blueBreedAdminApi;
+export const {useLoginMutation, useAddNewCatgoryMutation} = blueBreedAdminApi;

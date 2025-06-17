@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { FiArrowLeft, FiArrowLeftCircle, FiArrowUpLeft, FiX } from 'react-icons/fi'
 import { clothingCheckboxes, interiorCheckboxes } from './addProductCheckboxes';
 import { Link } from 'react-router-dom';
 import Modal from '../modal';
+import { useAddNewCatgoryMutation } from '../../services/bluebreedAdmin';
+import { useForm } from 'react-hook-form';
+import {z} from "zod"
+import { zodResolver } from '@hookform/resolvers/zod';
+
+
 
 const AddProduct = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,11 +18,50 @@ const AddProduct = () => {
     const [boxesState, setBoxesState] = useState({clothingBoxes: clothingCheckboxes, interiorBoxes: interiorCheckboxes});
 
     const categories = ["Clothing - Women", "Clothing - Men", "Casual Wear", "Traditional / Formal Wear", "Home Decor & Interior", "Furniture", "Bedding & Textiles", "Wall Art & Accessories", "Lighting & Fixtures"]
-   /*  const clothingCheckboxes = {
-        "Standard Clothing Sizes": ["XS (Extra Small)", "S (Small)", "M (Medium)", "L (Large)", "XL (Extra Large)", "XXL (2XL)", "XXXL (3XL)"],
-        "Shoe Sizes (if applicable):": ["EU 36 - 46", "UK 3 - 12", "US 4 - 13"],
-        "Kids Sizes (if applicable):": ["0 - 3 months, 3 - 6 months, 6 - 12 months", "1 - 2 years, 3 - 4 years, 5 - 6 years"]
-    } */
+    const categorySchema = z.object({
+        categoryName: z.string().min(2, "category name must be at least 2 characters long").max(30, "category name must be at most 30 characters long"),
+    });
+
+    const productSchema = z.object({
+        productName: z.string().min(z, "Product name must be at least 2 characters long").max(50, "Product name must be at most 50 characters long"),
+        productDescription: z.string().min(10, "Product description must be at least 10 characters long").max(500, "Product description must be at most 500 characters long"),
+        productFeatures: z.string().min(10, "Product features must be at least 10 characters long").max(500, "Product features must be at most 500 characters long"),
+        currentStockNumber: z.number(),
+        color: z.string(),
+        images: z.array(z.string()).min(1, "At least one image is required"),
+        price: z.object({
+            actualPrice: z.string(),
+            discountPrice: z.string().optional()
+        }),
+        includeVAT: z.boolean().optional(), 
+        otherOptions: z.object({
+            standardClothingSize: z.object({
+                
+            })
+        })
+    })
+
+
+
+    const [addNewCatgory, {isLoading, error}] = useAddNewCatgoryMutation();
+
+    /* const inputRef =useRef(null); */
+    const {register: categoryRegister, handleSubmit: handleCategorySubmit, formState: {errors: categoryErrors, isSubmitting: categorySubmitting}, reset: categoryReset} = useForm({resolver: zodResolver(categorySchema)});
+
+    const handleAddCategory = async (data) => {
+        
+        console.log("data", data)
+        try {
+            const response = await addNewCatgory({categoryName: data}).unwrap()
+            console.log("Category added successfully:", response);
+            categoryReset();
+            setIsOpen(false);
+            
+        } catch (err) {
+                console.log("Error adding category:", err);
+        }
+    }
+
 
     const handleClick = (btn) => {
         setClickedStates((prev) => ({
@@ -57,19 +102,20 @@ const AddProduct = () => {
   return (
     <div className='min-h-full'>
    
-
-            { isOpen &&  <Modal isOpen={isOpen}>
-                <div className='w-[90%] bg-white max-w-xl h-50 rounded px-10 space-y-4 py-4 text-[14px]'>
-                    <h3 className='text-[#1F2937] text-[20px] font-semibold'>Add New Category</h3>
-                    <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Name</label>
-                    <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., Dress, Sofa, Curtain'/>
-                    <div className='w-full flex justify-between gap-4'>
-                        <button type='submit' className='w-full border border-[#D0D5DD] py-2 bg-[#E6B566] rounded' onClick={() => setIsOpen(false)}>Cancel</button>
-                        <button type='submit' className='w-full border border-[#D0D5DD] py-2 rounded' > Create</button>
-                    </div>
-                    
+        {/* Pop Up Modal  */}
+        { isOpen &&  <Modal isOpen={isOpen}>
+            <div className='w-[90%] bg-white max-w-xl rounded px-10 space-y-4 py-4 text-[14px]'>
+                <h3 className='text-[#1F2937] text-[20px] font-semibold'>Add New Category</h3>
+                <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Name</label>
+                <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., Dress, Sofa, Curtain' name='categoryName' /* ref={inputRef} */ {...categoryRegister("categoryName")}/>
+                {categoryErrors.categoryName && <p className='text-red-500 text-[12px]'>{categoryErrors.categoryName.message}</p>   }
+                <div className='w-full flex justify-between gap-4'>
+                    <button type='submit' className='w-full border border-[#D0D5DD] py-2 bg-[#E6B566] rounded cursor-pointer' onClick={() => setIsOpen(false)}>Cancel</button>
+                    <button type='submit' className='w-full border border-[#D0D5DD] py-2 rounded' onClick={handleCategorySubmit(handleAddCategory)}>  {categorySubmitting ? "Submitting" : "Create"}</button>
                 </div>
-            </Modal>  }
+                {error && <p className='text-red-500 text-[12px]'>Error: {error.data?.message || "Something went wrong"}</p>}
+            </div>
+        </Modal>  }
 
 
 
