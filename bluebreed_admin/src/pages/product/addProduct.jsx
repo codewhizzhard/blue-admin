@@ -18,6 +18,7 @@ const AddProduct = () => {
     const [boxesState, setBoxesState] = useState({clothingBoxes: clothingCheckboxes, interiorBoxes: interiorCheckboxes});
 
     const categories = ["Clothing - Women", "Clothing - Men", "Casual Wear", "Traditional / Formal Wear", "Home Decor & Interior", "Furniture", "Bedding & Textiles", "Wall Art & Accessories", "Lighting & Fixtures"]
+    /* schema, zod form validation */
     const categorySchema = z.object({
         categoryName: z.string().min(2, "category name must be at least 2 characters long").max(30, "category name must be at most 30 characters long"),
     });
@@ -35,19 +36,41 @@ const AddProduct = () => {
         }),
         includeVAT: z.boolean().optional(), 
         otherOptions: z.object({
-            standardClothingSize: z.object({
-                
+            sizeAndDimension: z.array(z.enum["SX", "MX", "LX", "XLX"]),
+            clothingReadyToWearSizes: z.object({
+                standardClothingSize: z.array(
+                    z.enum(["XS", "S", "M", "L", "XL", "XXL", "XXXL"]).optional()
+                ),
+                shoeSizes: z.array(
+                    z.enum(["EU 36-46", "UK 3-12", "US 4-6"]).optional()
+                ),
+                kidsSizes: z.array(
+                    z.enum(["0-3 months,3-6months,6-12months", "1-2years,3-4years,5-6yars"]).optional()
+                ),
+
+            }),
+            homeInteriorAndProductSizes: z.object({
+                furnitureDimensions: z.array(
+                    z.enum(['Small (2-seater)','Medium (3-seater)','Large (4-seater)']).optional()
+                ),
+                curtainsABlindSizes: z.array(
+                    z.enum(['Standard Window (4ft x 5ft)','Large Window (6ft X 7ft)','Extra Large (8ft x 9ft)']).optional()
+                ),
+                beddingAndMattressSizes: z.array(
+                    z.enum(['Twin','Full','Queen','King']).optional()
+                ),
+                RugsAndCarpetsDimension: z.array(
+                    z.enum(['Small (3ft x 5ft)','Medium (5ft X 7ft)','Large (8ft x 10ft)']).optional()
+                )
             })
         })
     })
 
-
-
     const [addNewCatgory, {isLoading, error}] = useAddNewCatgoryMutation();
-
-    /* const inputRef =useRef(null); */
     const {register: categoryRegister, handleSubmit: handleCategorySubmit, formState: {errors: categoryErrors, isSubmitting: categorySubmitting}, reset: categoryReset} = useForm({resolver: zodResolver(categorySchema)});
+    const {register: productRegister, handleSubmit: handleProductSubmit, formState: {errors: productErrors, isSubmitting: productSubmitting}, reset: productReset} = useForm({resolver: zodResolver(productSchema)})
 
+    /* HandleSubmit for category and product form needed for the form submision*/
     const handleAddCategory = async (data) => {
         
         console.log("data", data)
@@ -59,6 +82,15 @@ const AddProduct = () => {
             
         } catch (err) {
                 console.log("Error adding category:", err);
+        }
+    }
+
+    const handleAddProduct = (data) => {
+        console.log("productData", data)
+        try {
+
+        } catch (err) {
+
         }
     }
 
@@ -116,12 +148,10 @@ const AddProduct = () => {
                 {error && <p className='text-red-500 text-[12px]'>Error: {error.data?.message || "Something went wrong"}</p>}
             </div>
         </Modal>  }
-
-
+        {/*  */}
 
         <div className='h-full space-y-4'>
-       
-        
+   
         <div className='justify-between h-15 flex items-center'>
             <div className=' flex flex-col'>
                 <p className='flex items-center text-[#5A607F]'><FiArrowLeft className='text-[#7E84A3] h-[16px] w-[20px]'/> <Link to={"/prds"} className='text-[14px]'>Back</Link> </p> 
@@ -137,37 +167,37 @@ const AddProduct = () => {
         <form className='flex-grow p-5 bg-white rounded-[6px] mb-4 space-y-4 h-full bg-white'>
             <h3 className='text-[16px]'>Information</h3>
             <div className='space-y-1 flex flex-col '>
-                <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Name</label>
-                <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., Dress, Sofa, Curtain'/>
+                <label htmlFor="productName" className='text-[14px] text-[#5A607F]'>Product Name</label>
+                <input name="productName" id="productName" type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., Dress, Sofa, Curtain' {...productRegister("productName")}/>
             </div>
             <div className='space-y-1 flex flex-col '>
-                <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Description</label>
-                <textarea type="text" className='w-full h-24 pt-1 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none resize-none' placeholder='Describe the design, fabric, or material details'/>
+                <label htmlFor="productDescription" className='text-[14px] text-[#5A607F]'>Product Description</label>
+                <textarea name='productDescription' id='productDescription' type="text" className='w-full h-24 pt-1 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none resize-none' placeholder='Describe the design, fabric, or material details' {...productRegister("productDescription")}/>
             </div>
             <div className='space-y-1 flex flex-col '>
-                <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Features</label>
-                <textarea type="text" className='w-full h-24 pt-1 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none resize-none' placeholder='Describe the design, fabric, or material features'/>
+                <label htmlFor="productFeature" className='text-[14px] text-[#5A607F]'>Product Features</label>
+                <textarea name="productFeature" id="productFeature" type="text" className='w-full h-24 pt-1 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none resize-none' placeholder='Describe the design, fabric, or material features' {...productRegister("productFeatures")}/>
             </div>
             <div className='space-y-1 flex flex-col '>
-                <label htmlFor="" className='text-[14px] text-[#5A607F]'>How many in Stock?</label>
-                <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., 34'/>
+                <label htmlFor="currentStockNumber" className='text-[14px] text-[#5A607F]'>How many in Stock?</label>
+                <input type="number" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., 34' name='currentStockNumber' id='currentStockNumber' {...productRegister("productFeatures")}/>
             </div>
             <div className='space-y-1 flex flex-col pb-4 '>
-                <label htmlFor="" className='text-[14px] text-[#5A607F]'>Color</label>
-                <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue'/>
+                <label htmlFor="color" className='text-[14px] text-[#5A607F]'>Color</label>
+                <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue' name='color' id='color' {...productRegister("color")}/>
             </div>
             <hr className='w-full text-[#D7DBEC] '/>
             <div className='space-y-1 flex flex-col pb-4 '>
-                <label htmlFor="" className='text-[14px] text-[#5A607F]'>Color</label>
-                <input type="file" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue' />
+                <label htmlFor="images" className='text-[14px] text-[#5A607F]'>Color</label>
+                <input type="file" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue' multiple name='images' id='images' {...productRegister("images")} />
             </div>
             {/*  */}
             <div className='space-y-3 '>
                <h3 className='text-[16px] text-[#131523] font-bold'>Price</h3>
                 <div className='flex w-full justify-between'>
                     <div className='flex flex-col w-[47%]'>
-                    <label htmlFor="" className='text-[14px] text-[#5A607F]'>Product Price</label>
-                    <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none'  />
+                    <label htmlFor="actualPrice" className='text-[14px] text-[#5A607F]'>Product Price</label>
+                    <input type="number" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none'  name='actualPrice' id='actualPrice' {...productRegister("actualPrice")}/>
                     </div>
                     <div className='flex flex-col w-[47%]'>
                     <label htmlFor="" className='text-[14px] text-[#5A607F]'>Discount Price (if applicable)</label>
