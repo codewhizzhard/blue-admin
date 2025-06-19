@@ -24,15 +24,15 @@ const AddProduct = () => {
     });
 
     const productSchema = z.object({
-        productName: z.string().min(z, "Product name must be at least 2 characters long").max(50, "Product name must be at most 50 characters long"),
+        productName: z.string().min(2, "Product name must be at least 2 characters long").max(50, "Product name must be at most 50 characters long"),
         productDescription: z.string().min(10, "Product description must be at least 10 characters long").max(500, "Product description must be at most 500 characters long"),
         productFeatures: z.string().min(10, "Product features must be at least 10 characters long").max(500, "Product features must be at most 500 characters long"),
         currentStockNumber: z.number(),
-        color: z.string(),
+        color: z.string().min(2, "Color is required"),
         images: z.array(z.string()).min(1, "At least one image is required"),
         price: z.object({
-            actualPrice: z.string(),
-            discountPrice: z.string().optional()
+            actualPrice: z.string().min(1, "Actual price is required"),
+            discountPrice: z.string().min(1, "Discount price is required"),
         }),
         includeVAT: z.boolean().optional(), 
         otherOptions: z.object({
@@ -132,7 +132,7 @@ const AddProduct = () => {
    
 
   return (
-    <div className='min-h-full'>
+    <>
    
         {/* Pop Up Modal  */}
         { isOpen &&  <Modal isOpen={isOpen}>
@@ -150,7 +150,7 @@ const AddProduct = () => {
         </Modal>  }
         {/*  */}
 
-        <div className='h-full space-y-4'>
+        <form className='min-h-full  space-y-4' onSubmit={handleProductSubmit(handleAddProduct)}>
    
         <div className='justify-between h-15 flex items-center'>
             <div className=' flex flex-col'>
@@ -158,38 +158,44 @@ const AddProduct = () => {
                 <h3 className='text-[24px] font-bold text-[#131523]'>Add Product</h3>
             </div>
             <div className='flex gap-2 max-h-full'>
-                <button type='button' className='border border-[#EDEFF2] text-[16px] px-8 py-2 text-[#4A4A4A]' >Cancel</button>
-                <button type='button' className='text-[16px] bg-[#E6B566] px-6 py-2 text-white rounded font-bold'>Save</button>
+                <button type='button' className='border border-[#EDEFF2] text-[16px] px-8 py-2 text-[#4A4A4A] cursor-pointer' onClick={productReset}>Cancel</button>
+                <button type='submit' className='text-[16px] bg-[#E6B566] px-6 py-2 text-white rounded font-bold cursor-pointer'>Save</button>
             </div>
         </div>
         {/* w- shouldnt change the width */}
         <div className='flex h-full mb-4 space-x-3 flex-grow rounded '>
-        <form className='flex-grow p-5 bg-white rounded-[6px] mb-4 space-y-4 h-full bg-white'>
+        <div className='flex-grow p-5 bg-white rounded-[6px] mb-4 space-y-4 h-full' >
             <h3 className='text-[16px]'>Information</h3>
             <div className='space-y-1 flex flex-col '>
                 <label htmlFor="productName" className='text-[14px] text-[#5A607F]'>Product Name</label>
-                <input name="productName" id="productName" type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., Dress, Sofa, Curtain' {...productRegister("productName")}/>
+                <input id="productName" type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., Dress, Sofa, Curtain' {...productRegister("productName")}/>
+                {productErrors.productName && <p className='text-red-500 text-[12px]'>{productErrors.productName.message}</p>   }
             </div>
             <div className='space-y-1 flex flex-col '>
                 <label htmlFor="productDescription" className='text-[14px] text-[#5A607F]'>Product Description</label>
-                <textarea name='productDescription' id='productDescription' type="text" className='w-full h-24 pt-1 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none resize-none' placeholder='Describe the design, fabric, or material details' {...productRegister("productDescription")}/>
+                <textarea id='productDescription' type="text" className='w-full h-24 pt-1 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none resize-none' placeholder='Describe the design, fabric, or material details' {...productRegister("productDescription")}/>
+                {productErrors.productDescription && <p className='text-red-500 text-[12px]'>{productErrors.productDescription.message}</p>   }
             </div>
             <div className='space-y-1 flex flex-col '>
                 <label htmlFor="productFeature" className='text-[14px] text-[#5A607F]'>Product Features</label>
-                <textarea name="productFeature" id="productFeature" type="text" className='w-full h-24 pt-1 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none resize-none' placeholder='Describe the design, fabric, or material features' {...productRegister("productFeatures")}/>
+                <textarea id="productFeature" type="text" className='w-full h-24 pt-1 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none resize-none' placeholder='Describe the design, fabric, or material features' {...productRegister("productFeatures")}/>
+                {productErrors.productFeatures && <p className='text-red-500 text-[12px]'>{productErrors.productFeatures.message}</p>   }
             </div>
             <div className='space-y-1 flex flex-col '>
                 <label htmlFor="currentStockNumber" className='text-[14px] text-[#5A607F]'>How many in Stock?</label>
-                <input type="number" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., 34' name='currentStockNumber' id='currentStockNumber' {...productRegister("productFeatures")}/>
+                <input type="number" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., 34' id='currentStockNumber' {...productRegister("currentStockNumber", { valueAsNumber: true})} />
+                {productErrors.currentStockNumber && <p className='text-red-500 text-[12px]'>{productErrors.currentStockNumber.message}</p>   }
             </div>
             <div className='space-y-1 flex flex-col pb-4 '>
                 <label htmlFor="color" className='text-[14px] text-[#5A607F]'>Color</label>
-                <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue' name='color' id='color' {...productRegister("color")}/>
+                <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue'  id='color' {...productRegister("color")}/>
+                {productErrors.color && <p className='text-red-500 text-[12px]'>{productErrors.color.message}</p>   }
             </div>
             <hr className='w-full text-[#D7DBEC] '/>
             <div className='space-y-1 flex flex-col pb-4 '>
                 <label htmlFor="images" className='text-[14px] text-[#5A607F]'>Color</label>
-                <input type="file" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue' multiple name='images' id='images' {...productRegister("images")} />
+                <input type="file" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue' multiple id='images' {...productRegister("images")} />
+                {productErrors.images && <p className='text-red-500 text-[12px]'>{productErrors.images.message}</p>   }
             </div>
             {/*  */}
             <div className='space-y-3 '>
@@ -197,11 +203,13 @@ const AddProduct = () => {
                 <div className='flex w-full justify-between'>
                     <div className='flex flex-col w-[47%]'>
                     <label htmlFor="actualPrice" className='text-[14px] text-[#5A607F]'>Product Price</label>
-                    <input type="number" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none'  name='actualPrice' id='actualPrice' {...productRegister("actualPrice")}/>
+                    <input type="number" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none'  id='actualPrice' {...productRegister("price.actualPrice")}/>
+                    {productErrors.price?.actualPrice && <p className='text-red-500 text-[12px]'>{productErrors.price.actualPrice.message}</p>   }
                     </div>
                     <div className='flex flex-col w-[47%]'>
-                    <label htmlFor="" className='text-[14px] text-[#5A607F]'>Discount Price (if applicable)</label>
-                    <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' />
+                    <label htmlFor="discountPrice" className='text-[14px] text-[#5A607F]'>Discount Price (if applicable)</label>
+                    <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none'  id="discountPrice" {...productRegister("price.discountPrice")}/>
+                    {productErrors.price?.discountPrice && <p className='text-red-500 text-[12px]'>{productErrors.price.discountPrice.message}</p>   }
                     </div>
                 </div>
                 <div className='flex gap-2'>
@@ -275,8 +283,8 @@ const AddProduct = () => {
                 </div>
             </div>
             
-        </form>
-
+        </div>
+            
         <div className='w-[30%] space-y-3'>
             <div className='flex flex-col space-y-4 bg-white rounded-[6px] p-5'>
                 <h3 className='text-[16px] font-bold text-[#131523]'>Category</h3>
@@ -320,10 +328,11 @@ const AddProduct = () => {
             </div>
 
 
+            </div>
+        
         </div>
-    </div>
-    </div>
-    </div>
+        </form>
+    </>
     
   )
 }
