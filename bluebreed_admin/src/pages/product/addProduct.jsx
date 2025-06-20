@@ -29,7 +29,7 @@ const AddProduct = () => {
         productFeatures: z.string().min(10, "Product features must be at least 10 characters long").max(500, "Product features must be at most 500 characters long"),
         currentStockNumber: z.number(),
         color: z.string().min(2, "Color is required"),
-        images: z.array(z.string()).min(1, "At least one image is required"),
+        images: z.array(z.string().startsWith("data:image/")).min(1, "At least one image is required"),
         price: z.object({
             actualPrice: z.string().min(1, "Actual price is required"),
             discountPrice: z.string().min(1, "Discount price is required"),
@@ -68,7 +68,7 @@ const AddProduct = () => {
 
     const [addNewCatgory, {isLoading, error}] = useAddNewCatgoryMutation();
     const {register: categoryRegister, handleSubmit: handleCategorySubmit, formState: {errors: categoryErrors, isSubmitting: categorySubmitting}, reset: categoryReset} = useForm({resolver: zodResolver(categorySchema)});
-    const {register: productRegister, handleSubmit: handleProductSubmit, formState: {errors: productErrors, isSubmitting: productSubmitting}, reset: productReset} = useForm({resolver: zodResolver(productSchema)})
+    const {register: productRegister, handleSubmit: handleProductSubmit, setValue, formState: {errors: productErrors, isSubmitting: productSubmitting}, reset: productReset} = useForm({resolver: zodResolver(productSchema)})
 
     /* HandleSubmit for category and product form needed for the form submision*/
     const handleAddCategory = async (data) => {
@@ -128,7 +128,44 @@ const AddProduct = () => {
         console.log("tagstate", tagsState[tag])
     }
 
-     console.log("tagstatesdsss", tagsState.tag2)
+    const fileToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error)
+            reader.readAsDataURL(file)
+        })
+    }
+
+    const [images, setImages] = useState([]);
+   
+
+    const handleFileChange = async (files) => {
+        const fileArray = Array.from(files);
+        return Promise.all(fileArray.map((file) => fileToBase64(file)
+        )).then((base64Files) => {
+            setValue("images",base64Files);
+            console.log("images", base64Files);
+        }).catch((error) => {
+            console.error("Error converting files to base64:", error);
+        });
+        
+    }
+
+       /*  const fileToBase64 = (file) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader()
+                reader.onload = () => resolve(reader.result)
+                reader.onerror = (error) => reject(error)
+                reader.readAsDataURL(file)
+            })
+        }
+
+        const handleFileChange = async (files) => {
+            const convertedFiles = Array.from(files)
+            return Promise.all(convertedFiles.map((file) => fileToBase64(file)))
+            .then((base64) => console.log("Converted files:", base64))
+        } */
    
 
   return (
@@ -193,8 +230,8 @@ const AddProduct = () => {
             </div>
             <hr className='w-full text-[#D7DBEC] '/>
             <div className='space-y-1 flex flex-col pb-4 '>
-                <label htmlFor="images" className='text-[14px] text-[#5A607F]'>Color</label>
-                <input type="file" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue' multiple id='images' {...productRegister("images")} />
+                <label htmlFor="images" className='text-[16px] text-[#131523] font-bold'>Images</label>
+                <input type="file" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue' multiple id='images' {...productRegister("images")} onChange={(e) => handleFileChange(e.target.files)}/>
                 {productErrors.images && <p className='text-red-500 text-[12px]'>{productErrors.images.message}</p>   }
             </div>
             {/*  */}
