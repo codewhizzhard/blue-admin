@@ -144,6 +144,7 @@ const AddProduct = () => {
         const fileArray = Array.from(files);
         return Promise.all(fileArray.map((file) => fileToBase64(file)
         )).then((base64Files) => {
+            setImages(base64Files);
             setValue("images",base64Files);
             console.log("images", base64Files);
         }).catch((error) => {
@@ -231,7 +232,25 @@ const AddProduct = () => {
             <hr className='w-full text-[#D7DBEC] '/>
             <div className='space-y-1 flex flex-col pb-4 '>
                 <label htmlFor="images" className='text-[16px] text-[#131523] font-bold'>Images</label>
-                <input type="file" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none' placeholder='e.g., white, black, blue' multiple id='images' {...productRegister("images")} onChange={(e) => handleFileChange(e.target.files)}/>
+                <div className='space-y-6'>
+                    <div className='flex'>
+                        {
+                            images.length > 0 && (
+                                images.map((image, index) => (
+                                    <img src={image} alt='displayed image' className='w-[200px]' key={index}/>
+                                ) )
+
+                            )
+                        }
+                    </div>
+                    <div className=' border-[#A1A7C4] border-dashed border h-[168px] rounded flex justify-center items-center flex-col space-y-4'>
+                        <input type="file" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none hidden' placeholder='e.g., white, black, blue' multiple id='images' {...productRegister("images")} onChange={(e) => handleFileChange(e.target.files)}/>
+                        <label htmlFor="images" className='text-[#E6B566] px-10 py-1 border border-[#D7DBEC] rounded'>Upload Product Image</label>
+                        <span className='text-[#5A607F] text-[14px]'>Drag and drop product images here</span>
+                    </div>
+
+                </div>
+
                 {productErrors.images && <p className='text-red-500 text-[12px]'>{productErrors.images.message}</p>   }
             </div>
             {/*  */}
@@ -239,12 +258,12 @@ const AddProduct = () => {
                <h3 className='text-[16px] text-[#131523] font-bold'>Price</h3>
                 <div className='flex w-full justify-between'>
                     <div className='flex flex-col w-[47%]'>
-                    <label htmlFor="actualPrice" className='text-[14px] text-[#5A607F]'>Product Price</label>
+                    <label htmlFor="actualPrice" className='text-[14px] text-[#5A607F] pb-3'>Product Price</label>
                     <input type="number" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none'  id='actualPrice' {...productRegister("price.actualPrice")}/>
                     {productErrors.price?.actualPrice && <p className='text-red-500 text-[12px]'>{productErrors.price.actualPrice.message}</p>   }
                     </div>
                     <div className='flex flex-col w-[47%]'>
-                    <label htmlFor="discountPrice" className='text-[14px] text-[#5A607F]'>Discount Price (if applicable)</label>
+                    <label htmlFor="discountPrice" className='text-[14px] text-[#5A607F] pb-3'>Discount Price (if applicable)</label>
                     <input type="text" className='w-full py-2 px-4 rounded text-[#A1A7C4] text-[16px] border border-[#D9E1EC] outline-none'  id="discountPrice" {...productRegister("price.discountPrice")}/>
                     {productErrors.price?.discountPrice && <p className='text-red-500 text-[12px]'>{productErrors.price.discountPrice.message}</p>   }
                     </div>

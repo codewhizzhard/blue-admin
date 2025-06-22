@@ -6,11 +6,13 @@ import ProductManagement from "./pages/product/productManagement";
 import OrderManagement from "./pages/order/orderManagement";
 import UserManagement from "./pages/user/userManagement";
 import Payments from "./pages/payments";
-import Settings from "./pages/settings";
 import AddProduct from "./pages/product/addProduct";
 import CustomerOrder from "./pages/order/customerOrder";
 import OrderLayout from "./pages/order/orderLayout";
 import UserInfo from "./pages/user/userInfo";
+import Settings from "./pages/setting/settings";
+import Profile from "./pages/setting/profile";
+import Password from "./pages/setting/password";
 
 function App() {
 
@@ -35,7 +37,11 @@ function App() {
         </Route>
 
         <Route path="/payments" element={<Payments />} />
-        <Route path="/settings" element={<Settings />} />
+
+        <Route path="/settings" element={<Settings />}>
+          <Route index element={<Profile />} />
+          <Route path="password" element={<Password />} />
+        </Route>
       </Route>
     </Routes>
     </BrowserRouter>

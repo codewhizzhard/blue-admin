@@ -14,7 +14,7 @@ const Sidebar = () => {
         <Link to={"/ords"}  className={`text-[14px] font-bold ${locate.pathname === "/ords" || locate.pathname === `/ords/${id}` ? "bg-[#FF89011A] text-[#E6B566]" : "text-[#4A4A4A]"}   w-[254px] h-[44px] flex px-4 rounded-[6px] items-center`}><span>Order Management</span></Link  >
         <Link to={"/usrs"}  className={`text-[14px] font-bold ${locate.pathname === "/usrs" ? "bg-[#FF89011A] text-[#E6B566]" : "text-[#4A4A4A]"}   w-[254px] h-[44px] flex px-4 rounded-[6px] items-center`}><span>User Management</span></Link  >
         <Link to={"/payments"}  className={`text-[14px] font-bold ${locate.pathname === "/payments" ? "bg-[#FF89011A] text-[#E6B566]" : "text-[#4A4A4A]"}   w-[254px] h-[44px] flex px-4 rounded-[6px] items-center`}><span>Payment & Transactions</span></Link >
-        <Link to={"/settings"}  className={`text-[14px] font-bold ${locate.pathname === "/settings" ? "bg-[#FF89011A] text-[#E6B566]" : "text-[#4A4A4A]"}   w-[254px] h-[44px] flex px-4 rounded-[6px] items-center`}><span>Settings</span></Link  >
+        <Link to={"/settings"}  className={`text-[14px] font-bold ${locate.pathname === "/settings" || locate.pathname === "/settings/password" ? "bg-[#FF89011A] text-[#E6B566]" : "text-[#4A4A4A]"}   w-[254px] h-[44px] flex px-4 rounded-[6px] items-center`}><span>Settings</span></Link  >
     </div>
   )
 }
