@@ -13,6 +13,10 @@ const Password = () => {
       ...prev, [state]: !prev[state]
     }))
   }
+
+  const handleSubmit = () => {
+    console.log('console')
+  }
   return (
     <form  className='rounded-[17px] border border-[#E1ECE3] p-4 space-y-2'>
       <div className='flex flex-col space-y-2'>
