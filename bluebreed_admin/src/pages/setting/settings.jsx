@@ -7,7 +7,7 @@ const Settings = () => {
 
     const locate = useLocation()
   return (
-    <div className='bg-white rounded p-6 space-y-8'>
+    <div className='bg-white p-6 space-y-8 rounded-[10px]'>
         <h2>Settings</h2>
         <span className='flex gap-10'>
             

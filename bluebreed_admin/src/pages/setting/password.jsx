@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { GiEyelashes } from "react-icons/gi";
+import { FiEyeOff } from 'react-icons/fi';
 
 
 
@@ -24,7 +25,7 @@ const Password = () => {
           <div className='relative w-full cursor-pointer'>
             <input type={`${viewPassword.old ? 'type' : "password"}`} className='rounded-[8px] border border-[#DFE8E1] text-[#777777] text-[14px] font-light p-3 outline-none w-full' placeholder='John Doe' id='old'/>
             {
-              !viewPassword.old ? <GiEyelashes className='absolute right-5 top-4' onClick={() => handleViewPassword("old")}/> : null
+              <div className='absolute right-5 top-4 ' onClick={() => handleViewPassword("old")}>{!viewPassword.old ? <GiEyelashes  /> : <FiEyeOff />} </div>
             }
             
           </div>
@@ -35,7 +36,7 @@ const Password = () => {
           <div className='relative w-full cursor-pointer'>
             <input type={`${viewPassword.new ? 'type' : "password"}`} className='rounded-[8px] border border-[#DFE8E1] text-[#777777] text-[14px] font-light p-3 outline-none w-full' placeholder='John Doe' id='new'/>
             {
-              !viewPassword.new ? <GiEyelashes className='absolute right-5 top-4' onClick={() => handleViewPassword("new")}/> : null
+              <div className='absolute right-5 top-4' onClick={() => handleViewPassword("new")}>{!viewPassword.new ? <GiEyelashes  /> : <FiEyeOff />} </div>
             }
           </div>
           
@@ -45,7 +46,7 @@ const Password = () => {
            <div className='relative w-full cursor-pointer'>
             <input type={`${viewPassword.repeat ? 'type' : "password"}`} className='rounded-[8px] border border-[#DFE8E1] text-[#777777] text-[14px] font-light p-3 outline-none w-full' placeholder='John Doe' id='repeat'/>
             {
-              !viewPassword.repeat ? <GiEyelashes className='absolute right-5 top-4' onClick={() => handleViewPassword("repeat")}/> : null
+              <div className='absolute right-5 top-4' onClick={() => handleViewPassword("repeat")}>{!viewPassword.repeat ? <GiEyelashes  /> : <FiEyeOff />} </div>
             }
            </div>
           
